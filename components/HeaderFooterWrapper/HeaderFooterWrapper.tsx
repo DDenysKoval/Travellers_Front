@@ -7,10 +7,12 @@ import { useEffect, useState } from "react";
 
 interface HeaderFooterWrapperProps {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }
 
 export default function HeaderFooterWrapper({
   children,
+  modal,
 }: HeaderFooterWrapperProps) {
   const pathname = usePathname();
 
@@ -19,7 +21,10 @@ export default function HeaderFooterWrapper({
   return (
     <>
       {!isAuthPage && <Header />}
-      <main>{children}</main>
+      <main>
+        {children}
+        {modal}
+      </main>
 
       {!isAuthPage && <Footer />}
     </>

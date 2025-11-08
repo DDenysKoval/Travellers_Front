@@ -45,20 +45,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  modal,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={`${fontNunitoSans.variable} ${fontSora.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <HeaderFooterWrapper>
-              {children}
-              {modal}
-            </HeaderFooterWrapper>
+            <HeaderFooterWrapper modal>{children}</HeaderFooterWrapper>
           </AuthProvider>
         </TanStackProvider>
       </body>

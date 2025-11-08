@@ -5,14 +5,14 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import HeaderFooterWrapper from "@/components/HeaderFooterWrapper/HeaderFooterWrapper";
 
-export const fontNunitoSans = Nunito_Sans({
+const fontNunitoSans = Nunito_Sans({
   variable: "--font-nunito-sans",
   subsets: ["latin"],
   weight: "variable",
   display: "auto",
 });
 
-export const fontSora = Sora({
+const fontSora = Sora({
   variable: "--font-sora",
   subsets: ["latin"],
   weight: "variable",

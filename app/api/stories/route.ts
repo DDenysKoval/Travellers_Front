@@ -9,14 +9,14 @@ export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();
     const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
-    const rawTag = request.nextUrl.searchParams.get('tag') ?? '';
-    const tag = rawTag === 'All' ? '' : rawTag;
+    const rawCategory = request.nextUrl.searchParams.get('categery') ?? '';
+    const category = rawCategory === 'All' ? '' : rawCategory;
 
     const res = await api('/stories', {
       params: {
         page,
         perPage: 12,
-        ...(tag && { tag }),
+        ...(category && { category }),
       },
       headers: {
         Cookie: cookieStore.toString(),
@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
 
-    const res = await api.post('/notes', body, {
+    const res = await api.post('/stories', body, {
       headers: {
         Cookie: cookieStore.toString(),
         'Content-Type': 'application/json',

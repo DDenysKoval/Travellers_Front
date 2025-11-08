@@ -1,13 +1,11 @@
-import { User } from "@/types/user";
 import { nextServer} from "./api";
-import { NewNote, Note } from "@/types/note";
 
-export interface SignUpRequest {
+export interface RegisterRequest {
   email: string,
   password: string,
 }
 
-export interface SignInRequest {
+export interface LoginRequest {
   email: string,
   password: string,
 }
@@ -21,17 +19,17 @@ export interface UpdateUserRequest {
 }
 
 export interface NotesHttpResponse {
-  notes: Note[];
+  // notes: Note[]; треба додати правильну типізацію
   totalPages: number;
 }
 
-export const register = async (data: SignUpRequest) => {
-  const response = await nextServer.post<User>("/auth/register", data)
+export const register = async (data: RegisterRequest) => {
+  const response = await nextServer.post("/auth/register", data)
   return response.data;
 }
 
-export const login = async (data: SignInRequest) => {
-  const response = await nextServer.post<User>("/auth/login", data)
+export const login = async (data: LoginRequest) => {
+  const response = await nextServer.post("/auth/login", data)
   return response.data;
 }
 
@@ -41,7 +39,7 @@ export const checkSession = async () => {
 }
 
 export const getMe = async () => {
-  const response = await nextServer.get<User>("/users/me")
+  const response = await nextServer.get("/users/getme")
   return response.data;
 }
 
@@ -51,18 +49,17 @@ export const logout = async ():Promise<void> => {
 }
 
 export const updateMe = async (body: UpdateUserRequest)=>{
-  const response = await nextServer.patch<User>("/users/me", body)
+  const response = await nextServer.patch("/users/getme", body)
   return response.data;
 }
 
-export async function fetchNotes(search: string, page: number, tag?: string ) {
+export async function fetchNotes(search: string, page: number, category?: string ) {
   try {
-    const response = await nextServer.get<NotesHttpResponse>("/notes", {
+    const response = await nextServer.get<NotesHttpResponse>("/stories", {
       params: {
-        ...(search !== '' && { search }),
         page,
         perPage: 12,
-        ...(tag && { tag }),
+        ...(category && { category }),
       },
     })
     return response.data;
@@ -71,27 +68,27 @@ export async function fetchNotes(search: string, page: number, tag?: string ) {
   }
 }
 
-export async function createNote(newNote: NewNote):Promise<Note> {
+export async function createNote(newStorie:string) {
   try {
-    const response = await nextServer.post<Note>("/notes", newNote)
+    const response = await nextServer.post("/notes", newStorie)
     return response.data;
   } catch {
     throw new Error("Create task failed");
   }
 }
 
-export async function deleteNote(noteId: string) {
+export async function deleteNote(storieId: string) {
   try {
-    const response = await nextServer.delete<Note>(`/notes/${noteId}`)
+    const response = await nextServer.delete(`/stories/${storieId}`)
     return response.data;
   } catch {
     throw new Error("Delete task failed");
   }
 }
 
-export async function fetchNoteById(noteId:string) {
+export async function fetchNoteById(storieId:string) {
   try {
-    const response = await nextServer.get<Note>(`/notes/${noteId}`)
+    const response = await nextServer.get(`/stories/${storieId}`)
     return response.data;
   } catch {
     throw new Error("Could not fetch note details.");

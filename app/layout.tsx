@@ -1,44 +1,46 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import { Nunito_Sans, Sora } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header/Header";
-import Footer from "@/components/Footer/Footer";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import HeaderFooterWrapper from "@/components/HeaderFooterWrapper/HeaderFooterWrapper";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const fontRoboto = Roboto({
-  variable: "--font-roboto",
+export const fontNunitoSans = Nunito_Sans({
+  variable: "--font-nunito-sans",
   subsets: ["latin"],
   weight: "variable",
-  display: "auto"
-})
+  display: "auto",
+});
+
+export const fontSora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+  weight: "variable",
+  display: "auto",
+});
 
 export const metadata: Metadata = {
-  title: "NoteHub",
-  description: "Notes Management Service",
+  title: "Подорожники",
+  description: "Поділіться з усіма, як ви провели останню подорож",
+  icons: {
+    icon: [
+      { url: "/icons.svg", type: "image/svg+xml" },
+      { url: "/favicon.svg", type: "image/x-icon" },
+    ],
+  },
   openGraph: {
-    title: "NoteHub",
-    description: "Notes Management Service",
-    url: "https://notehub.com",
+    title: "Подорожники",
+    description: "Поділіться з усіма, як ви провели останню подорож",
+    url: "https://podorozhnuky.com",
     images: [
       {
         url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
         width: 1374,
         height: 916,
-        alt: "NoteHub logo"
+        alt: "Podorozhnuky logo",
       },
     ],
-  }
+  },
 };
 
 export default function RootLayout({
@@ -50,13 +52,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} ${fontRoboto.variable}`}>
+      <body className={`${fontNunitoSans.variable} ${fontSora.variable}`}>
         <TanStackProvider>
           <AuthProvider>
-            <Header/>
-            {children}
-            {modal}
-            <Footer/>
+            <HeaderFooterWrapper>
+              {children}
+              {modal}
+            </HeaderFooterWrapper>
           </AuthProvider>
         </TanStackProvider>
       </body>

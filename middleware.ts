@@ -3,8 +3,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkServerSession } from "./lib/api/serverApi";
 import { parse } from "cookie";
 
-const privateRoutes = ['/profile', '/notes'];
-const publicRoutes = ['/sign-in', '/sign-up'];
+// const privateRoutes = ['/profile'];
+const publicRoutes = ['/sign-in', '/sign-up', "/stories", "/travellers", "/profile"];
 
 export async function middleware(request:NextRequest) {
   const cookieStore = await cookies()
@@ -12,7 +12,7 @@ export async function middleware(request:NextRequest) {
   const accessToken = cookieStore.get("accessToken")?.value
   const refreshToken = cookieStore.get("refreshToken")?.value
   const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
-  const isPrivateRoute = privateRoutes.some((route) => pathname.startsWith(route));
+  // const isPrivateRoute = privateRoutes.some((route) => pathname.startsWith(route));
   
   if (!accessToken) {
     if (refreshToken) {
@@ -38,31 +38,31 @@ export async function middleware(request:NextRequest) {
             }
           })
         }
-        if (isPrivateRoute) {
-          return NextResponse.next({
-            headers: {
-              Cookie: cookieStore.toString()
-            }
-          })
-        }
+        // if (isPrivateRoute) {
+        //   return NextResponse.next({
+        //     headers: {
+        //       Cookie: cookieStore.toString()
+        //     }
+        //   })
+        // }
       }
     }
     if (isPublicRoute) {
       return NextResponse.next()
     }
-    if (isPrivateRoute) {
-      return NextResponse.redirect(new URL('/sign-in', request.url))
-    }
+    // if (isPrivateRoute) {
+    //   return NextResponse.redirect(new URL('/sign-in', request.url))
+    // }
   }
   if (isPublicRoute) {
     return NextResponse.redirect(new URL('/', request.url))
   }
-  if (isPrivateRoute) {
-    return NextResponse.next()
-  }
+  // if (isPrivateRoute) {
+  //   return NextResponse.next()
+  // }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/notes/:path*', '/sign-in', '/sign-up'],
+  matcher: ['/profile/:path*', '/sign-in', '/sign-up', "/stories/:path*", "/travellers/:path*"],
 };

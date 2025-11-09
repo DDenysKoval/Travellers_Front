@@ -59,8 +59,10 @@ export default function RegistrationForm() {
 
   return (
     <div className={styles.authForm}>
-      <div className={styles.tabs}>
-        <button className={`${styles.tab} ${styles.active}`}>Реєстрація</button>
+      <div className={styles.tabsWrapper}>
+        <Link href="/auth/register" className={styles.tab}>
+          Реєстрація
+        </Link>
         <Link href="/auth/login" className={styles.tab}>
           Вхід
         </Link>

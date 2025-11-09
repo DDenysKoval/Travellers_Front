@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import toast from "react-hot-toast";
 import Link from "next/link";
 import styles from "./AuthForm.module.css";
+import { title } from "process";
 
 interface LoginValues {
   email: string;
@@ -56,12 +57,14 @@ export default function LoginForm() {
   };
 
   return (
-    <div className={styles.authForm}>
-      <div className={styles.tabs}>
+    <div className={styles.content}>
+      <div className={styles.tabsWrapper}>
         <Link href="/auth/register" className={styles.tab}>
           Реєстрація
         </Link>
-        <button className={`${styles.tab} ${styles.active}`}>Вхід</button>
+        <Link href="/auth/login" className={styles.tab}>
+          Вхід
+        </Link>
       </div>
 
       <h2 className={styles.authTitle}>Вхід</h2>

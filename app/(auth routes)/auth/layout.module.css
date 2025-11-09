@@ -27,8 +27,9 @@
 }
 
 .authContainer {
-  width: 100%;
-  max-width: 420px;
+  width: 644px;
+  height: 581px;
+  max-width: 644px;
 }
 
 .authFooter {

@@ -1,0 +1,69 @@
+.userInfo {
+  width: 311px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.data {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatar {
+  border-radius: 100%;
+  margin-bottom: 24px;
+}
+
+.name {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 130%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #000;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.about {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  color: #000;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .userInfo {
+    flex-direction: row;
+    width: 704px;
+    gap: 24px;
+  }
+
+  .name {
+    text-align: left;
+  }
+
+  .about {
+    text-align: left;
+  }
+}
+
+@media (min-width: 1440px) {
+  .name {
+    font-size: 32px;
+  }
+  .about {
+    font-size: 18px;
+  }
+
+  .userInfo {
+    width: 1312;
+    justify-content: unset;
+  }
+}

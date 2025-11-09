@@ -5,14 +5,18 @@ import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
 import Link from "next/link";
-import "./AuthForm.module.css";
+import styles from "./AuthForm.module.css";
 
-interface Values {
+interface LoginValues {
   email: string;
   password: string;
 }
 
-const LoginForm = () => {
+interface ApiError {
+  message?: string;
+}
+
+export default function LoginForm() {
   const router = useRouter();
 
   const validationSchema = Yup.object({
@@ -23,9 +27,9 @@ const LoginForm = () => {
   });
 
   const handleSubmit = async (
-    values: Values,
-    { setSubmitting }: FormikHelpers<Values>
-  ) => {
+    values: LoginValues,
+    { setSubmitting }: FormikHelpers<LoginValues>
+  ): Promise<void> => {
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
@@ -34,57 +38,75 @@ const LoginForm = () => {
       });
 
       if (!res.ok) {
-        const error = await res.json();
+        const error: ApiError = await res.json();
         throw new Error(error.message || "Помилка входу");
       }
 
       toast.success("Вхід успішний!");
       router.push("/");
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : String(err));
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("Сталася невідома помилка");
+      }
     } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="auth-form">
-      <div className="tabs">
-        <Link href="/register" className="tab">
+    <div className={styles.authForm}>
+      <div className={styles.tabs}>
+        <Link href="/auth/register" className={styles.tab}>
           Реєстрація
         </Link>
-        <button className="tab active">Вхід</button>
+        <button className={`${styles.tab} ${styles.active}`}>Вхід</button>
       </div>
 
-      <h2 className="auth-title">Вхід</h2>
-      <p className="auth-subtitle">Ласкаво просимо назад!</p>
+      <h2 className={styles.authTitle}>Вхід</h2>
+      <p className={styles.authSubtitle}>Ласкаво просимо назад!</p>
 
-      <Formik
+      <Formik<LoginValues>
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="form">
-            <div className="form-group">
+          <Form className={styles.form}>
+            <div className={styles.formGroup}>
               <label>Пошта*</label>
               <Field
                 name="email"
                 type="email"
                 placeholder="hello@podorozhnyky.ua"
+                className={styles.input}
               />
-              <ErrorMessage name="email" component="div" className="error" />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className={styles.error}
+              />
             </div>
 
-            <div className="form-group">
+            <div className={styles.formGroup}>
               <label>Пароль*</label>
-              <Field name="password" type="password" placeholder="********" />
-              <ErrorMessage name="password" component="div" className="error" />
+              <Field
+                name="password"
+                type="password"
+                placeholder="********"
+                className={styles.input}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className={styles.error}
+              />
             </div>
 
             <button
               type="submit"
-              className="submit-btn"
+              className={styles.submitBtn}
               disabled={isSubmitting}
             >
               Увійти
@@ -94,6 +116,4 @@ const LoginForm = () => {
       </Formik>
     </div>
   );
-};
-
-export default LoginForm;
+}

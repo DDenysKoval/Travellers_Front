@@ -12,7 +12,7 @@
 
 // export default Header;
 import { useState } from "react";
-import AuthForm from "../AuthForm/RegistrationForm";
+import AuthForm from "../../app/(auth routes)/auth/AuthForm/RegistrationForm";
 
 export default function Header() {
   const [open, setOpen] = useState(false);

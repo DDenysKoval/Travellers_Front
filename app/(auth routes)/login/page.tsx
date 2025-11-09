@@ -1,9 +1,9 @@
-"use client";
+import LoginForm from "@/components/AuthForm/LoginForm";
 
-import css from "./LoginPage.module.css";
-
-const Login = () => {
-  return <main>Login page</main>;
+export const metadata = {
+  title: "Вхід — Подорожники",
 };
 
-export default Login;
+export default function LoginPage() {
+  return <LoginForm />;
+}

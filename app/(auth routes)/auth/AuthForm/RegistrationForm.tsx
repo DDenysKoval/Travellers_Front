@@ -58,85 +58,87 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className={styles.authWrapper}>
-      <div className={styles.tabsWrapper}>
-        <Link
-          href="/auth/register"
-          className={`${styles.tab} ${styles.active}`}
+    <div className="container">
+      <div className={styles.authWrapper}>
+        <div className={styles.tabsWrapper}>
+          <Link
+            href="/auth/register"
+            className={`${styles.tab} ${styles.active}`}
+          >
+            Реєстрація
+          </Link>
+          <Link href="/auth/login" className={styles.tab}>
+            Вхід
+          </Link>
+        </div>
+
+        <h2 className={styles.authTitle}>Реєстрація</h2>
+        <p className={styles.authSubtitle}>
+          Раді вас бачити у спільноті мандрівників!
+        </p>
+
+        <Formik<RegistrationValues>
+          initialValues={{ name: "", email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
         >
-          Реєстрація
-        </Link>
-        <Link href="/auth/login" className={styles.tab}>
-          Вхід
-        </Link>
+          {({ isSubmitting }) => (
+            <Form className={styles.form}>
+              <div className={styles.formInfoInput}>
+                <label className={styles.label}>Ім’я та Прізвище*</label>
+                <Field
+                  name="name"
+                  placeholder="Ваше ім’я та прізвище"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+
+              <div className={styles.formInfoInput}>
+                <label className={styles.label}>Пошта*</label>
+                <Field
+                  name="email"
+                  type="email"
+                  placeholder="hello@podorozhnyky.ua"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+
+              <div className={styles.formInfoInput}>
+                <label className={styles.label}>Пароль*</label>
+                <Field
+                  name="password"
+                  type="password"
+                  placeholder="********"
+                  className={styles.input}
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+
+              <button
+                type="submit"
+                className={styles.submitBtn}
+                disabled={isSubmitting}
+              >
+                Зареєструватись
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
-
-      <h2 className={styles.authTitle}>Реєстрація</h2>
-      <p className={styles.authSubtitle}>
-        Раді вас бачити у спільноті мандрівників!
-      </p>
-
-      <Formik<RegistrationValues>
-        initialValues={{ name: "", email: "", password: "" }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form className={styles.form}>
-            <div className={styles.formInfoInput}>
-              <label className={styles.label}>Ім’я та Прізвище*</label>
-              <Field
-                name="name"
-                placeholder="Ваше ім’я та прізвище"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-
-            <div className={styles.formInfoInput}>
-              <label className={styles.label}>Пошта*</label>
-              <Field
-                name="email"
-                type="email"
-                placeholder="hello@podorozhnyky.ua"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-
-            <div className={styles.formInfoInput}>
-              <label className={styles.label}>Пароль*</label>
-              <Field
-                name="password"
-                type="password"
-                placeholder="********"
-                className={styles.input}
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={isSubmitting}
-            >
-              Зареєструватись
-            </button>
-          </Form>
-        )}
-      </Formik>
     </div>
   );
 }

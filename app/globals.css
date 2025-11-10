@@ -1,6 +1,17 @@
 html {
   scroll-behavior: smooth;
 }
+html,
+body {
+  width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
 
 body {
   font-family: var(--font-nunito-sans), sans-serif;
@@ -22,7 +33,6 @@ body {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
-
 
 h1,
 h2,

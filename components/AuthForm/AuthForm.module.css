@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding-top: 64px;
   overflow-x: hidden;
   box-sizing: border-box;
 }
@@ -46,19 +46,19 @@
 
 .authTitle {
   font-weight: 700;
-  font-size: 32px;
-  line-height: 120%;
+  font-size: 28px;
+  line-height: 1.2;
   text-align: center;
-  margin-bottom: 12px;
+  margin-bottom: 24px;
 }
 
 .authSubtitle {
   font-weight: 400;
   font-size: 16px;
-  line-height: 150%;
+  line-height: 1.5;
   color: #4b5563;
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .form {
@@ -68,14 +68,8 @@
 .formInfoInput {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
-.label {
-  font-weight: 400;
-  font-size: 16px;
-  color: #111827;
+  gap: 8px;
+  margin-bottom: 24px;
 }
 
 .input {
@@ -92,7 +86,6 @@
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease;
-  box-sizing: border-box;
 }
 
 .input::placeholder {
@@ -104,10 +97,15 @@
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
+.label {
+  font-weight: 400;
+  font-size: 16px;
+  color: #111827;
+}
 .error {
   color: #e11d48;
-  font-size: 13px;
-  margin-top: 2px;
+  font-size: 12px;
+  margin-bottom: 8px;
 }
 
 .submitBtn {
@@ -116,7 +114,7 @@
   border-radius: 8px;
   background-color: #3b82f6;
   color: #fff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0);
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
@@ -132,7 +130,7 @@
 @media (min-width: 768px) {
   .authWrapper {
     max-width: 480px;
-    padding: 0 24px;
+    padding-top: 64px;
   }
 
   .tabsWrapper {
@@ -172,6 +170,7 @@
   .authWrapper {
     max-width: 644px;
     padding: 0;
+    padding-top: 64px;
   }
 
   .tabsWrapper {

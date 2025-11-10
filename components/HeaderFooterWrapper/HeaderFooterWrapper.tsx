@@ -16,7 +16,10 @@ export default function HeaderFooterWrapper({
 }: HeaderFooterWrapperProps) {
   const pathname = usePathname();
 
-  const isAuthPage = pathname === "/login" || pathname === "/register";
+  const isAuthPage =
+    pathname === "/auth/login" ||
+    pathname === "/auth/register" ||
+    pathname === "profile/edit";
 
   return (
     <>

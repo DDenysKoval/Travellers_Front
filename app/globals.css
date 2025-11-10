@@ -22,21 +22,6 @@
   background-color: #4169e1;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-html,
-body {
-  width: 100%;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 body {
   font-family: var(--font-nunito-sans), sans-serif;
   flex-direction: column;

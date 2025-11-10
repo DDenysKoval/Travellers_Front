@@ -24,11 +24,8 @@ export default function HeaderFooterWrapper({
   return (
     <>
       {!isAuthPage && <Header />}
-      <main>
-        {children}
-        {modal}
-      </main>
-
+      {children}
+      {modal}
       {!isAuthPage && <Footer />}
     </>
   );

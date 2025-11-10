@@ -3,7 +3,7 @@
 import css from "./SignUpPage.module.css";
 
 const Register = () => {
-  return <main>Register Page</main>;
+  return <div>Register Page</div>;
 };
 
 export default Register;

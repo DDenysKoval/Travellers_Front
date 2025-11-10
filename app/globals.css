@@ -6,7 +6,7 @@
   --normal-button-color: #4169e1;
   --hover-button-color: #e8eeff;
   --active-button-color: #7a96ea;
-  --border: border: 1px solid #4169e1;
+  --border: 1px solid #4169e1;
 }
 
 [data-theme="dark"] {
@@ -15,7 +15,7 @@
   --normal-button-color: #fff;
   --hover-button-color: #7f7f7f;
   --active-button-color: #4c4c4c;
-  --border: border: 1px solid #fff;
+  --border: 1px solid #fff;
 }
 
 .themebutton {

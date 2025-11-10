@@ -3,7 +3,7 @@
 import css from "./LoginPage.module.css";
 
 const Login = () => {
-  return <main>Login page</main>;
+  return <div>Login page</div>;
 };
 
 export default Login;

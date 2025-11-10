@@ -1,9 +1,5 @@
-"use client";
+import RegistrationForm from "../../../../components/AuthForm/RegistrationForm";
 
-import css from "./SignUpPage.module.css";
-
-const Register = () => {
-  return <main>Register Page</main>;
-};
-
-export default Register;
+export default function RegisterPage() {
+  return <RegistrationForm />;
+}

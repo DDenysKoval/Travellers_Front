@@ -1,9 +1,6 @@
-"use client";
+import LoginForm from "../../../../components/AuthForm/LoginForm";
 
-import css from "./LoginPage.module.css";
+export default function LoginPage() {
+  return <LoginForm />;
+}
 
-const Login = () => {
-  return <main>Login page</main>;
-};
-
-export default Login;

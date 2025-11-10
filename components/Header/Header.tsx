@@ -1,13 +1,32 @@
-import AuthNavigation from "../AuthNavigation/AuthNavigation";
-import css from "./Header.module.css";
+// import AuthNavigation from "../AuthNavigation/AuthNavigation";
+// import css from "./Header.module.css";
 
-const Header = () => {
+// const Header = () => {
+//   return (
+//     <header>
+//       header
+//       <AuthNavigation />
+//     </header>
+//   );
+// };
+
+// export default Header;
+import { useState } from "react";
+import AuthForm from "../AuthForm/RegistrationForm";
+
+export default function Header() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <header>
-      header
-      <AuthNavigation />
-    </header>
+    <>
+      <button onClick={() => setOpen(true)}>Увійти</button>
+      {open && (
+        <div className="modal-backdrop" onClick={() => setOpen(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <AuthForm />
+          </div>
+        </div>
+      )}
+    </>
   );
-};
-
-export default Header;
+}

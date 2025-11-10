@@ -20,6 +20,12 @@
   margin-right: 3px;
 }
 
+.link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .text {
   font-family: "Sora", sans-serif;
   font-weight: 400;

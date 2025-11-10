@@ -12,19 +12,22 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const data = await fetchServerNotebyId(id);
+
   return {
-    title: "",
-    description: "",
+    title: `Story: ${data.title}`,
+    description: data.content.slice(0, 100),
     openGraph: {
-      title: `"`,
-      description: "",
-      url: "",
+      title: `Story: ${data.title}`,
+      description: data.content.slice(0, 100),
+      // url: "`https://localhost:3000/stories/${id}`",
       images: [
         {
-          url: "",
-          width: 0,
-          height: 0,
-          alt: "",
+          url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
+          width: 1440,
+          height: 900,
+          alt: "Podorozhnuky",
         },
       ],
     },
@@ -36,7 +39,7 @@ const StorieDetails = async ({ params }: Props) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["note", id],
+    queryKey: ["story", id],
     queryFn: () => fetchServerNotebyId(id),
   });
 

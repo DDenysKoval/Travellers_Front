@@ -35,32 +35,34 @@
 }
 
 .button {
-  border: 1px solid #4169e1;
   border-radius: 8px;
   max-width: 335px;
   height: 39px;
-  background-color: #4169e1;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
-  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   transition:
     color 300ms ease-in-out,
     background-color 300ms ease-in-out;
+  background-color: var(--normal-button-color);
+  color: var(--bg-color);
+  border: var(--border);
 }
 
 .button:hover,
 .button:focus {
-  background-color: #e8eeff;
-  color: #000;
+  background-color: var(--hover-button-color);
+  color: var(--text-color);
+  border: var(--border);
 }
 
 .button:active {
-  background-color: #7a96ea;
-  color: #000;
+  background-color: var(--active-button-color);
+  color: var(--text-color);
+  border: var(--border);
 }
 
 @media (min-resolution: 192dpi), (min-resolution: 2x) {

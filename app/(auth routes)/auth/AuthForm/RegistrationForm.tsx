@@ -58,9 +58,12 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className={styles.authForm}>
+    <div className={styles.authWrapper}>
       <div className={styles.tabsWrapper}>
-        <Link href="/auth/register" className={styles.tab}>
+        <Link
+          href="/auth/register"
+          className={`${styles.tab} ${styles.active}`}
+        >
           Реєстрація
         </Link>
         <Link href="/auth/login" className={styles.tab}>
@@ -80,8 +83,8 @@ export default function RegistrationForm() {
       >
         {({ isSubmitting }) => (
           <Form className={styles.form}>
-            <div className={styles.formGroup}>
-              <label>Ім’я та Прізвище*</label>
+            <div className={styles.formInfoInput}>
+              <label className={styles.label}>Ім’я та Прізвище*</label>
               <Field
                 name="name"
                 placeholder="Ваше ім’я та прізвище"
@@ -94,8 +97,8 @@ export default function RegistrationForm() {
               />
             </div>
 
-            <div className={styles.formGroup}>
-              <label>Пошта*</label>
+            <div className={styles.formInfoInput}>
+              <label className={styles.label}>Пошта*</label>
               <Field
                 name="email"
                 type="email"
@@ -109,8 +112,8 @@ export default function RegistrationForm() {
               />
             </div>
 
-            <div className={styles.formGroup}>
-              <label>Пароль*</label>
+            <div className={styles.formInfoInput}>
+              <label className={styles.label}>Пароль*</label>
               <Field
                 name="password"
                 type="password"

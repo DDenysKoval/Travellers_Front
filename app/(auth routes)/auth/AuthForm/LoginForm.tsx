@@ -62,7 +62,7 @@ export default function LoginForm() {
         <Link href="/auth/register" className={styles.tab}>
           Реєстрація
         </Link>
-        <Link href="/auth/login" className={styles.tab}>
+        <Link href="/auth/login" className={`${styles.tab} ${styles.active}`}>
           Вхід
         </Link>
       </div>
@@ -77,7 +77,7 @@ export default function LoginForm() {
       >
         {({ isSubmitting }) => (
           <Form className={styles.form}>
-            <div className={styles.formGroup}>
+            <div className={styles.formInfoInput}>
               <label>Пошта*</label>
               <Field
                 name="email"
@@ -92,7 +92,7 @@ export default function LoginForm() {
               />
             </div>
 
-            <div className={styles.formGroup}>
+            <div className={styles.formInfoInput}>
               <label>Пароль*</label>
               <Field
                 name="password"

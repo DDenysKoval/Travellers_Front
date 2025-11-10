@@ -4,6 +4,7 @@ import "./globals.css";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import HeaderFooterWrapper from "@/components/HeaderFooterWrapper/HeaderFooterWrapper";
+import { ThemeProvider } from "@/components/ThemeContext/ThemeContext";
 
 const fontNunitoSans = Nunito_Sans({
   variable: "--font-nunito-sans",
@@ -51,14 +52,31 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('theme');
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
       </head>
       <body className={`${fontNunitoSans.variable} ${fontSora.variable}`}>
-        <TanStackProvider>
-          <AuthProvider>
-            <HeaderFooterWrapper modal>{children}</HeaderFooterWrapper>
-          </AuthProvider>
-        </TanStackProvider>
+        <ThemeProvider>
+          <TanStackProvider>
+            <AuthProvider>
+              <HeaderFooterWrapper modal>{children}</HeaderFooterWrapper>
+            </AuthProvider>
+          </TanStackProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

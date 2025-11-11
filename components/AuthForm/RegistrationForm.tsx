@@ -3,8 +3,10 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { useId } from "react";
 import styles from "./AuthForm.module.css";
 
 interface RegistrationValues {
@@ -28,11 +30,8 @@ export default function RegistrationForm() {
       .required("Обов’язкове поле"),
   });
 
-  const handleSubmit = async (
-    values: RegistrationValues,
-    { setSubmitting }: FormikHelpers<RegistrationValues>
-  ): Promise<void> => {
-    try {
+  const registerMutation = useMutation({
+    mutationFn: async (values: RegistrationValues) => {
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,18 +43,30 @@ export default function RegistrationForm() {
         throw new Error(error.message || "Помилка реєстрації");
       }
 
+      return res.json();
+    },
+
+    onSuccess: () => {
       toast.success("Реєстрація успішна!");
       router.push("/");
-    } catch (err) {
+    },
+
+    onError: (err: unknown) => {
       if (err instanceof Error) {
         toast.error(err.message);
       } else {
         toast.error("Сталася невідома помилка");
       }
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    },
+  });
+
+  async function handleSubmit(
+    values: RegistrationValues,
+    { setSubmitting }: FormikHelpers<RegistrationValues>
+  ): Promise<void> {
+    await registerMutation.mutateAsync(values);
+    setSubmitting(false);
+  }
 
   return (
     <div className="container">
@@ -77,68 +88,87 @@ export default function RegistrationForm() {
           Раді вас бачити у спільноті мандрівників!
         </p>
 
-        <Formik<RegistrationValues>
-          initialValues={{ name: "", email: "", password: "" }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className={styles.form}>
-              <div className={styles.formInfoInput}>
-                <label className={styles.label}>Ім’я та Прізвище*</label>
-                <Field
-                  name="name"
-                  placeholder="Ваше ім’я та прізвище"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="name"
-                  component="div"
-                  className={styles.error}
-                />
-              </div>
+      <Formik<RegistrationValues>
+        initialValues={{ name: "", email: "", password: "" }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ errors, touched, values }) => (
+          <Form className={styles.form}>
+            <div className={styles.formInfoInput}>
+              <label htmlFor={`${fieldId}-name`} className={styles.label}>
+                Ім’я та Прізвище*
+              </label>
+              <Field
+                id={`${fieldId}-name`}
+                name="name"
+                placeholder="Ваше ім’я та прізвище"
+                className={`
+            ${styles.input}
+            ${touched.name && errors.name ? styles.inputError : ""}
+            ${values.name ? styles.inputFilled : ""}
+          `}
+              />
+              <ErrorMessage
+                name="name"
+                component="div"
+                className={styles.error}
+              />
+            </div>
 
-              <div className={styles.formInfoInput}>
-                <label className={styles.label}>Пошта*</label>
-                <Field
-                  name="email"
-                  type="email"
-                  placeholder="hello@podorozhnyky.ua"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="email"
-                  component="div"
-                  className={styles.error}
-                />
-              </div>
+            <div className={styles.formInfoInput}>
+              <label htmlFor={`${fieldId}-email`} className={styles.label}>
+                Пошта*
+              </label>
+              <Field
+                id={`${fieldId}-email`}
+                name="email"
+                type="email"
+                placeholder="hello@podorozhnyky.ua"
+                className={`
+            ${styles.input}
+            ${touched.email && errors.email ? styles.inputError : ""}
+            ${values.email ? styles.inputFilled : ""}
+          `}
+              />
+              <ErrorMessage
+                name="email"
+                component="div"
+                className={styles.error}
+              />
+            </div>
+            <div className={styles.formInfoInput}>
+              <label htmlFor={`${fieldId}-password`} className={styles.label}>
+                Пароль*
+              </label>
+              <Field
+                id={`${fieldId}-password`}
+                name="password"
+                type="password"
+                placeholder="********"
+                className={`
+            ${styles.input}
+            ${touched.password && errors.password ? styles.inputError : ""}
+            ${values.password ? styles.inputFilled : ""}
+          `}
+              />
+              <ErrorMessage
+                name="password"
+                component="div"
+                className={styles.error}
+              />
+            </div>
 
-              <div className={styles.formInfoInput}>
-                <label className={styles.label}>Пароль*</label>
-                <Field
-                  name="password"
-                  type="password"
-                  placeholder="********"
-                  className={styles.input}
-                />
-                <ErrorMessage
-                  name="password"
-                  component="div"
-                  className={styles.error}
-                />
-              </div>
-
-              <button
-                type="submit"
-                className={styles.submitBtn}
-                disabled={isSubmitting}
-              >
-                Зареєструватись
-              </button>
-            </Form>
-          )}
-        </Formik>
-      </div>
+            <button
+              type="submit"
+              className={styles.submitBtn}
+              disabled={registerMutation.isPending}
+            >
+              {registerMutation.isPending ? "Реєстрація..." : "Зареєструватись"}
+            </button>
+          </Form>
+        )}
+      </Formik>
     </div>
   );
 }

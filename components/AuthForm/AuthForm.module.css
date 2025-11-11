@@ -68,14 +68,9 @@
 .formInfoInput {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
-.label {
-  font-weight: 400;
-  font-size: 16px;
-  color: #111827;
+  gap: 8px;
+  margin-bottom: 24px;
+  position: relative;
 }
 
 .input {
@@ -98,16 +93,28 @@
 .input::placeholder {
   color: #9ca3af;
 }
-
-.input:focus {
+.input:focus,
+.inputFilled {
   border-color: #3b82f6;
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+  outline: none;
 }
-
+.inputError {
+  border-color: #e11d48;
+  box-shadow: 0 0 0 2px rgba(225, 29, 72, 0.2);
+}
+.label {
+  font-weight: 400;
+  font-size: 16px;
+  color: var(--text-color);
+}
 .error {
+  position: absolute;
+  bottom: -16px;
+  left: 0;
   color: #e11d48;
   font-size: 13px;
-  margin-top: 2px;
+  line-height: 1;
 }
 
 .submitBtn {

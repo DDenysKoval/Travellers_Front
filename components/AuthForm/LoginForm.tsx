@@ -3,8 +3,9 @@
 import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import toast from "react-hot-toast";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 import styles from "./AuthForm.module.css";
 
 interface LoginValues {
@@ -13,7 +14,7 @@ interface LoginValues {
 }
 
 interface ApiError {
-  message?: string;
+  message: string;
 }
 
 export default function LoginForm() {
@@ -26,11 +27,8 @@ export default function LoginForm() {
       .required("Обов’язкове поле"),
   });
 
-  const handleSubmit = async (
-    values: LoginValues,
-    { setSubmitting }: FormikHelpers<LoginValues>
-  ): Promise<void> => {
-    try {
+  const loginMutation = useMutation({
+    mutationFn: async (values: LoginValues) => {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -42,18 +40,30 @@ export default function LoginForm() {
         throw new Error(error.message || "Помилка входу");
       }
 
+      return res.json();
+    },
+
+    onSuccess: () => {
       toast.success("Вхід успішний!");
       router.push("/");
-    } catch (err) {
+    },
+
+    onError: (err: unknown) => {
       if (err instanceof Error) {
         toast.error(err.message);
       } else {
         toast.error("Сталася невідома помилка");
       }
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    },
+  });
+
+  async function handleSubmit(
+    values: LoginValues,
+    { setSubmitting }: FormikHelpers<LoginValues>
+  ): Promise<void> {
+    await loginMutation.mutateAsync(values);
+    setSubmitting(false);
+  }
 
   return (
     <div className="container">
@@ -69,21 +79,27 @@ export default function LoginForm() {
 
         <h2 className={styles.authTitle}>Вхід</h2>
         <p className={styles.authSubtitle}>Ласкаво просимо назад!</p>
-
         <Formik<LoginValues>
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ errors, touched, values }) => (
             <Form className={styles.form}>
               <div className={styles.formInfoInput}>
-                <label>Пошта*</label>
+                <label htmlFor="email" className={styles.label}>
+                  Пошта*
+                </label>
                 <Field
+                  id="email"
                   name="email"
                   type="email"
                   placeholder="hello@podorozhnyky.ua"
-                  className={styles.input}
+                  className={`
+            ${styles.input}
+            ${touched.email && errors.email ? styles.inputError : ""}
+            ${values.email ? styles.inputFilled : ""}
+          `}
                 />
                 <ErrorMessage
                   name="email"
@@ -91,14 +107,20 @@ export default function LoginForm() {
                   className={styles.error}
                 />
               </div>
-
               <div className={styles.formInfoInput}>
-                <label>Пароль*</label>
+                <label htmlFor="password" className={styles.label}>
+                  Пароль*
+                </label>
                 <Field
+                  id="password"
                   name="password"
                   type="password"
                   placeholder="********"
-                  className={styles.input}
+                  className={`
+            ${styles.input}
+            ${touched.password && errors.password ? styles.inputError : ""}
+            ${values.password ? styles.inputFilled : ""}
+          `}
                 />
                 <ErrorMessage
                   name="password"
@@ -110,9 +132,9 @@ export default function LoginForm() {
               <button
                 type="submit"
                 className={styles.submitBtn}
-                disabled={isSubmitting}
+                disabled={loginMutation.isPending}
               >
-                Увійти
+                {loginMutation.isPending ? "Входимо..." : "Увійти"}
               </button>
             </Form>
           )}

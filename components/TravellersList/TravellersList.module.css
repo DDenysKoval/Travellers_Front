@@ -35,6 +35,8 @@
   font-size: 16px;
   line-height: 1.5;
   color: #000;
+
+  height: 72px;
   margin-bottom: 16px;
 }
 
@@ -128,6 +130,7 @@
   }
   .travellersDescription {
     font-size: 18px;
+    height: 81px;
   }
 
   .travellersBtn {

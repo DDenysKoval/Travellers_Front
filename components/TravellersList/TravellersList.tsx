@@ -31,11 +31,12 @@ const TravellersList = () => {
     {allUsers.map((user: User) => (
       <li key={user._id} className={css.travellersCard}> 
         <div className={css.imgWrapper}>
+          {/* <Image width={112} height={112} src={user.avatarUrl} alt={user.description} className={css.travellersAvatar} /> */}
           <img src={user.avatarUrl} alt={user.description} className={css.travellersAvatar} />
         </div>
         <div className={css.cardContentWrapper}>
         <h3 className={css.travellersName}>{user.name.trim()}</h3>
-        <p className={css.travellersDescription}>{user.description ? user.description.length > 100 ? user.description.slice(0, 65) + "..." : user.description : "Опис відсутній" }</p>
+        <p className={css.travellersDescription}>{user.description ? user.description.length > 100 ? user.description.slice(0, 62) + "..." : user.description : "Опис відсутній" }</p>
         <div className={css.BtnWrapper}>
             <button className={css.travellersBtn}>Переглянути профіль</button>
             </div>

@@ -2,20 +2,22 @@
 
 :root {
   --bg-color: #f7f9ff;
+  --bg-color-auth: #fff;
   --text-color: #000;
   --normal-button-color: #4169e1;
   --hover-button-color: #e8eeff;
   --active-button-color: #7a96ea;
-  --border: border: 1px solid #4169e1;
+  --border: 1px solid #4169e1;
 }
 
 [data-theme="dark"] {
   --bg-color: #000;
+  --bg-color-auth: #000;
   --text-color: #f5f5f5;
   --normal-button-color: #fff;
   --hover-button-color: #7f7f7f;
   --active-button-color: #4c4c4c;
-  --border: border: 1px solid #fff;
+  --border: 1px solid #fff;
 }
 
 .themebutton {

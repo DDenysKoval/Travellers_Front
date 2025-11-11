@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import { useEffect, useState } from "react";
 
 interface HeaderFooterWrapperProps {
   children: React.ReactNode;
@@ -19,7 +18,7 @@ export default function HeaderFooterWrapper({
   const isAuthPage =
     pathname === "/auth/login" ||
     pathname === "/auth/register" ||
-    pathname === "profile/edit";
+    pathname === "/profile/edit";
 
   return (
     <>

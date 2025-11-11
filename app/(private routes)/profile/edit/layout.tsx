@@ -22,7 +22,7 @@ const AuthLayout = ({ children }: Props) => {
   return (
     <TanStackProvider>
       <AuthProvider>
-        <main style={{ backgroundColor: "#fff" }}>
+        <main style={{ backgroundColor: "var(--bg-color-auth)" }}>
           <AuthProfileEditProvider>
             {loading ? <div>Loading...</div> : children}
           </AuthProfileEditProvider>

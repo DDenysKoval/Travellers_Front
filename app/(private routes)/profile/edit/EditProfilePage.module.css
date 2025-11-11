@@ -1,6 +1,6 @@
 .wrapper {
   padding-top: 24px;
-  background-color: #fff;
+  background-color: var(--bg-color-auth);
 }
 
 .title {
@@ -42,29 +42,51 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: var(--border);
   border-radius: 8px;
   width: 163px;
   height: 32px;
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
+  background-color: var(--normal-button-color);
+  color: var(--bg-color);
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
+}
+
+.load:hover,
+.load:focus {
+  border: var(--border);
+  background-color: var(--hover-button-color);
+  color: var(--text-color);
+}
+
+.load:active {
+  justify-content: center;
+  align-items: center;
+  border: var(--border);
+  background-color: var(--active-button-color);
+  color: var(--text-color);
 }
 
 .textarea {
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: var(--border);
   border-radius: 8px;
   padding: 12px;
   width: 335px;
   height: 120px;
   resize: none;
+  background-color: var(--bg-color-auth);
+  color: var(--text-color);
 }
 
 .textarea::placeholder {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  color: rgba(0, 0, 0, 0.6);
+  color: var(--text-color);
 }
 
 .symbolsleft {

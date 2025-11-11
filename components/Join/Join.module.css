@@ -1,0 +1,114 @@
+.join {
+  margin: 0 auto;
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+.contentbox {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  padding: 20px;
+  max-width: 335px;
+  height: 262px;
+  background-image: url("/join-desk@1x.webp");
+  background-repeat: no-repeat;
+  background-position: top left;
+  background-size: 265%;
+  overflow: hidden;
+  max-width: 885px;
+}
+
+.title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 16px;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  max-width: 295px;
+  height: 48px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
+  background-color: var(--normal-button-color);
+  color: var(--bg-color);
+  border: var(--border);
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--hover-button-color);
+  color: var(--text-color);
+  border: var(--border);
+}
+
+.button:active {
+  background-color: var(--active-button-color);
+  color: var(--text-color);
+  border: var(--border);
+}
+
+@media (min-resolution: 192dpi), (min-resolution: 2x) {
+  .contentbox {
+    background-image: url("/join-desk@2x.webp");
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .contentbox {
+    padding: 32px;
+    background-size: 140%;
+    max-width: 704px;
+    height: 260px;
+  }
+  .title {
+    font-size: 32px;
+    margin-bottom: 8px;
+    max-width: 500px;
+  }
+  .text {
+    max-width: 558px;
+    margin-bottom: 16px;
+  }
+  .button {
+    max-width: 153px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .contentbox {
+    padding: 78px 64px;
+    background-size: 100%;
+    max-width: 1312px;
+    height: 436px;
+  }
+  .title {
+    font-size: 48px;
+    margin-bottom: 24px;
+  }
+  .text {
+    font-size: 20px;
+    margin-bottom: 32px;
+  }
+  .button {
+    max-width: 169px;
+  }
+}

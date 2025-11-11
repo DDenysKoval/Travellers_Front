@@ -1,10 +1,10 @@
 "use client";
 
+import AuthProfileEditProvider from "@/components/AuthProfileEditProvider/AuthProfileEditProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
-import AuthProfileEditProvider from "@/components/AuthProfileEditProvider/AuthProfileEditProvider";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface Props {
   children: React.ReactNode;
@@ -22,11 +22,11 @@ const AuthLayout = ({ children }: Props) => {
   return (
     <TanStackProvider>
       <AuthProvider>
-        <div style={{ backgroundColor: "var(--bg-color-auth)" }}>
+        <main style={{ backgroundColor: "var(--bg-color-auth)" }}>
           <AuthProfileEditProvider>
             {loading ? <div>Loading...</div> : children}
           </AuthProfileEditProvider>
-        </div>
+        </main>
       </AuthProvider>
     </TanStackProvider>
   );

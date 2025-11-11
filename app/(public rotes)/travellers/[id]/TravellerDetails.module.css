@@ -1,0 +1,99 @@
+.container {
+  min-width: 320px;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 64px;
+  }
+}
+
+.showNext {
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  width: 335px;
+  height: 48px;
+  background: #4169e1;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-top: 40px; */
+}
+
+@media (max-width: 375px) {
+  .showNext {
+    width: 80%;
+  }
+}
+
+.traveller {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding-top: 32px; */
+  padding-bottom: 64px;
+}
+
+.title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  color: #000;
+  margin: 0;
+  /* margin-top: 32px; */
+  margin-bottom: 40px;
+  width: 335px;
+}
+
+@media (max-width: 375px) {
+  .title {
+    width: 80%;
+  }
+}
+
+@media (min-width: 768px) {
+  .showNext {
+    width: 123px;
+  }
+
+  .title {
+    font-size: 44px;
+    width: 704px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .traveller {
+    padding-top: 48px;
+    padding-bottom: 72px;
+  }
+
+  .showNext {
+    width: 135px;
+  }
+
+  .title {
+    font-size: 52px;
+    width: 1312px;
+  }
+}

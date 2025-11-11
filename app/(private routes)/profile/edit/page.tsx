@@ -20,6 +20,10 @@ const EditProfile = () => {
     }
   };
 
+  const handleFileDelete = () => {
+    setAvatarPreview(defaultAvatar);
+  };
+
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
     setDescription(text);
@@ -45,15 +49,25 @@ const EditProfile = () => {
             width={117}
             height={117}
           />
-          <label className={css.load}>
-            Завантажити фото
-            <input
-              className={css.hiddeninput}
-              type="file"
-              accept="image/*"
-              onChange={handleFileChange}
-            />
-          </label>
+          {avatarPreview === defaultAvatar ? (
+            <label className={css.load}>
+              Завантажити фото
+              <input
+                className={css.hiddeninput}
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />
+            </label>
+          ) : (
+            <button
+              className={css.delete}
+              type="button"
+              onClick={handleFileDelete}
+            >
+              Видалити фото
+            </button>
+          )}
         </div>
         <p className={css.text}>Короткий опис</p>
         <textarea

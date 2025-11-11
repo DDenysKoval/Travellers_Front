@@ -1,3 +1,4 @@
+import { User } from "@/types/user";
 import { nextServer} from "./api";
 
 export interface RegisterRequest {
@@ -21,6 +22,12 @@ export interface UpdateUserRequest {
 export interface NotesHttpResponse {
   // notes: Note[]; треба додати правильну типізацію
   totalPages: number;
+}
+
+export interface UsersHttpResponse {
+  data: {
+    users: User[],
+  }
 }
 
 export const register = async (data: RegisterRequest) => {
@@ -92,5 +99,23 @@ export async function fetchNoteById(storieId:string) {
     return response.data;
   } catch {
     throw new Error("Could not fetch note details.");
+  }
+}
+
+
+// fetchUsers / getAllUser
+export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
+    const response = await nextServer.get<UsersHttpResponse>("/users", {
+        params: {
+            page,
+            perPage,
+        },
+    }
+    )
+
+  return {
+    data: {
+      users: response.data.data.users,
+    }
   }
 }

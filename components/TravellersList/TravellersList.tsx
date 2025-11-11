@@ -4,7 +4,7 @@ import css from "./TravellersList.module.css";
 import { fetchUsers, UsersHttpResponse } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import { useEffect, useState } from "react";
-// import Image from "next/image"
+import Image from "next/image"
 const TravellersList = () => {
   const [page, setPage] = useState(1)
   const [perPage] = useState(4);
@@ -31,8 +31,7 @@ const TravellersList = () => {
     {allUsers.map((user: User) => (
       <li key={user._id} className={css.travellersCard}> 
         <div className={css.imgWrapper}>
-          {/* <Image width={112} height={112} src={user.avatarUrl} alt={user.description} className={css.travellersAvatar} /> */}
-          <img src={user.avatarUrl} alt={user.description} className={css.travellersAvatar} />
+        <Image width={112} height={112} src={user.avatarUrl} alt={user.description} className={css.travellersAvatar} />
         </div>
         <div className={css.cardContentWrapper}>
         <h3 className={css.travellersName}>{user.name.trim()}</h3>

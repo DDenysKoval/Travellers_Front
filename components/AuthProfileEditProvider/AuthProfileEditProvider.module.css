@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
   background-color: var(--bg-color-auth);
 }
 
@@ -18,6 +19,12 @@
 
 .logo {
   margin-right: 3px;
+}
+
+.link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .text {

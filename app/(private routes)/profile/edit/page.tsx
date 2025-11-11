@@ -3,13 +3,18 @@
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 const EditProfile = () => {
+  const router = useRouter();
+
   const maxSymbols = 150;
   const defaultAvatar = "/Default_Avatar.webp";
   const [description, setDescription] = useState("");
   const [symbolsLeft, setSymbolsLeft] = useState(maxSymbols);
   const [avatarPreview, setAvatarPreview] = useState("/Default_Avatar.webp");
+  const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -17,17 +22,31 @@ const EditProfile = () => {
     if (file) {
       const previewUrl = URL.createObjectURL(file);
       setAvatarPreview(previewUrl);
+      setAvatarFile(file);
     }
   };
 
   const handleFileDelete = () => {
     setAvatarPreview(defaultAvatar);
+    setAvatarFile(null);
   };
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
     setDescription(text);
     setSymbolsLeft(maxSymbols - text.length);
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("description", description);
+    if (avatarFile) {
+      formData.append("avatar", avatarFile);
+    }
+    toast.success("Данні успішно оновлено!");
+    router.push("/");
   };
 
   useEffect(() => {
@@ -39,7 +58,7 @@ const EditProfile = () => {
   return (
     <div className={css.wrapper}>
       <h1 className={css.title}>Давайте познайомимось ближче</h1>
-      <div>
+      <form onSubmit={handleSubmit}>
         <p className={css.text}>Аватар</p>
         <div className={css.avatarwrapper}>
           <Image
@@ -91,7 +110,7 @@ const EditProfile = () => {
         >
           Зберегти
         </button>
-      </div>
+      </form>
     </div>
   );
 };

@@ -5,6 +5,7 @@ import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import HeaderFooterWrapper from "@/components/HeaderFooterWrapper/HeaderFooterWrapper";
 import { ThemeProvider } from "@/components/ThemeContext/ThemeContext";
+import { Toaster } from "react-hot-toast";
 
 const fontNunitoSans = Nunito_Sans({
   variable: "--font-nunito-sans",
@@ -52,7 +53,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script
           dangerouslySetInnerHTML={{
@@ -74,6 +74,7 @@ export default function RootLayout({
           <TanStackProvider>
             <AuthProvider>
               <HeaderFooterWrapper modal>{children}</HeaderFooterWrapper>
+              <Toaster position="top-center" reverseOrder={false} />
             </AuthProvider>
           </TanStackProvider>
         </ThemeProvider>

@@ -39,14 +39,23 @@ export default function TravellersStoriesItem({ item }: Props) {
 
           <div>
             <p className={css.name}>Анастасія Олійник</p>
-            <p className={css.data}>27.03.25 . 5 []</p>
+            <div className={css.datecontainer}>
+              <p className={css.data}>27.03.25 • 5</p>
+              <svg className={css.icon} width="16" height="16">
+                <use href="/icons.svg#icon-bookmark"></use>
+              </svg>
+            </div>
           </div>
         </div>
         <div className={css.buttons}>
           <Link className={css.link} href="/stories/1">
             Переглянути статтю
           </Link>
-          <button className={css.favorButton}>[]</button>
+          <button className={css.favorButton}>
+            <svg className={css.icon} width="24" height="24">
+              <use href="/icons.svg#icon-bookmark"></use>
+            </svg>
+          </button>
         </div>
       </div>
     </div>

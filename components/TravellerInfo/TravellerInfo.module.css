@@ -4,19 +4,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-   margin-bottom: 32px;
+  margin-bottom: 32px;
 }
 
 .data {
   display: flex;
   flex-direction: column;
   width: 311px;
- 
 }
 
 .avatar {
   border-radius: 100%;
-  margin-bottom: 24px;
 }
 
 .name {
@@ -56,7 +54,7 @@
     text-align: left;
   }
 
-  .data{
+  .data {
     width: 481px;
   }
 }
@@ -74,7 +72,7 @@
     justify-content: unset;
   }
 
-  .data{
+  .data {
     width: 367px;
   }
 }

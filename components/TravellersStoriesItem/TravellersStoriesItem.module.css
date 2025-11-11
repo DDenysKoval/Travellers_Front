@@ -90,7 +90,15 @@
   line-height: 150%;
   color: #000;
   margin: 0;
+  margin-right: 2px;
 }
+
+.datecontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .buttons {
   display: flex;
   gap: 10px;
@@ -118,10 +126,15 @@
 .favorButton {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
-  padding: 6px;
   width: 48px;
   height: 48px;
   background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
 }
 
 @media (min-width: 1440px) {

@@ -21,6 +21,7 @@ interface ApiError {
 
 export default function RegistrationForm() {
   const router = useRouter();
+  const fieldId = useId();
 
   const validationSchema = Yup.object({
     name: Yup.string().min(2, "Мінімум 2 символи").required("Обов’язкове поле"),
@@ -88,87 +89,90 @@ export default function RegistrationForm() {
           Раді вас бачити у спільноті мандрівників!
         </p>
 
-      <Formik<RegistrationValues>
-        initialValues={{ name: "", email: "", password: "" }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ errors, touched, values }) => (
-          <Form className={styles.form}>
-            <div className={styles.formInfoInput}>
-              <label htmlFor={`${fieldId}-name`} className={styles.label}>
-                Ім’я та Прізвище*
-              </label>
-              <Field
-                id={`${fieldId}-name`}
-                name="name"
-                placeholder="Ваше ім’я та прізвище"
-                className={`
+        <Formik<RegistrationValues>
+          initialValues={{ name: "", email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ errors, touched, values }) => (
+            <Form className={styles.form}>
+              <div className={styles.formInfoInput}>
+                <label htmlFor={`${fieldId}-name`} className={styles.label}>
+                  Ім’я та Прізвище*
+                </label>
+                <Field
+                  id={`${fieldId}-name`}
+                  name="name"
+                  placeholder="Ваше ім’я та прізвище"
+                  className={`
             ${styles.input}
             ${touched.name && errors.name ? styles.inputError : ""}
             ${values.name ? styles.inputFilled : ""}
           `}
-              />
-              <ErrorMessage
-                name="name"
-                component="div"
-                className={styles.error}
-              />
-            </div>
+                />
+                <ErrorMessage
+                  name="name"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
 
-            <div className={styles.formInfoInput}>
-              <label htmlFor={`${fieldId}-email`} className={styles.label}>
-                Пошта*
-              </label>
-              <Field
-                id={`${fieldId}-email`}
-                name="email"
-                type="email"
-                placeholder="hello@podorozhnyky.ua"
-                className={`
+              <div className={styles.formInfoInput}>
+                <label htmlFor={`${fieldId}-email`} className={styles.label}>
+                  Пошта*
+                </label>
+                <Field
+                  id={`${fieldId}-email`}
+                  name="email"
+                  type="email"
+                  placeholder="hello@podorozhnyky.ua"
+                  className={`
             ${styles.input}
             ${touched.email && errors.email ? styles.inputError : ""}
             ${values.email ? styles.inputFilled : ""}
           `}
-              />
-              <ErrorMessage
-                name="email"
-                component="div"
-                className={styles.error}
-              />
-            </div>
-            <div className={styles.formInfoInput}>
-              <label htmlFor={`${fieldId}-password`} className={styles.label}>
-                Пароль*
-              </label>
-              <Field
-                id={`${fieldId}-password`}
-                name="password"
-                type="password"
-                placeholder="********"
-                className={`
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
+              <div className={styles.formInfoInput}>
+                <label htmlFor={`${fieldId}-password`} className={styles.label}>
+                  Пароль*
+                </label>
+                <Field
+                  id={`${fieldId}-password`}
+                  name="password"
+                  type="password"
+                  placeholder="********"
+                  className={`
             ${styles.input}
             ${touched.password && errors.password ? styles.inputError : ""}
             ${values.password ? styles.inputFilled : ""}
           `}
-              />
-              <ErrorMessage
-                name="password"
-                component="div"
-                className={styles.error}
-              />
-            </div>
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className={styles.error}
+                />
+              </div>
 
-            <button
-              type="submit"
-              className={styles.submitBtn}
-              disabled={registerMutation.isPending}
-            >
-              {registerMutation.isPending ? "Реєстрація..." : "Зареєструватись"}
-            </button>
-          </Form>
-        )}
-      </Formik>
+              <button
+                type="submit"
+                className={styles.submitBtn}
+                disabled={registerMutation.isPending}
+              >
+                {registerMutation.isPending
+                  ? "Реєстрація..."
+                  : "Зареєструватись"}
+              </button>
+            </Form>
+          )}
+        </Formik>
+      </div>
     </div>
   );
 }

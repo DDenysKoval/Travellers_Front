@@ -5,7 +5,11 @@ import { fetchUsers, UsersHttpResponse } from "@/lib/api/clientApi";
 import { User } from "@/types/user";
 import { useEffect, useState } from "react";
 import Image from "next/image"
+import { useRouter } from "next/navigation";
 const TravellersList = () => {
+
+  const router = useRouter()
+  
   const [page, setPage] = useState(1)
   const [perPage] = useState(4);
   const [allUsers, setAllUsers] = useState<User[]>([]);
@@ -37,7 +41,7 @@ const TravellersList = () => {
         <h3 className={css.travellersName}>{user.name.trim()}</h3>
         <p className={css.travellersDescription}>{user.description ? user.description.length > 100 ? user.description.slice(0, 62) + "..." : user.description : "Опис відсутній" }</p>
         <div className={css.BtnWrapper}>
-            <button className={css.travellersBtn}>Переглянути профіль</button>
+            <button className={css.travellersBtn} onClick={()=>{router.push(`/profile/${user._id}`)}}>Переглянути профіль</button>
             </div>
           </div>
       </li>

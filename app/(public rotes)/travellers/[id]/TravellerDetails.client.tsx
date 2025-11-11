@@ -28,11 +28,13 @@ interface Props {
 
 export default function TravellerDetailsClient({testArray}:Props){
     return (
+      <div className="container">
        <div className={css.traveller}>
         <TravellerInfo />
         <h2 className={css.title}>Історії Мандрівника</h2>
         <TravellersStories testArray={testArray} />
         <button className={css.showNext}>Показати ще</button>
+       </div>
        </div>
     )
 }

@@ -1,17 +1,18 @@
 import css from "./TravellersStories.module.css";
 import TravellersStoriesItem from "../TravellersStoriesItem/TravellersStoriesItem";
+import { Story } from "@/types/story";
 
 interface Props {
-  testArray: string[];
+  stories: Story[];
 }
 
-export default function TravellersStories({ testArray }: Props) {
+export default function TravellersStories({ stories=[] }: Props) {
   return (
     <ul className={css.travellerList}>
-      {testArray.map((item) => {
+      {stories.map((story, index) => {
         return (
-          <li key={item}>
-            <TravellersStoriesItem item={item} />
+          <li key={index}>
+            <TravellersStoriesItem story={story} />
           </li>
         );
       })}

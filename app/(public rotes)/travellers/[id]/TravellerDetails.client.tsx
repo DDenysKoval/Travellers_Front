@@ -1,39 +1,48 @@
-// "use client";
-
-// import PopularStories from "@/components/PopularStories/PopularStories";
-// import css from "./StorieDetails.module.css";
-// import Pagination from "@/components/Pagination/Pagination";
-
-// const TravellerDetailsClient = () => {
-//   return (
-//     <div>
-//       TravellerDetailsClient
-//       <PopularStories />
-//       <Pagination />
-//     </div>
-//   );
-// };
-
-// export default TravellerDetailsClient;
-
 "use client";
 
 import TravellerInfo from "@/components/TravellerInfo/TravellerInfo";
 import css from "./TravellerDetails.module.css";
 import TravellersStories from "@/components/TravellersStories/TravellersStories";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { fetchStories } from "@/lib/api/clientApi";
+import { useMediaQuery } from "react-responsive";
 
-interface Props {
-  testArray: string[];
-}
+export default function TravellerDetailsClient() {
+  const [page, setPage] = useState(1);
 
-export default function TravellerDetailsClient({ testArray }: Props) {
+  const { id } = useParams<{ id: string }>();
+
+  const isMobile = useMediaQuery({ maxWidth: 1439 });
+
+  const perPage = isMobile ? 4 : 6;
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["stories", id, page, perPage],
+    queryFn: () => fetchStories(page, perPage),
+  });
+
+  if (isLoading) return <p>Loading, please wait...</p>;
+
+  if (error || !data) return <p>Something went wrong.</p>;
+
   return (
     <div className="container">
       <div className={css.traveller}>
         <TravellerInfo />
         <h2 className={css.title}>Історії Мандрівника</h2>
-        <TravellersStories testArray={testArray} />
-        <button className={css.showNext}>Показати ще</button>
+        <TravellersStories stories={data.stories} />
+        {data.hasNextPage && (
+          <button
+            className={css.showNext}
+            onClick={() => {
+              setPage(page + 1);
+            }}
+          >
+            Показати ще
+          </button>
+        )}
       </div>
     </div>
   );

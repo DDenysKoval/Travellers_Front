@@ -30,15 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const TravellerDetails = async ({ params }: Props) => {
-  const queryClient = new QueryClient();
+const TravellerDetails = async () => {
+  // const queryClient = new QueryClient();
 
-  const testArray: string[] = ["1", "2", "3", "4", "5", "6"];
+  // const testArray: string[] = ["1", "2", "3", "4", "5", "6"];
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <TravellerDetailsClient testArray={testArray}/>
-    </HydrationBoundary>
+    // <HydrationBoundary state={dehydrate(queryClient)}>
+      <TravellerDetailsClient />
+    // </HydrationBoundary>
   );
 };
 

@@ -1,0 +1,128 @@
+.hero {
+  background-image: url("/hero-mobile@1x.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 813px;
+  max-width: 375px;
+  margin: 0 auto;
+}
+
+.contentbox {
+  padding-top: 196px;
+  padding-bottom: 331px;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-family: "Sora", sans-serif;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #fff;
+  margin-bottom: 24px;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+  margin-bottom: 32px;
+  max-width: 375px;
+}
+
+.button {
+  border-radius: 8px;
+  max-width: 335px;
+  height: 39px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
+  background-color: var(--normal-button-color);
+  color: var(--bg-color);
+  border: var(--border);
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--hover-button-color);
+  color: var(--text-color);
+  border: var(--border);
+}
+
+.button:active {
+  background-color: var(--active-button-color);
+  color: var(--text-color);
+  border: var(--border);
+}
+
+@media (min-resolution: 192dpi), (min-resolution: 2x) {
+  .hero {
+    background-image: url("/hero-mobile@2x.webp");
+  }
+}
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+  .hero {
+    background-image: url("/hero-tablet@1x.webp");
+    height: 634px;
+    max-width: 768px;
+  }
+  .contentbox {
+    padding-top: 244px;
+    padding-bottom: 117px;
+  }
+  .title {
+    font-size: 48px;
+    max-width: 600px;
+  }
+  .text {
+    max-width: 704px;
+  }
+  .button {
+    max-width: 115px;
+  }
+  @media (min-resolution: 192dpi), (min-resolution: 2x) {
+    .hero {
+      background-image: url("/hero-tablet@2x.webp");
+    }
+  }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+  .hero {
+    background-image: url("/hero-desktop@1x.webp");
+    height: 900px;
+    max-width: 1440px;
+  }
+  .contentbox {
+    padding-bottom: 347px;
+  }
+  .title {
+    font-size: 56px;
+    max-width: 700px;
+  }
+  .text {
+    font-size: 20px;
+    max-width: 759px;
+  }
+  .button {
+    max-width: 115px;
+  }
+  @media (min-resolution: 192dpi), (min-resolution: 2x) {
+    .hero {
+      background-image: url("/hero-desktop@2x.webp");
+    }
+  }
+}

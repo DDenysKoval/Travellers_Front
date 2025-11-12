@@ -1,0 +1,47 @@
+.providercontainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  background-color: var(--bg-color-auth);
+}
+
+.content {
+  flex: 1;
+}
+
+.logowrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 18px 0;
+}
+
+.logo {
+  margin-right: 3px;
+}
+
+.link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.text {
+  font-family: "Sora", sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+.textwrapper {
+  display: flex;
+  justify-content: center;
+  padding: 16px 0;
+  margin: 0 auto;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: auto;
+}

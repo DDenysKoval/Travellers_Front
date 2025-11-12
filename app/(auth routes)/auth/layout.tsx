@@ -2,8 +2,9 @@
 
 import AuthProvider from "@/components/AuthProvider/AuthProvider";
 import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
-import { useRouter } from "next/navigation";
+import AuthProfileEditProvider from "@/components/AuthProfileEditProvider/AuthProfileEditProvider";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface Props {
   children: React.ReactNode;
@@ -21,11 +22,11 @@ const AuthLayout = ({ children }: Props) => {
   return (
     <TanStackProvider>
       <AuthProvider>
-        <main>
-          подорожники
-          {loading ? <div>Loading...</div> : children}
-          подорожники 2025
-        </main>
+        <div style={{ backgroundColor: "var(--bg-color-auth)" }}>
+          <AuthProfileEditProvider>
+            {loading ? <div>Loading...</div> : children}
+          </AuthProfileEditProvider>
+        </div>
       </AuthProvider>
     </TanStackProvider>
   );

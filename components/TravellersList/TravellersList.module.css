@@ -12,6 +12,8 @@
   min-height: 315px;
   background-color: #e8eeff;
   padding: 24px;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .travellersAvatar {

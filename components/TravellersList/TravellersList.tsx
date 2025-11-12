@@ -66,6 +66,8 @@ useEffect(() => {
     ))}
     </ul>
     
+    {isLoading && <p className={css.loadingText}>Loading, please wait...</p>}
+    
     {
       !isLoading && Array.isArray(data?.data?.users)
       && data?.data?.users.length > 0

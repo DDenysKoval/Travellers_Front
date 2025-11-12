@@ -6,26 +6,44 @@ import { User } from "@/types/user";
 import { useEffect, useState } from "react";
 import Image from "next/image"
 import { useRouter } from "next/navigation";
-const TravellersList = () => {
 
+interface TravellersListProps{
+  limit?: number
+}
+const TravellersList = ({ limit }: TravellersListProps) => {
   const router = useRouter()
-  
   const [page, setPage] = useState(1)
-  const [perPage] = useState(4);
   const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [initialCount, setInitialCount] = useState(4);
+
+    useEffect(() => {
+      const width = window.innerWidth;
+      let count = 12
+      if (width < 1439) {
+        count = 8
+      }
+
+      setInitialCount(limit ? Math.min(limit, count): count)
+  }, [limit])
+  
+ const perPage = page === 1 ? initialCount : 4;
+
   const { data, isLoading } = useQuery<UsersHttpResponse>({
     queryKey: ["users", page, perPage],
     queryFn: () => fetchUsers(page, perPage),
     placeholderData: keepPreviousData,
   })
 
-  useEffect(() => {
-    if (data?.data?.users) {
-      setAllUsers((prev:User[]) => [...prev, ...data.data.users])
-    }
+
+useEffect(() => {
+  if (data?.data?.users) {
+    setAllUsers(prev => {
+      const newUsers = data.data.users.filter(user => !prev.some(prev => prev._id === user._id));
+      return [...prev, ...newUsers];
+    });
+  }
 }, [data]);
-
-
+  
   const onLoadMore = () => {
     setPage((prev: number) => prev + 1)
   }

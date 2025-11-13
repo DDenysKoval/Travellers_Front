@@ -6,7 +6,7 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { fetchStories } from "@/lib/api/clientApi";
+import { fetchOwnerStories} from "@/lib/api/clientApi";
 import { useMediaQuery } from "react-responsive";
 
 export default function TravellerDetailsClient() {
@@ -20,7 +20,7 @@ export default function TravellerDetailsClient() {
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["stories", id, page, perPage],
-    queryFn: () => fetchStories(page, perPage),
+    queryFn: () => fetchOwnerStories(page, perPage,id),
   });
 
   if (isLoading) return <p>Loading, please wait...</p>;
@@ -30,9 +30,9 @@ export default function TravellerDetailsClient() {
   return (
     <div className="container">
       <div className={css.traveller}>
-        <TravellerInfo />
+        <TravellerInfo owner={data.owner}/>
         <h2 className={css.title}>Історії Мандрівника</h2>
-        <TravellersStories stories={data.stories} />
+        <TravellersStories stories={data.stories}/>
         {data.hasNextPage && (
           <button
             className={css.showNext}

@@ -2,6 +2,7 @@ import axios from "axios";
 
 import { nextServer } from "./api";
 import { Story } from "@/types/story";
+import { Owner } from "@/types/owner";
 
 export interface RegisterRequest {
   email: string;
@@ -127,6 +128,46 @@ export async function fetchStories(
           perPage,
           ...(category && { category }),
           ...(favoriteCount && { favoriteCount }),
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export interface OwnerStoriesHttpResponse {
+  data: {
+    owner: Owner;
+
+    stories: Story[];
+    page: number;
+    perPage: number;
+
+    totalItems: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+
+    totalPages: number;
+  };
+}
+
+export async function fetchOwnerStories(
+  page: number,
+  perPage: number,
+  id: string
+) {
+  try {
+    const response = await axios.get<OwnerStoriesHttpResponse>(
+      `http://localhost:8000/stories/owner/${id}`,
+      {
+        params: {
+          page,
+          perPage,
         },
       }
     );

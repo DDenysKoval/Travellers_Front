@@ -101,46 +101,12 @@ export async function fetchNoteById(storieId: string) {
   }
 }
 
-// export interface StoriesHttpResponse {
-//   data: {
-//     stories: Story[];
-//     page: number;
-//     perPage: number;
 
-//     totalItems: number;
-//     hasNextPage: boolean;
-//     hasPreviousPage: boolean;
 
-//     totalPages: number;
-//   };
-// }
 
-// export async function fetchStories(
-//   page: number,
-//   perPage: number,
-//   category?: string,
-//   favoriteCount?: string
-// ) {
-//   try {
-//     const response = await axios.get<StoriesHttpResponse>(
-//       "https://travellers-back.onrender.com/stories/",
-//       {
-//         params: {
-//           page,
-//           perPage,
-//           ...(category && { category }),
-//           ...(favoriteCount && { favoriteCount }),
-//         },
-//       }
-//     );
+// Функція для Профіль мондрівника публічний
 
-//     console.log(response.data);
 
-//     return response.data.data;
-//   } catch {
-//     throw new Error("Fetch tasks failed");
-//   }
-// }
 
 export interface OwnerStoriesHttpResponse {
   data: {

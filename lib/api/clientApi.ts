@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import { nextServer } from "./api";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
@@ -57,20 +55,24 @@ export const updateMe = async (body: UpdateUserRequest) => {
   return response.data;
 };
 
-// export async function fetchNotes(search: string, page: number, category?: string ) {
-//   try {
-//     const response = await nextServer.get<NotesHttpResponse>("/stories", {
-//       params: {
-//         page,
-//         perPage: 12,
-//         ...(category && { category }),
-//       },
-//     })
-//     return response.data;
-//   } catch {
-//     throw new Error("Fetch tasks failed");
-//   }
-// }
+export async function fetchNotes(
+  search: string,
+  page: number,
+  category?: string
+) {
+  try {
+    const response = await nextServer.get<NotesHttpResponse>("/stories", {
+      params: {
+        page,
+        perPage: 12,
+        ...(category && { category }),
+      },
+    });
+    return response.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
 
 export async function createNote(newStorie: string) {
   try {
@@ -99,59 +101,56 @@ export async function fetchNoteById(storieId: string) {
   }
 }
 
-export interface StoriesHttpResponse {
-  data: {
-    stories: Story[];
-    page: number;
-    perPage: number;
+// export interface StoriesHttpResponse {
+//   data: {
+//     stories: Story[];
+//     page: number;
+//     perPage: number;
 
-    totalItems: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
+//     totalItems: number;
+//     hasNextPage: boolean;
+//     hasPreviousPage: boolean;
 
-    totalPages: number;
-  };
-}
+//     totalPages: number;
+//   };
+// }
 
-export async function fetchStories(
-  page: number,
-  perPage: number,
-  category?: string,
-  favoriteCount?: string
-) {
-  try {
-    const response = await axios.get<StoriesHttpResponse>(
-      "https://travellers-back.onrender.com/stories/",
-      {
-        params: {
-          page,
-          perPage,
-          ...(category && { category }),
-          ...(favoriteCount && { favoriteCount }),
-        },
-      }
-    );
+// export async function fetchStories(
+//   page: number,
+//   perPage: number,
+//   category?: string,
+//   favoriteCount?: string
+// ) {
+//   try {
+//     const response = await axios.get<StoriesHttpResponse>(
+//       "https://travellers-back.onrender.com/stories/",
+//       {
+//         params: {
+//           page,
+//           perPage,
+//           ...(category && { category }),
+//           ...(favoriteCount && { favoriteCount }),
+//         },
+//       }
+//     );
 
-    console.log(response.data);
+//     console.log(response.data);
 
-    return response.data.data;
-  } catch {
-    throw new Error("Fetch tasks failed");
-  }
-}
+//     return response.data.data;
+//   } catch {
+//     throw new Error("Fetch tasks failed");
+//   }
+// }
 
 export interface OwnerStoriesHttpResponse {
   data: {
     owner: Owner;
-
     stories: Story[];
     page: number;
     perPage: number;
-
     totalItems: number;
     hasNextPage: boolean;
     hasPreviousPage: boolean;
-
     totalPages: number;
   };
 }
@@ -162,8 +161,8 @@ export async function fetchOwnerStories(
   id: string
 ) {
   try {
-    const response = await axios.get<OwnerStoriesHttpResponse>(
-      `http://localhost:8000/stories/owner/${id}`,
+    const response = await nextServer.get<OwnerStoriesHttpResponse>(
+      `/travellers/${id}`,
       {
         params: {
           page,

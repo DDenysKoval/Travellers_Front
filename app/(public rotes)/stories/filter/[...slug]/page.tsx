@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
           url: "",
           width: 0,
           height: 0,
-          alt: "1",
+          alt: "",
         },
       ],
     },

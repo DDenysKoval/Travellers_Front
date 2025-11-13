@@ -21,7 +21,6 @@ const AuthNavigation = () => {
     try {
       await logout()
       close()
-      router.push('/login')
       router.refresh()
     }
     catch (error) {
@@ -29,17 +28,19 @@ const AuthNavigation = () => {
     }
     
   }
-  return <nav>
-    <button onClick={handleLogout}>Logout</button>
-    <ModalReuse isOpen={isOpen} onClose={close} title={"Logout"} message={"Are you sure you want to logout?"} actions={[{
-            label: "Cancel",
+  return <nav className={css.nav}>
+    <button onClick={open}>Logout</button>
+    <div className={css.modalReuse}>
+    <ModalReuse isOpen={isOpen} onClose={close} title={"Ви точно хочете вийти?"} message={"Ми будемо сумувати за вами!"} actions={[{
+            label: "Вiдмiнити",
             onClick: close,
           },
           {
-            label: "Logout",
+            label: "Вийти",
             onClick: handleLogout,
             primary: true,
-          },]} />
+        },]} />
+      </div>
   </nav>;
 };
 

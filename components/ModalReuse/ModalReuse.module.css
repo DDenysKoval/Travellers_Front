@@ -1,5 +1,5 @@
 
-.modal-overlay {
+.overlay {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.5);
@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     z-index: 999;
-    animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.25s ease;
 }
 
 
@@ -17,49 +17,53 @@
     border-radius: 12px;
     padding: 24px;
     width: 90%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    animation: scaleUp 0.3s ease;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    animation: scaleUp 0.25s ease;
 }
 
-.modal h2 {
+.title {
     margin-bottom: 8px;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 700;
+    color: #555
 }
 
-.modal p {
+.message {
     color: #555;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    font-size: 15px;
 }
 
-.modal-actions {
+
+.actions {
     display: flex;
     justify-content: center;
     gap: 12px;
 }
 
-.modal-actions button {
-    padding: 8px 16px;
+.button {
+    padding: 8px 18px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: 500;
     background: #e5e5e5;
-    transition: background 0.2s;
+    transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.modal-actions button:hover {
+.button:hover {
     background: #d5d5d5;
 }
 
-.modal-actions .primary {
+
+.primary {
     background: #2563eb;
     color: #fff;
 }
 
-.modal-actions .primary:hover {
+.primary:hover {
     background: #1d4ed8;
 }
 
@@ -68,7 +72,6 @@
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
@@ -77,9 +80,8 @@
 @keyframes scaleUp {
     from {
         opacity: 0;
-        transform: scale(0.9);
+        transform: scale(0.92);
     }
-
     to {
         opacity: 1;
         transform: scale(1);

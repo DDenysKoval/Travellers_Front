@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import css from '../ModalReuse/ModalReuse.module.css'
+import css from "./ModalReuse.module.css";
 
 type Action = {
   label: string;
@@ -25,16 +27,17 @@ const ModalReuse: React.FC<Props> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <h2>{title}</h2>
-        <p>{message}</p>
-        <div className="modal-actions">
+    <div className={css.overlay} onClick={onClose}>
+      <div className={css.modal} onClick={(e) => e.stopPropagation()}>
+        <h2 className={css.title}>{title}</h2>
+        <p className={css.message}>{message}</p>
+
+        <div className={css.actions}>
           {actions.map((action, i) => (
             <button
               key={i}
               onClick={action.onClick}
-              className={action.primary ? "primary" : ""}
+              className={`${css.button} ${action.primary ? css.primary : ""}`}
             >
               {action.label}
             </button>

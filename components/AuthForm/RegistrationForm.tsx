@@ -2,72 +2,56 @@
 
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
-import toast from "react-hot-toast";
+import { register as registerUser } from "@/lib/api/clientApi";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useId } from "react";
+import toast from "react-hot-toast";
 import styles from "./AuthForm.module.css";
 
-interface RegistrationValues {
+interface RegisterRequest {
   name: string;
   email: string;
   password: string;
 }
 
-interface ApiError {
-  message?: string;
+interface ErrorWithResponse {
+  response?: {
+    data?: {
+      error?: string;
+    };
+  };
 }
 
 export default function RegistrationForm() {
   const router = useRouter();
   const fieldId = useId();
 
-  const validationSchema = Yup.object({
-    name: Yup.string().min(2, "Мінімум 2 символи").required("Обов’язкове поле"),
+  const validationSchema = Yup.object<RegisterRequest>({
+    name: Yup.string().required("Обов’язкове поле"),
     email: Yup.string().email("Некоректна пошта").required("Обов’язкове поле"),
-    password: Yup.string()
-      .min(6, "Мінімум 6 символів")
-      .required("Обов’язкове поле"),
+    password: Yup.string().min(6).required("Обов’язкове поле"),
   });
 
-  const registerMutation = useMutation({
-    mutationFn: async (values: RegistrationValues) => {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (!res.ok) {
-        const error: ApiError = await res.json();
-        throw new Error(error.message || "Помилка реєстрації");
-      }
-
-      return res.json();
-    },
-
+  const mutation = useMutation<unknown, ErrorWithResponse, RegisterRequest>({
+    mutationFn: (values) => registerUser(values),
     onSuccess: () => {
       toast.success("Реєстрація успішна!");
       router.push("/");
     },
-
-    onError: (err: unknown) => {
-      if (err instanceof Error) {
-        toast.error(err.message);
-      } else {
-        toast.error("Сталася невідома помилка");
-      }
+    onError: (error) => {
+      toast.error(error.response?.data?.error ?? "Помилка реєстрації");
     },
   });
 
-  async function handleSubmit(
-    values: RegistrationValues,
-    { setSubmitting }: FormikHelpers<RegistrationValues>
-  ): Promise<void> {
-    await registerMutation.mutateAsync(values);
+  const handleSubmit = (
+    values: RegisterRequest,
+    { setSubmitting }: FormikHelpers<RegisterRequest>
+  ) => {
+    mutation.mutate(values);
     setSubmitting(false);
-  }
+  };
 
   return (
     <div className="container">
@@ -89,7 +73,7 @@ export default function RegistrationForm() {
           Раді вас бачити у спільноті мандрівників!
         </p>
 
-        <Formik<RegistrationValues>
+        <Formik<RegisterRequest>
           initialValues={{ name: "", email: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
@@ -163,11 +147,9 @@ export default function RegistrationForm() {
               <button
                 type="submit"
                 className={styles.submitBtn}
-                disabled={registerMutation.isPending}
+                disabled={mutation.isPending}
               >
-                {registerMutation.isPending
-                  ? "Реєстрація..."
-                  : "Зареєструватись"}
+                {mutation.isPending ? "Реєстрація..." : "Зареєструватись"}
               </button>
             </Form>
           )}

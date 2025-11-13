@@ -1,69 +1,53 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import styles from "./AuthForm.module.css";
+import { login } from "@/lib/api/clientApi";
+import Link from "next/link";
 
-interface LoginValues {
+interface LoginRequest {
   email: string;
   password: string;
 }
 
-interface ApiError {
-  message: string;
+interface ErrorWithResponse {
+  response?: {
+    data?: {
+      error?: string;
+    };
+  };
 }
 
 export default function LoginForm() {
   const router = useRouter();
 
-  const validationSchema = Yup.object({
+  const validationSchema = Yup.object<LoginRequest>({
     email: Yup.string().email("Некоректна пошта").required("Обов’язкове поле"),
-    password: Yup.string()
-      .min(6, "Мінімум 6 символів")
-      .required("Обов’язкове поле"),
+    password: Yup.string().required("Обов’язкове поле"),
   });
 
-  const loginMutation = useMutation({
-    mutationFn: async (values: LoginValues) => {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-
-      if (!res.ok) {
-        const error: ApiError = await res.json();
-        throw new Error(error.message || "Помилка входу");
-      }
-
-      return res.json();
-    },
-
+  const mutation = useMutation<unknown, ErrorWithResponse, LoginRequest>({
+    mutationFn: (values) => login(values),
     onSuccess: () => {
       toast.success("Вхід успішний!");
       router.push("/");
     },
-
-    onError: (err: unknown) => {
-      if (err instanceof Error) {
-        toast.error(err.message);
-      } else {
-        toast.error("Сталася невідома помилка");
-      }
+    onError: (error) => {
+      toast.error(error.response?.data?.error ?? "Помилка входу");
     },
   });
 
-  async function handleSubmit(
-    values: LoginValues,
-    { setSubmitting }: FormikHelpers<LoginValues>
-  ): Promise<void> {
-    await loginMutation.mutateAsync(values);
+  const handleSubmit = (
+    values: LoginRequest,
+    { setSubmitting }: FormikHelpers<LoginRequest>
+  ) => {
+    mutation.mutate(values);
     setSubmitting(false);
-  }
+  };
 
   return (
     <div className="container">
@@ -79,7 +63,8 @@ export default function LoginForm() {
 
         <h2 className={styles.authTitle}>Вхід</h2>
         <p className={styles.authSubtitle}>Ласкаво просимо назад!</p>
-        <Formik<LoginValues>
+
+        <Formik<LoginRequest>
           initialValues={{ email: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
@@ -87,19 +72,13 @@ export default function LoginForm() {
           {({ errors, touched, values }) => (
             <Form className={styles.form}>
               <div className={styles.formInfoInput}>
-                <label htmlFor="email" className={styles.label}>
-                  Пошта*
-                </label>
+                <label className={styles.label}>Пошта*</label>
                 <Field
-                  id="email"
                   name="email"
                   type="email"
-                  placeholder="hello@podorozhnyky.ua"
-                  className={`
-            ${styles.input}
-            ${touched.email && errors.email ? styles.inputError : ""}
-            ${values.email ? styles.inputFilled : ""}
-          `}
+                  className={`${styles.input}
+                    ${touched.email && errors.email ? styles.inputError : ""}
+                    ${values.email ? styles.inputFilled : ""}`}
                 />
                 <ErrorMessage
                   name="email"
@@ -107,20 +86,15 @@ export default function LoginForm() {
                   className={styles.error}
                 />
               </div>
+
               <div className={styles.formInfoInput}>
-                <label htmlFor="password" className={styles.label}>
-                  Пароль*
-                </label>
+                <label className={styles.label}>Пароль*</label>
                 <Field
-                  id="password"
                   name="password"
                   type="password"
-                  placeholder="********"
-                  className={`
-            ${styles.input}
-            ${touched.password && errors.password ? styles.inputError : ""}
-            ${values.password ? styles.inputFilled : ""}
-          `}
+                  className={`${styles.input}
+                    ${touched.password && errors.password ? styles.inputError : ""}
+                    ${values.password ? styles.inputFilled : ""}`}
                 />
                 <ErrorMessage
                   name="password"
@@ -132,9 +106,9 @@ export default function LoginForm() {
               <button
                 type="submit"
                 className={styles.submitBtn}
-                disabled={loginMutation.isPending}
+                disabled={mutation.isPending}
               >
-                {loginMutation.isPending ? "Входимо..." : "Увійти"}
+                {mutation.isPending ? "Входимо..." : "Увійти"}
               </button>
             </Form>
           )}

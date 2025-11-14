@@ -1,48 +1,165 @@
-/* .wrapper { 
-    max-width: 100%;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-
-
-.title {
- 
-font-weight: 700;
-font-size: 56px;
-line-height: 1.1;
-letter-spacing: -0.01em;
-color: #000;
-
+.details {
 }
 
 .meta {
-    display: flex;
-align-items: flex-start;
-justify-content: flex-start;
-flex-direction: column;
-gap: 16px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-.owner{}
+.author {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
 
-.date {}
+.date {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
 
+.mainStyle {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  font-family: "Nunito Sans", sans-serif;
+  margin-right: 8px;
+}
 
-.category{}
+.categoryWraper {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 6px;
+  padding: 4px 10px;
+  width: 76px;
+  height: 26px;
+}
+
+.categoryStyle {
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #000;
+  font-family: "Nunito Sans", sans-serif;
+}
 
 .imageWrapper {
+  margin-bottom: 32px;
 }
 
 .image {
+  border-radius: 24px;
+  width: 335px;
+  height: 223px;
 }
 
 .description {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 0px;
+  margin-bottom: 24px;
+  padding-top: 32px;
+}
+.saveBlock {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  border: 0px solid rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  padding: 32px 20px;
+  background: #f2f2f2;
 }
 
-.saveBlock
+.saveTitle {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: #000;
+  font-family: "Sora", sans-serif;
+}
 
-.saveTitle
-.saveDescription
+.saveDescription {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+  font-family: "Nunito Sans", sans-serif;
+}
 
-.saveButton */
+.saveButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  padding: 6px 12px;
+  min-width: 100%;
+  height: 48px;
+  background: #4169e1;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 24px;
+  }
+  .content {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .categoryWraper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+  }
+  .saveBlock {
+    width: 418px;
+  }
+
+  .imageWrapper {
+    .imageWrapper {
+      width: 250px;
+    }
+  }
+
+  .image {
+    width: 100%;
+    height: auto; /* пропорційна висота */
+    display: block;
+    object-fit: cover; /* обрізати зайве, якщо потрібно */
+  }
+}
+
+@media screen and (min-width: 1158px) {
+  .imageWrapper {
+    width: 335px;
+  }
+}

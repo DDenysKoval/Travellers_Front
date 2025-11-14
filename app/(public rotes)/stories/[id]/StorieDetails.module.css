@@ -1,27 +1,30 @@
-/* .title {
+.container {
+  min-width: 320px;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #000;
+  margin-bottom: 32px;
 }
 
-.meta {
-}
-.owner{}
-
-.date {}
-
-
-.category{}
-
-.imageWrapper {
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+    padding: 0 32px;
+  }
 }
 
-.image {
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+  .container {
+    max-width: 1440px;
+    padding: 0 64px;
+  }
 }
-
-.description {
-}
-
-.saveBlock
-
-.saveTitle
-.saveDescription
-
-.saveButton */

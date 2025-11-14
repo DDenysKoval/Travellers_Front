@@ -13,13 +13,14 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const data = await fetchServerNotebyId(id);
+  const wrapper = await fetchServerNotebyId(id);
+  const story = wrapper.data;
 
   return {
-    title: `Story: ${data.title}`,
+    title: `Story: ${story.title}`,
     description: "",
     openGraph: {
-      title: `Story: ${data.title}`,
+      title: `Story: ${story.title}`,
       description: "",
       // url: "`https://localhost:3000/stories/${id}`",
       images: [

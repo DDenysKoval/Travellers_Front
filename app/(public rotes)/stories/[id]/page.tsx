@@ -17,10 +17,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   return {
     title: `Story: ${data.title}`,
-    description: data.content.slice(0, 100),
+    description: "",
     openGraph: {
       title: `Story: ${data.title}`,
-      description: data.content.slice(0, 100),
+      description: "",
       // url: "`https://localhost:3000/stories/${id}`",
       images: [
         {
@@ -39,7 +39,7 @@ const StorieDetails = async ({ params }: Props) => {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ["story", id],
+    queryKey: ["note", id],
     queryFn: () => fetchServerNotebyId(id),
   });
 

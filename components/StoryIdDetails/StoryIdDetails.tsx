@@ -44,20 +44,22 @@ export default function StoryDetails({ story, saved, onSave }: Props) {
           width={335}
           height={233}
           className={css.image}
+          style={{ width: "100%", height: "auto", borderRadius: "24px" }}
         />
       </div>
+      <div className={css.form}>
+        <p className={css.description}>{story.article}</p>
+        <div className={css.saveBlock}>
+          <h2 className={css.saveTitle}>Збережіть собі історію</h2>
 
-      <p className={css.description}>{story.article}</p>
-      <div className={css.saveBlock}>
-        <h2 className={css.saveTitle}>Збережіть собі історію</h2>
+          <p className={css.saveDescription}>
+            Вона буде доступна у вашому профілі у розділі збережене.
+          </p>
 
-        <p className={css.saveDescription}>
-          Вона буде доступна у вашому профілі у розділі збережене.
-        </p>
-
-        <button onClick={onSave} disabled={saved} className={css.saveButton}>
-          {saved ? "Збережено" : "Зберегти"}
-        </button>
+          <button onClick={onSave} disabled={saved} className={css.saveButton}>
+            {saved ? "Збережено" : "Зберегти"}
+          </button>
+        </div>
       </div>
     </div>
   );

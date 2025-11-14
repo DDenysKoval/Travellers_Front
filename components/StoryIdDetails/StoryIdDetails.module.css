@@ -143,23 +143,34 @@
   .saveBlock {
     width: 418px;
   }
-
-  .imageWrapper {
-    .imageWrapper {
-      width: 250px;
-    }
-  }
-
-  .image {
-    width: 100%;
-    height: auto; /* пропорційна висота */
-    display: block;
-    object-fit: cover; /* обрізати зайве, якщо потрібно */
-  }
 }
 
-@media screen and (min-width: 1158px) {
-  .imageWrapper {
-    width: 335px;
+.image {
+  width: 100%;
+  height: auto; /* пропорційна висота */
+  display: block;
+  /* object-fit: cover; обрізати зайве, якщо потрібно */
+}
+
+@media screen and (min-width: 1440px) {
+  .image {
+    width: 100%;
+    height: auto;
+    /* max-width: 1312px;
+    max-height: 922px; */
+
+    display: block;
+    /* object-fit: cover; обрізати зайве, якщо потрібно */
+  }
+  .form {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: row;
+    gap: 24px;
+  }
+  .saveBlock {
+    min-width: 418px;
+    height: 234px;
   }
 }

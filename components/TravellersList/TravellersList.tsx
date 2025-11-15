@@ -95,12 +95,10 @@ const TravellersList = ({ limit }: TravellersListProps) => {
 
       {isLoading && <p className={css.loadingText}>Loading, please wait...</p>}
 
-      {width > 768 ? (
+      {(width > 768 || (limit !== 4 && width < 768)) && (
         <button onClick={onLoadMore} className={css.LoadMoreBtn}>
           Показати ще
         </button>
-      ) : (
-        ""
       )}
     </div>
   );

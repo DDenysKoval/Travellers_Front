@@ -6,13 +6,16 @@ import { NotesHttpResponse } from "./clientApi";
 
 export const getServerMe = async () => {
   const cookieStore = await cookies();
-  const response = await nextServer.get("/users/me", {
+  const response = await nextServer.get("/users/get-me", {
     headers: {
       Cookie: cookieStore.toString(),
     }
   })
   return response.data
 }
+
+//////////////////////////////////////////////////
+
 
 export const checkServerSession = async () => {
   const cookieStore = await cookies()

@@ -1,30 +1,27 @@
-import { NextRequest, NextResponse } from 'next/server';
+export const dynamic = 'force-dynamic';
 
+import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { logErrorResponse } from '../../_utils/utils';
 import { isAxiosError } from 'axios';
-import { logErrorResponse } from '../_utils/utils';
-import { api } from '../api';
+import { api } from '../../api';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
-    const perPage = Number(request.nextUrl.searchParams.get('perPage') ?? 10);
-    const rawCategory = request.nextUrl.searchParams.get('category') ?? '';
-    const category = rawCategory === 'All' ? '' : rawCategory;
-    const type = request.nextUrl.searchParams.get('type') ?? '';
+    const cookieStore = await cookies();
+    const token = cookieStore.get("accessToken")?.value;
 
-    const params: Partial<Record<string, string | number>> = {
-      page,
-      perPage,
-      ...(category && { category }),
-    };
-
-    if (type === 'popular') {
-      params.type = 'popular';
+    if (!token) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const res = await api('/stories', { params });
-
+    const res = await api.get("/users/get-me", {
+      headers: {
+        Authorization: `Bearer ${token}`, // обов'язково токен
+        "Content-Type": "application/json",
+      },
+    });
+      
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -39,19 +36,16 @@ export async function GET(request: NextRequest) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function PATCH(request: Request) {
   try {
     const cookieStore = await cookies();
-
     const body = await request.json();
 
-    const res = await api.post('/stories', body, {
+    const res = await api.patch('/users/get-me', body, {
       headers: {
         Cookie: cookieStore.toString(),
-        'Content-Type': 'application/json',
       },
     });
-
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {

@@ -1,0 +1,46 @@
+export type Category = {
+  _id: string;
+  name: string;
+};
+export type OwnerId = {
+  _id: string;
+  name: string;
+  avatarUrl: string;
+};
+export type Storie = {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
+  category: Category;
+  ownerId: OwnerId;
+  date: string;
+  favoriteCount: number;
+};
+
+export type StorieWithFavorite = {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
+  category: Category;
+  ownerId: OwnerId;
+  date: string;
+  favoriteCount: number;
+  isFavorited: boolean;
+}
+
+export type StorieListResponse = {
+  stories: Storie[];
+  page: number,
+  perPage: number,
+  totalItems: number,
+  totalPages: number,
+  hasNextPage: boolean,
+  hasPreviousPage: boolean,
+};
+
+export type Tag = {
+  id: string;
+  name: string;
+};

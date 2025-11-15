@@ -1,6 +1,4 @@
-const Loading = ()=>{
-  return (
-    <p>Loading, please wait...</p>
-  )
-}
+const Loading = () => {
+  return <p>Завантаження, зачекайте будь-ласка...</p>;
+};
 export default Loading;

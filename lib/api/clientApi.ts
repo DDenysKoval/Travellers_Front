@@ -1,4 +1,48 @@
-import { nextServer} from "./api";
+import { nextServer } from "./api";
+// import { Storie } from "@/types/story";
+import { Owner } from "@/types/owner";
+import { StorieListResponse, Tag, Storie } from "@/types/stories";
+
+export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
+  try {
+    const response = await nextServer.get<{ data: StorieListResponse }>("/stories", {
+      params: {
+        page,
+        perPage,
+        ...(category && { category }),
+        ...(type && {type}),
+      },
+    })
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export async function getCategory() {
+  try {
+    const response = await nextServer.get<{ data: Tag }>("/categories")
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export const getFavorite = async () => {
+  const response = nextServer.get("/users/favorites")
+  return response
+} 
+
+export const addFavorite = async (storieId: string) => {
+  const response = nextServer.post(`/users/favorites${storieId}`)
+  return response
+} 
+
+export const deleteFavorite = async (storieId: string) => {
+  const response = nextServer.delete(`users/favorites${storieId}`)
+  return response
+} 
+//////////////////////////////////////////////////////////
 
 export interface RegisterRequest {
   email: string,
@@ -39,7 +83,7 @@ export const checkSession = async () => {
 }
 
 export const getMe = async () => {
-  const response = await nextServer.get("/users/getme")
+  const response = await nextServer.get("/users/get-me")
   return response.data;
 }
 
@@ -51,21 +95,6 @@ export const logout = async ():Promise<void> => {
 export const updateMe = async (body: UpdateUserRequest)=>{
   const response = await nextServer.patch("/users/getme", body)
   return response.data;
-}
-
-export async function fetchNotes(search: string, page: number, category?: string ) {
-  try {
-    const response = await nextServer.get<NotesHttpResponse>("/stories", {
-      params: {
-        page,
-        perPage: 12,
-        ...(category && { category }),
-      },
-    })
-    return response.data;
-  } catch {
-    throw new Error("Fetch tasks failed");
-  }
 }
 
 export async function createNote(newStorie:string) {
@@ -92,5 +121,46 @@ export async function fetchNoteById(storieId:string) {
     return response.data;
   } catch {
     throw new Error("Could not fetch note details.");
+  }
+}
+
+// Функція для Профіль мондрівника публічний
+
+
+
+export interface OwnerStoriesHttpResponse {
+  data: {
+    owner: Owner;
+    stories: Storie[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    totalPages: number;
+  };
+}
+
+export async function fetchOwnerStories(
+  page: number,
+  perPage: number,
+  id: string
+) {
+  try {
+    const response = await nextServer.get<OwnerStoriesHttpResponse>(
+      `/travellers/${id}`,
+      {
+        params: {
+          page,
+          perPage,
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
   }
 }

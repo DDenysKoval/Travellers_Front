@@ -1,7 +1,7 @@
 import { nextServer } from "./api";
 import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
-
+import axios from "axios";
 
 
 export const getServerMe = async () => {
@@ -15,14 +15,22 @@ export const getServerMe = async () => {
 }
 
 export const checkServerSession = async () => {
-  const cookieStore = await cookies()
-  const response = await nextServer.get("/auth/session", {
-    headers: {
-      Cookie: cookieStore.toString()
-    }
-  })
-  return response
-}
+  const cookieStore = await cookies();
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  try {
+    const response = await axios.get(`${apiUrl}/auth/session`, {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+      withCredentials: true,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
 
 export const fetchServerNotes = async (search: string, page: number, category: string|undefined) => {
   const cookieStore = await cookies()

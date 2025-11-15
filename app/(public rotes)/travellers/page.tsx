@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   },
 };
 
-const TravellersPage = async () => {
+const TravellersPage = () => {
   return (
     <main>
       <section>

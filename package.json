@@ -17,6 +17,7 @@
     "izitoast": "^1.4.0",
     "modern-normalize": "^3.0.1",
     "next": "15.4.4",
+    "normalize.css": "^3.0.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hot-toast": "^2.6.0",

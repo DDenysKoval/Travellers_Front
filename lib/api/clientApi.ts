@@ -1,3 +1,4 @@
+import { User } from "@/types/user";
 import { nextServer } from "./api";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
@@ -23,6 +24,12 @@ export interface UpdateUserRequest {
 export interface NotesHttpResponse {
   // notes: Note[]; треба додати правильну типізацію
   totalPages: number;
+}
+
+export interface UsersHttpResponse {
+  data: {
+    users: User[],
+  }
 }
 
 export const register = async (data: RegisterRequest) => {
@@ -101,8 +108,21 @@ export async function fetchNoteById(storieId: string) {
   }
 }
 
+export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
+   const response = await nextServer.get<UsersHttpResponse>("/travellers", {
+      params: {
+         page,
+         perPage,
+      },
+    }
+  )
 
-
+  return {
+    data: {
+      users: response.data.data.users,
+    }
+  }
+}
 
 // Функція для Профіль мондрівника публічний
 

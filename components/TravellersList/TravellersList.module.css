@@ -1,0 +1,148 @@
+.travellersList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  row-gap: 24px;
+  justify-content: center;
+}
+
+.travellersCard {
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 287px;
+  min-height: 315px;
+  background-color: #e8eeff;
+  padding: 24px;
+  margin: 0;
+}
+
+.travellersAvatar {
+  border-radius: 16px;
+  border-radius: 100%;
+  margin-bottom: 24px;
+}
+
+.travellersName {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #000;
+  margin-bottom: 16px;
+}
+
+.travellersDescription {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+
+  height: 72px;
+  margin-bottom: 16px;
+}
+
+.travellersBtn {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 12px 60px;
+
+  background-color: rgba(0, 0, 0, 0.05);
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+
+.travellersBtn:hover,
+:focus {
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0);
+  background-color: #4169e1;
+}
+.BtnWrapper {
+  display: flex;
+  justify-content: center;
+}
+.travellersBtn:active {
+  border: 1px solid rgba(255, 255, 255, 0);
+  color: #ffffff;
+  background-color: #1a2a5a;
+}
+
+/* LoadMoreBtn / pagination */
+
+.LoadMoreBtnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+.LoadMoreBtn {
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  padding: 12px 118px;
+  max-width: 335px;
+
+  background-color: #4169e1;
+
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #ffffff;
+}
+.LoadMoreBtn:hover,
+:focus {
+  color: #000;
+  border: 1px solid #4169e1;
+  background-color: #e8eeff;
+}
+
+.LoadMoreBtn:active {
+  border: 1px solid #4169e1;
+  background-color: #7a96ea;
+  color: #000;
+}
+
+@media screen and (min-width: 768px) {
+  .travellersCard {
+    max-width: 292px;
+    min-height: 315px;
+  }
+
+  .travellersBtn {
+    padding: 12px 63px;
+  }
+
+  /* LoadMoreBtn / pagination */
+
+  .LoadMoreBtn {
+    padding: 12px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .travellersCard {
+    max-width: 262px;
+    min-height: 336px;
+  }
+
+  .travellersName {
+    font-size: 26px;
+  }
+  .travellersDescription {
+    font-size: 18px;
+    height: 81px;
+  }
+
+  .travellersBtn {
+    padding: 10px 37px;
+    font-size: 18px;
+  }
+
+  /* LoadMoreBtn / pagination */
+
+  .LoadMoreBtn {
+    padding: 10px 12px;
+    max-width: 173px;
+    font-size: 18px;
+  }
+}

@@ -3,6 +3,7 @@
   flex-wrap: wrap;
   gap: 24px;
   row-gap: 24px;
+  justify-content: center;
 }
 
 .travellersCard {
@@ -12,8 +13,7 @@
   min-height: 315px;
   background-color: #e8eeff;
   padding: 24px;
-  justify-content: center;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .travellersAvatar {

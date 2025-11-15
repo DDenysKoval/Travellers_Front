@@ -14,7 +14,7 @@ const TravellersList = ({ limit }: TravellersListProps) => {
   const router = useRouter()
   const [page, setPage] = useState(1)
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [initialCount, setInitialCount] = useState(4);
+  const [initialCount, setInitialCount] = useState(12);
 
     useEffect(() => {
       const width = window.innerWidth;
@@ -35,18 +35,24 @@ const TravellersList = ({ limit }: TravellersListProps) => {
   })
 
 
-useEffect(() => {
+
+  useEffect(() => {
   if (data?.data?.users) {
     setAllUsers(prev => {
-      const newUsers = data.data.users.filter(user => !prev.some(prev => prev._id === user._id));
+      const newUsers = data.data.users.filter(u => !prev.some(p => p._id === u._id));
       return [...prev, ...newUsers];
     });
   }
 }, [data]);
+
+
   
   const onLoadMore = () => {
     setPage((prev: number) => prev + 1)
   }
+
+
+  
 
   return (<div className={css.travellersDiv}>
     <ul className={css.travellersList}>

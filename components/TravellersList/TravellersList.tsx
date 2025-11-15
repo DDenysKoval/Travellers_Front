@@ -14,19 +14,29 @@ const TravellersList = ({ limit }: TravellersListProps) => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [initialCount, setInitialCount] = useState(12);
+  // const [initialCount, setInitialCount] = useState(4);
+  const [width, setWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 375
+  );
+
+  const perPage = width < 1440 ? 8 : 12;
+
+  // useEffect(() => {
+  //   perPage(limit);
+  // }, [limit]);
 
   useEffect(() => {
-    const width = window.innerWidth;
-    let count = 12;
-    if (width < 1439) {
-      count = 8;
+    function handleResize() {
+      setWidth(window.innerWidth);
     }
 
-    setInitialCount(limit ? Math.min(limit, count) : count);
-  }, [limit]);
+    window.addEventListener("resize", handleResize);
 
-  const perPage = page === 1 ? initialCount : 4;
+    // initial value (на всяк випадок)
+    handleResize();
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const { data, isLoading } = useQuery<UsersHttpResponse>({
     queryKey: ["users", page, perPage],
@@ -89,15 +99,13 @@ const TravellersList = ({ limit }: TravellersListProps) => {
 
       {isLoading && <p className={css.loadingText}>Loading, please wait...</p>}
 
-      {!isLoading &&
-        Array.isArray(data?.data?.users) &&
-        data?.data?.users.length > 0 && (
-          <div className={css.LoadMoreBtnWrapper}>
-            <button onClick={onLoadMore} className={css.LoadMoreBtn}>
-              Показати ще
-            </button>
-          </div>
-        )}
+      {width > 768 ? (
+        <button onClick={onLoadMore} className={css.LoadMoreBtn}>
+          Показати ще
+        </button>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

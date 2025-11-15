@@ -1,3 +1,24 @@
+.travellersPageTitle {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  /* text-align: center; */
+  color: #000000;
+  margin-bottom: 24px;
+}
+
+@media screen and (min-width: 768px) {
+  .travellersPageTitle {
+    font-size: 48px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .travellersPageTitle {
+    font-size: 56px;
+  }
+}
 .travellersList {
   display: flex;
   flex-direction: column;
@@ -81,11 +102,7 @@
   line-height: 1.5;
   color: #ffffff;
   height: 48px;
-  margin: 0 auto;
   margin-top: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 .LoadMoreBtn:hover,
 :focus {

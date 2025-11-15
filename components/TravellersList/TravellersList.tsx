@@ -54,34 +54,34 @@ const TravellersList = ({ limit }: TravellersListProps) => {
       <ul className={css.travellersList}>
         {allUsers.map((user: User) => (
           <li key={user._id} className={css.travellersCard}>
-            <div className={css.imgWrapper}>
-              <Image
-                width={112}
-                height={112}
-                src={user.avatarUrl}
-                alt={user.description}
-                className={css.travellersAvatar}
-              />
-            </div>
+            <Image
+              width={112}
+              height={112}
+              src={user.avatarUrl}
+              alt={user.description}
+              className={css.travellersAvatar}
+            />
             <div className={css.cardContentWrapper}>
-              <h3 className={css.travellersName}>{user.name.trim()}</h3>
+              <h3 className={css.travellersName}>
+                {user.name.trim().length > 17
+                  ? user.name.slice(0, 16) + "..."
+                  : user.name}
+              </h3>
               <p className={css.travellersDescription}>
                 {user.description
                   ? user.description.length > 100
-                    ? user.description.slice(0, 62) + "..."
+                    ? user.description.slice(0, 76) + "..."
                     : user.description
                   : "Опис відсутній"}
               </p>
-              <div className={css.BtnWrapper}>
-                <button
-                  className={css.travellersBtn}
-                  onClick={() => {
-                    router.push(`/profile/${user._id}`);
-                  }}
-                >
-                  Переглянути профіль
-                </button>
-              </div>
+              <button
+                className={css.travellersBtn}
+                onClick={() => {
+                  router.push(`/profile/${user._id}`);
+                }}
+              >
+                Переглянути профіль
+              </button>
             </div>
           </li>
         ))}

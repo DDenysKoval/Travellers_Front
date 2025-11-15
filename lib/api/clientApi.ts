@@ -109,10 +109,10 @@ export async function fetchNoteById(storieId: string) {
 }
 
 export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
-   const response = await nextServer.get<UsersHttpResponse>("/travellers", {
+  const response = await nextServer.get<UsersHttpResponse>("/travellers", {
       params: {
-         page,
-         perPage,
+        page,
+        perPage,
       },
     }
   )

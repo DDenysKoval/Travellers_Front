@@ -1,18 +1,15 @@
 .travellersList {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 24px;
-  row-gap: 24px;
   justify-content: center;
 }
 
 .travellersCard {
   border-radius: 16px;
   padding: 24px;
-  max-width: 287px;
-  min-height: 315px;
+  width: 100%;
   background-color: #e8eeff;
-  padding: 24px;
   margin: 0;
 }
 
@@ -35,7 +32,6 @@
   font-size: 16px;
   line-height: 1.5;
   color: #000;
-
   height: 72px;
   margin-bottom: 16px;
 }
@@ -43,14 +39,13 @@
 .travellersBtn {
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 8px;
-  padding: 12px 60px;
-
   background-color: rgba(0, 0, 0, 0.05);
-
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
   color: #000;
+  width: 100%;
+  height: 48px;
 }
 
 .travellersBtn:hover,
@@ -79,15 +74,13 @@
 .LoadMoreBtn {
   border: 1px solid #4169e1;
   border-radius: 8px;
-  padding: 12px 118px;
-  max-width: 335px;
-
+  width: 100%;
   background-color: #4169e1;
-
   font-weight: 500;
   font-size: 16px;
   line-height: 1.5;
   color: #ffffff;
+  height: 48px;
 }
 .LoadMoreBtn:hover,
 :focus {
@@ -103,26 +96,22 @@
 }
 
 @media screen and (min-width: 768px) {
+  .travellersList {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
   .travellersCard {
-    max-width: 292px;
-    min-height: 315px;
+    width: calc((100% - 24px) / 2);
   }
-
-  .travellersBtn {
-    padding: 12px 63px;
-  }
-
-  /* LoadMoreBtn / pagination */
 
   .LoadMoreBtn {
-    padding: 12px;
+    width: 123px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .travellersCard {
-    max-width: 262px;
-    min-height: 336px;
+    width: calc((100% - 72px) / 4);
   }
 
   .travellersName {
@@ -134,15 +123,13 @@
   }
 
   .travellersBtn {
-    padding: 10px 37px;
     font-size: 18px;
   }
 
   /* LoadMoreBtn / pagination */
 
   .LoadMoreBtn {
-    padding: 10px 12px;
-    max-width: 173px;
     font-size: 18px;
+    width: 135px;
   }
 }

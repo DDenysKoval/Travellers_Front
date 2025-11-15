@@ -1,16 +1,17 @@
 import Link from "next/link";
 import css from "./TravellersStoriesItem.module.css";
 import Image from "next/image";
+import { Story } from "@/types/story";
 
 interface Props {
-  item: string;
+  story: Story;
 }
 
-export default function TravellersStoriesItem({ item }: Props) {
+export default function TravellersStoriesItem({ story }: Props) {
   return (
     <div className={css.storyCard}>
       <Image
-        src="https://isorepublic.com/wp-content/uploads/2018/11/shotstash_0078-1-1100x734.jpg"
+        src={story.img}
         alt="Photo of place"
         width={335}
         height={223}
@@ -18,19 +19,16 @@ export default function TravellersStoriesItem({ item }: Props) {
       />
       <div className={css.infoBlock}>
         <div className={css.regionCountryStory}>
-          <p className={css.storyCountry}>Європа</p>
-          <h4 className={css.storyHeading}>
-            Венеція без туристів: маршрути для справжніх мандрівників
-          </h4>
-          <p className={css.storyText}>
-            Венеція — це не лише площа Святого Марка і гондоли на Канале Ґранде.
-            Ми вирішили дослідити місто з іншого місця на карті
+          <p className={css.storyCountry}>
+            {story.category ? story.category.name : ""}
           </p>
+          <h4 className={css.storyHeading}>{story.title}</h4>
+          <p className={css.storyText}>{story.article}</p>
         </div>
 
         <div className={css.favouriteInfo}>
           <Image
-            src="https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd009.webp"
+            src={story.ownerId.avatarUrl}
             alt="User Avatar"
             width={48}
             height={48}
@@ -38,9 +36,11 @@ export default function TravellersStoriesItem({ item }: Props) {
           />
 
           <div>
-            <p className={css.name}>Анастасія Олійник</p>
+            <p className={css.name}>{story.ownerId.name}</p>
             <div className={css.datecontainer}>
-              <p className={css.data}>27.03.25 • 5</p>
+              <p className={css.data}>
+                {story.date.split("T")[0]} • {story.favoriteCount}
+              </p>
               <svg className={css.icon} width="16" height="16">
                 <use href="/icons.svg#icon-bookmark"></use>
               </svg>
@@ -48,7 +48,7 @@ export default function TravellersStoriesItem({ item }: Props) {
           </div>
         </div>
         <div className={css.buttons}>
-          <Link className={css.link} href="/stories/1">
+          <Link className={css.link} href={`/stories/${story._id}`}>
             Переглянути статтю
           </Link>
           <button className={css.favorButton}>
@@ -59,6 +59,5 @@ export default function TravellersStoriesItem({ item }: Props) {
         </div>
       </div>
     </div>
-    // <p>StoryCard {item}</p>
   );
 }

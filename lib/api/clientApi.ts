@@ -52,6 +52,8 @@ export const getMe = async () => {
   return response.data;
 };
 
+
+
 export const logout = async (): Promise<void> => {
   const response = await nextServer.post("/auth/logout");
   return response.data;

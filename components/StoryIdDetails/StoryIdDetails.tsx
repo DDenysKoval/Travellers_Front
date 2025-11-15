@@ -23,17 +23,17 @@ export default function StoryDetails({ story, saved, onSave }: Props) {
         <div className={css.content}>
           <p className={css.author}>
             <span className={css.mainStyle}>Автор статті</span>Ім'я автора
-            {/* {story.ownerId} */}
+            {/* {authorName} */}
           </p>
           <p className={css.date}>
             <span className={css.mainStyle}> Опубліковано</span>23.07.2025{" "}
-            {/* {story.date} */}
+            {/* categoryName} */}
           </p>
         </div>
         <div className={css.categoryWraper}>
           <p className={css.category}>
             <span className={css.categoryStyle}> Категорія </span>
-            {/* {story.category} */}
+            {/* {categoryName} */}
           </p>
         </div>
       </div>

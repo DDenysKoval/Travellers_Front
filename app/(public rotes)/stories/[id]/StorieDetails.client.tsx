@@ -18,7 +18,6 @@ const StorieDetailsClient = () => {
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
   });
-
   const mutation = useMutation({
     mutationFn: () => saveStory(id),
     onSuccess: () => {
@@ -34,7 +33,7 @@ const StorieDetailsClient = () => {
 
   return (
     <div className={css.container}>
-      <h2 className={css.title}>{story.title}</h2>
+      <h2 className={css.title}>{story?.title}</h2>
 
       <StoryIdDetails
         story={story}

@@ -81,7 +81,7 @@ const TravellersList = ({ limit }: TravellersListProps) => {
               <button
                 className={css.travellersBtn}
                 onClick={() => {
-                  router.push(`/profile/${user._id}`);
+                  router.push(`/user/${user._id}`);
                 }}
               >
                 Переглянути профіль

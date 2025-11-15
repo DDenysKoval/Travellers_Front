@@ -14,25 +14,21 @@ const TravellersList = ({ limit }: TravellersListProps) => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  // const [initialCount, setInitialCount] = useState(4);
   const [width, setWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 375
   );
 
-  const perPage = width < 1440 ? 8 : 12;
+  let perPage = width < 1440 ? 8 : 12;
 
-  // useEffect(() => {
-  //   perPage(limit);
-  // }, [limit]);
+  if (limit === 4) {
+    perPage = 4;
+  }
 
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
     }
-
     window.addEventListener("resize", handleResize);
-
-    // initial value (на всяк випадок)
     handleResize();
 
     return () => window.removeEventListener("resize", handleResize);

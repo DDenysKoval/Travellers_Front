@@ -1,0 +1,89 @@
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeIn 0.25s ease;
+}
+
+
+.modal {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    animation: scaleUp 0.25s ease;
+}
+
+.title {
+    margin-bottom: 8px;
+    font-size: 22px;
+    font-weight: 700;
+    color: #555
+}
+
+.message {
+    color: #555;
+    margin-bottom: 24px;
+    font-size: 15px;
+}
+
+
+.actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    background: #e5e5e5;
+    transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.button:hover {
+    background: #d5d5d5;
+}
+
+
+.primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.primary:hover {
+    background: #1d4ed8;
+}
+
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

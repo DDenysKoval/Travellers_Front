@@ -1,0 +1,178 @@
+.storyCard {
+  border: 0px solid rgba(0, 0, 0, 0.15);
+  border-radius: 16px;
+  /* width: 335px; */
+  background: #e8eeff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-bottom: 24px;
+}
+
+.infoBlock {
+  padding-left: 24px;
+  padding-right: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.avatar {
+  object-fit: cover;
+}
+.regionCountryStory {
+  width: 287px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.storyCountry {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 150%;
+  color: #000;
+  margin: 0;
+  height: 18px;
+}
+
+.storyHeading {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 150%;
+  color: #000;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 54px;
+}
+
+.storyText {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+  color: #000;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.photoTraveller {
+  border-radius: 100%;
+}
+
+.favouriteInfo {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.name {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 150%;
+  color: #000;
+  margin: 0;
+}
+
+.data {
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 150%;
+  color: #000;
+  margin: 0;
+  margin-right: 2px;
+}
+
+.datecontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+
+  width: 229px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.05);
+  text-decoration: none;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #000;
+  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.favorButton {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dot {
+}
+
+@media (min-width: 1440px) {
+  .avatar {
+    width: 420px;
+    height: 280px;
+  }
+
+  .storyCountry {
+    font-size: 16px;
+    height: 24px;
+  }
+
+  .storyHeading {
+    font-size: 26px;
+    height: 78px;
+  }
+
+  .storyText {
+    font-size: 18px;
+  }
+
+  .name {
+    font-size: 16px;
+  }
+
+  .data {
+    font-size: 16px;
+  }
+
+  .link {
+    width: 315px;
+    font-size: 18px;
+  }
+  .storyCard {
+    width: 421px;
+  }
+ 
+}

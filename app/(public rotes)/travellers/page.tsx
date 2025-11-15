@@ -10,13 +10,13 @@ export const metadata: Metadata = {
     description: " Travellers List",
     url: `${process.env.NEXT_PUBLIC_API_URL}/travellers`,
     images: [
-        {
-          url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
-          width: 1440,
-          height: 900,
-          alt: "Podorozhnuky",
-        },
-      ],
+      {
+        url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
+        width: 1440,
+        height: 900,
+        alt: "Podorozhnuky",
+      },
+    ],
   },
 };
 
@@ -25,9 +25,9 @@ const TravellersPage = () => {
     <main>
       <section>
         <div className="container">
-        <h2 className={css.TravellersPageTitle}>Мандрівники</h2>
-          <TravellersList limit={12}/>
-          </div>
+          <h2 className={css.TravellersPageTitle}>Мандрівники</h2>
+          <TravellersList limit={12} />
+        </div>
       </section>
     </main>
   );

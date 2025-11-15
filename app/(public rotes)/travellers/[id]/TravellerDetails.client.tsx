@@ -15,15 +15,20 @@ export default function TravellerDetailsClient() {
 
   const perPage = isMobile ? 4 : 6;
 
-  const { data, fetchNextPage, hasNextPage, isLoading, error } =
-    useInfiniteQuery({
-      queryKey: ["stories", id, perPage],
-      queryFn: ({ pageParam = 1 }) => fetchOwnerStories(pageParam, perPage, id),
-      initialPageParam: 1,
-      getNextPageParam: (lastPage, pages) => {
-        return lastPage.hasNextPage ? pages.length + 1 : undefined;
-      },
-    });
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    error,
+  } = useInfiniteQuery({
+    queryKey: ["stories", id, perPage],
+    queryFn: ({ pageParam = 1 }) => fetchOwnerStories(pageParam, perPage, id),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.hasNextPage ? pages.length + 1 : undefined;
+    },
+  });
 
   if (isLoading) return <p>Loading, please wait...</p>;
 

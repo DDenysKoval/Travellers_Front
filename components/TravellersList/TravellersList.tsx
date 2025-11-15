@@ -14,9 +14,7 @@ const TravellersList = ({ limit }: TravellersListProps) => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [width, setWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 375
-  );
+  const [width, setWidth] = useState(375);
 
   let perPage = width < 1440 ? 8 : 12;
 

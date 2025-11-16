@@ -28,10 +28,15 @@ export interface Category {
 }
 
 export interface StoryId {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
   category: {
     _id: string;
     name: string;
   };
+  author: User | null;
   ownerId: {
     _id: string;
     name: string;

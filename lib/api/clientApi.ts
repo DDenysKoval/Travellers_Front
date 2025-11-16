@@ -2,7 +2,6 @@
 import { nextServer } from "./api";
 import { StoryWrapper } from "@/types/story";
 import { User } from "@/types/user";
-import { nextServer } from "./api";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
 
@@ -121,6 +120,8 @@ export async function addToFavourites(storieId: string): Promise<StoryWrapper> {
   } catch (error) {
     console.error("Error saving story: ", error);
     throw new Error("Add story to favourites failed");
+  }
+}
 
 export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
   const response = await nextServer.get<UsersHttpResponse>("/travellers", {

@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import { Metadata } from "next";
 import { fetchServerNotebyId } from "@/lib/api/serverApi";
+import css from "./StorieDetails.module.css";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -46,7 +47,11 @@ const StorieDetails = async ({ params }: Props) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <StorieDetailsClient />
+      <main>
+        <section className={css.section}>
+          <StorieDetailsClient />
+        </section>
+      </main>
     </HydrationBoundary>
   );
 };

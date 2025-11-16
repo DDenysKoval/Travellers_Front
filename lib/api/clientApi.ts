@@ -1,5 +1,10 @@
+
 import { nextServer } from "./api";
 import { StoryWrapper } from "@/types/story";
+import { User } from "@/types/user";
+import { nextServer } from "./api";
+import { Story } from "@/types/story";
+import { Owner } from "@/types/owner";
 
 export interface RegisterRequest {
   email: string;
@@ -22,6 +27,12 @@ export interface UpdateUserRequest {
 export interface NotesHttpResponse {
   // notes: Note[]; треба додати правильну типізацію
   totalPages: number;
+}
+
+export interface UsersHttpResponse {
+  data: {
+    users: User[],
+  }
 }
 
 export const register = async (data: RegisterRequest) => {
@@ -110,5 +121,60 @@ export async function addToFavourites(storieId: string): Promise<StoryWrapper> {
   } catch (error) {
     console.error("Error saving story: ", error);
     throw new Error("Add story to favourites failed");
+
+export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
+  const response = await nextServer.get<UsersHttpResponse>("/travellers", {
+      params: {
+        page,
+        perPage,
+      },
+    }
+  )
+
+  return {
+    data: {
+      users: response.data.data.users,
+    }
+  }
+}
+
+// Функція для Профіль мондрівника публічний
+
+
+
+export interface OwnerStoriesHttpResponse {
+  data: {
+    owner: Owner;
+    stories: Story[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    totalPages: number;
+  };
+}
+
+export async function fetchOwnerStories(
+  page: number,
+  perPage: number,
+  id: string
+) {
+  try {
+    const response = await nextServer.get<OwnerStoriesHttpResponse>(
+      `/travellers/${id}`,
+      {
+        params: {
+          page,
+          perPage,
+        },
+      }
+    );
+
+    console.log(response.data);
+
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
   }
 }

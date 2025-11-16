@@ -34,6 +34,7 @@
   line-height: 150%;
   color: #000;
   margin: 0;
+  height: 18px;
 }
 
 .storyHeading {
@@ -48,6 +49,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 54px;
 }
 
 .storyText {
@@ -145,10 +147,12 @@
 
   .storyCountry {
     font-size: 16px;
+    height: 24px;
   }
 
   .storyHeading {
     font-size: 26px;
+    height: 78px;
   }
 
   .storyText {
@@ -170,4 +174,5 @@
   .storyCard {
     width: 421px;
   }
+ 
 }

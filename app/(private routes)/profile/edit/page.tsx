@@ -3,7 +3,7 @@
 import Image from "next/image";
 import css from "./EditProfilePage.module.css";
 import { useEffect, useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 const EditProfile = () => {

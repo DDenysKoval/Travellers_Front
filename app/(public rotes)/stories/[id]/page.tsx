@@ -5,25 +5,31 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { Metadata } from "next";
+import { fetchServerNotebyId } from "@/lib/api/serverApi";
+import css from "./StorieDetails.module.css";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const wrapper = await fetchServerNotebyId(id);
+  const story = wrapper.data;
+
   return {
-    title: "",
+    title: `Story: ${story.title}`,
     description: "",
     openGraph: {
-      title: `"`,
+      title: `Story: ${story.title}`,
       description: "",
-      url: "",
+      // url: "`https://localhost:3000/stories/${id}`",
       images: [
         {
-          url: "",
-          width: 0,
-          height: 0,
-          alt: "",
+          url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
+          width: 1440,
+          height: 900,
+          alt: "Podorozhnuky",
         },
       ],
     },
@@ -31,11 +37,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const StorieDetails = async ({ params }: Props) => {
+  const { id } = await params;
   const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery({
+    queryKey: ["note", id],
+    queryFn: () => fetchServerNotebyId(id),
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <StorieDetailsClient />
+      <main>
+        <section className={css.section}>
+          <StorieDetailsClient />
+        </section>
+      </main>
     </HydrationBoundary>
   );
 };

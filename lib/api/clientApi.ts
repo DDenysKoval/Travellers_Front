@@ -1,4 +1,7 @@
+
 import { nextServer } from "./api";
+import { StoryWrapper } from "@/types/story";
+import { User } from "@/types/user";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
 // import axios from "axios";
@@ -44,6 +47,12 @@ export interface RegisterResponse {
     updatedAt: string;
     favorites: string[];
   };
+}
+  
+export interface UsersHttpResponse {
+  data: {
+    users: User[],
+  }
 }
 
 export const register = async (data: RegisterRequest) => {
@@ -119,7 +128,7 @@ export async function deleteNote(storieId: string) {
   }
 }
 
-export async function fetchNoteById(storieId: string) {
+export async function fetchNoteById(storieId: string): Promise<StoryWrapper> {
   try {
     const response = await nextServer.get(`/stories/${storieId}`);
     return response.data;
@@ -128,6 +137,34 @@ export async function fetchNoteById(storieId: string) {
   }
 }
 
+export async function addToFavourites(storieId: string): Promise<StoryWrapper> {
+  try {
+    const response = await nextServer.post<StoryWrapper>(
+      `/users/favourites/${storieId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error saving story: ", error);
+    throw new Error("Add story to favourites failed");
+  }
+}
+
+export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
+  const response = await nextServer.get<UsersHttpResponse>("/travellers", {
+      params: {
+        page,
+        perPage,
+      },
+    }
+  )
+
+  return {
+    data: {
+      users: response.data.data.users,
+    }
+  }
+}
 // Функція для Профіль мондрівника публічний
 
 export interface OwnerStoriesHttpResponse {

@@ -15,6 +15,7 @@
 
 .avatar {
   border-radius: 100%;
+  margin-bottom: 24px;
 }
 
 .name {
@@ -40,6 +41,9 @@
 }
 
 @media (min-width: 768px) {
+  .avatar {
+    margin-bottom: 0;
+  }
   .userInfo {
     flex-direction: row;
     width: 704px;

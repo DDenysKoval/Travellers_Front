@@ -1,5 +1,6 @@
 import Image from "next/image";
 import css from "./StoryIdDetails.module.css";
+import { User, Category } from "@/types/story";
 
 interface Props {
   story: {
@@ -7,8 +8,8 @@ interface Props {
     img: string;
     title: string;
     article: string;
-    category: string;
-    ownerId?: string;
+    category: Category | null;
+    author: User | null;
     date: string;
     favoriteCount: number;
   };
@@ -16,36 +17,38 @@ interface Props {
   onSave: () => void;
 }
 
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString("uk-UA", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+};
+
 export default function StoryDetails({ story, saved, onSave }: Props) {
   return (
     <div className={css.details}>
       <div className={css.meta}>
         <div className={css.content}>
           <p className={css.author}>
-            <span className={css.mainStyle}>Автор статті</span>Ім'я автора
-            {/* {authorName} */}
+            <span className={css.mainStyle}>Автор статті</span>
+            {story.author?.name || "Невідомий автор"}
           </p>
           <p className={css.date}>
-            <span className={css.mainStyle}> Опубліковано</span>23.07.2025{" "}
-            {/* categoryName} */}
+            <span className={css.mainStyle}> Опубліковано</span>
+            {formatDate(story.date)}
           </p>
         </div>
         <div className={css.categoryWraper}>
           <p className={css.category}>
-            <span className={css.categoryStyle}> Категорія </span>
-            {/* {categoryName} */}
+            <span className={css.categoryStyle}> </span>
+            {story.category?.name || "Без категорії"}
           </p>
         </div>
       </div>
       <div className={css.imageWrapper}>
-        <Image
-          src={story.img}
-          alt={story.title}
-          width={335}
-          height={233}
-          className={css.image}
-          style={{ width: "100%", height: "auto", borderRadius: "24px" }}
-        />
+        <Image src={story.img} alt={story.title} fill className={css.image} />
       </div>
       <div className={css.form}>
         <p className={css.description}>{story.article}</p>

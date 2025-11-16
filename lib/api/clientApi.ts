@@ -99,3 +99,16 @@ export async function fetchNoteById(storieId: string): Promise<StoryWrapper> {
     throw new Error("Could not fetch note details.");
   }
 }
+
+export async function addToFavourites(storieId: string): Promise<StoryWrapper> {
+  try {
+    const response = await nextServer.post<StoryWrapper>(
+      `/users/favourites/${storieId}`
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error saving story: ", error);
+    throw new Error("Add story to favourites failed");
+  }
+}

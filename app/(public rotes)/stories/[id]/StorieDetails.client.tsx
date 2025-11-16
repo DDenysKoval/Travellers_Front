@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { fetchNoteById } from "@/lib/api/clientApi";
+import { fetchNoteById, addToFavourites } from "@/lib/api/clientApi";
 import css from "./StorieDetails.module.css";
 import { useState } from "react";
 import StoryIdDetails from "@/components/StoryIdDetails/StoryIdDetails";
@@ -19,7 +19,7 @@ const StorieDetailsClient = () => {
     refetchOnMount: false,
   });
   const mutation = useMutation({
-    mutationFn: () => saveStory(id),
+    mutationFn: () => addToFavourites(id),
     onSuccess: () => {
       setSaved(true);
       queryClient.invalidateQueries({ queryKey: ["note", id] });

@@ -40,6 +40,11 @@
   padding: 4px 10px;
   width: 76px;
   height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 0px;
 }
 
 .categoryStyle {
@@ -51,13 +56,19 @@
 }
 
 .imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 223px;
+  border-radius: 24px;
+  overflow: hidden;
   margin-bottom: 32px;
 }
 
 .image {
-  border-radius: 24px;
-  width: 335px;
-  height: 223px;
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: cover;
 }
 
 .description {
@@ -81,7 +92,7 @@
   gap: 16px;
   border: 0px solid rgba(0, 0, 0, 0.15);
   border-radius: 24px;
-  padding: 32px 20px;
+  padding: 32px 32px;
   background: #f2f2f2;
 }
 
@@ -120,6 +131,11 @@
   color: #fff;
 }
 
+.saveButton:hover {
+  background: #e8eeff;
+  color: #000;
+}
+
 @media screen and (min-width: 768px) {
   .meta {
     display: flex;
@@ -132,35 +148,30 @@
     display: flex;
     align-items: center;
     gap: 48px;
+    margin-right: auto;
   }
 
-  .categoryWraper {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-left: auto;
+  .imageWrapper {
+    height: 469px;
   }
+
   .saveBlock {
     width: 418px;
   }
 }
 
-.image {
-  width: 100%;
-  height: auto; /* пропорційна висота */
-  display: block;
-  /* object-fit: cover; обрізати зайве, якщо потрібно */
-}
-
 @media screen and (min-width: 1440px) {
-  .image {
-    width: 100%;
-    height: auto;
-    /* max-width: 1312px;
-    max-height: 922px; */
+  .imageWrapper {
+    height: 874px;
+  }
 
-    display: block;
-    /* object-fit: cover; обрізати зайве, якщо потрібно */
+  .categoryWraper {
+    width: 77px;
+    height: 32px;
+  }
+
+  .content {
+    height: 27px;
   }
   .form {
     display: flex;

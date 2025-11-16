@@ -7,7 +7,11 @@ export interface Story {
   author: User | null;
   date: string;
   favoriteCount: number;
-  ownerId: number;
+  ownerId: {
+    _id: string;
+    name: string;
+    avatarUrl: string;
+  };
 }
 
 export interface StoryWrapper {

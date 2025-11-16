@@ -9,15 +9,14 @@ import ModalReuse from "../ModalReuse/ModaReuse";
 import { useAuthStore } from "@/lib/store/authStore";
 
 const AuthNavigation = () => {
-  const router = useRouter()
-  const { clearIsAuthenticated, isAuthenticated, user } = useAuthStore()
-  const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated)
-  const [isOpen, setIsOpen] = useState(false)  
-  const open = () => setIsOpen(true)
-  const close = () => setIsOpen(false)
+  const router = useRouter();
+  const { clearIsAuthenticated, isAuthenticated, user } = useAuthStore();
+  // const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated)
+  const [isOpen, setIsOpen] = useState(false);
+  const open = () => setIsOpen(true);
+  const close = () => setIsOpen(false);
 
   const handleLogout = async () => {
-
     try {
       await logout();
       clearIsAuthenticated();

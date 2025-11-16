@@ -1,7 +1,5 @@
 "use client";
 
-
-
 import { logout } from "@/lib/api/clientApi";
 
 import css from "./AuthNavigation.module.css";
@@ -10,11 +8,9 @@ import { useState } from "react";
 import ModalReuse from "../ModalReuse/ModaReuse";
 import { useAuthStore } from "@/lib/store/authStore";
 
-
-
 const AuthNavigation = () => {
   const router = useRouter()
-  const { isAuthenticated, user } = useAuthStore()
+  const { clearIsAuthenticated, isAuthenticated, user } = useAuthStore()
   const clearIsAuthenticated = useAuthStore((state) => state.clearIsAuthenticated)
   const [isOpen, setIsOpen] = useState(false)  
   const open = () => setIsOpen(true)
@@ -23,31 +19,38 @@ const AuthNavigation = () => {
   const handleLogout = async () => {
 
     try {
-      await logout()
-     
-      close()
-       clearIsAuthenticated()
-      router.refresh()
+      await logout();
+      clearIsAuthenticated();
+      close();
+      router.refresh();
+    } catch (error) {
+      console.error(error);
     }
-    catch (error) {
-      console.error(error)
-    }
-    
-  }
-  return <nav className={css.nav}>
-    <button onClick={open}>Logout</button>
-    <div className={css.modalReuse}>
-    <ModalReuse isOpen={isOpen} onClose={close} title={"Ви точно хочете вийти?"} message={"Ми будемо сумувати за вами!"} actions={[{
-            label: "Вiдмiнити",
-            onClick: close,
-          },
-          {
-            label: "Вийти",
-            onClick: handleLogout,
-            primary: true,
-        },]} />
+  };
+  return (
+    <nav className={css.nav}>
+      <button onClick={open}>Logout</button>
+      <div className={css.modalReuse}>
+        <ModalReuse
+          isOpen={isOpen}
+          onClose={close}
+          title={"Ви точно хочете вийти?"}
+          message={"Ми будемо сумувати за вами!"}
+          actions={[
+            {
+              label: "Вiдмiнити",
+              onClick: close,
+            },
+            {
+              label: "Вийти",
+              onClick: handleLogout,
+              primary: true,
+            },
+          ]}
+        />
       </div>
-  </nav>;
+    </nav>
+  );
 };
 
 export default AuthNavigation;

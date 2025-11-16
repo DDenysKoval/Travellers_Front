@@ -3,12 +3,13 @@
 import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@tanstack/react-query";
-import { register as registerUser } from "@/lib/api/clientApi";
+import { RegisterResponse, register as registerUser } from "@/lib/api/clientApi";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useId } from "react";
 import toast from "react-hot-toast";
 import styles from "./AuthForm.module.css";
+import { useAuthStore } from "@/lib/store/authStore";
 
 interface RegisterRequest {
   name: string;
@@ -25,6 +26,9 @@ interface ErrorWithResponse {
 }
 
 export default function RegistrationForm() {
+
+  const setUser = useAuthStore((state) => state.setUser);
+
   const router = useRouter();
   const fieldId = useId();
 
@@ -34,9 +38,10 @@ export default function RegistrationForm() {
     password: Yup.string().min(6).required("Обов’язкове поле"),
   });
 
-  const mutation = useMutation<unknown, ErrorWithResponse, RegisterRequest>({
+  const mutation = useMutation<RegisterResponse, ErrorWithResponse, RegisterRequest>({
     mutationFn: (values) => registerUser(values),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUser(data.data); 
       toast.success("Реєстрація успішна!");
       router.push("/");
     },

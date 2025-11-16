@@ -46,6 +46,9 @@
   color: #000;
   width: 100%;
   height: 48px;
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
 }
 
 .travellersBtn:hover,
@@ -86,18 +89,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
 }
-.LoadMoreBtn:hover,
-.LoadMoreBtn:focus {
+.LoadMoreBtn:hover {
   color: #000;
   border: 1px solid #4169e1;
   background-color: #e8eeff;
-}
-
-.LoadMoreBtn:active {
-  border: 1px solid #4169e1;
-  background-color: #7a96ea;
-  color: #000;
 }
 
 @media screen and (min-width: 768px) {

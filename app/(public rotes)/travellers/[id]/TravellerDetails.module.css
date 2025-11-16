@@ -35,7 +35,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* margin-top: 40px; */
+  transition:
+    color 300ms ease-in-out,
+    background-color 300ms ease-in-out;
+}
+
+.showNext:hover {
+  color: #000;
+  border: 1px solid #4169e1;
+  background-color: #e8eeff;
 }
 
 @media (max-width: 375px) {
@@ -97,4 +105,3 @@
     width: 1312px;
   }
 }
-

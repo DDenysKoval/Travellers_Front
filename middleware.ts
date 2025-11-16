@@ -4,7 +4,7 @@ import { checkServerSession } from "./lib/api/serverApi";
 import { parse } from "cookie";
 
 // const privateRoutes = ['/profile'];
-const publicRoutes = ['/sign-in', '/sign-up', "/stories", "/travellers", "/profile"];
+const publicRoutes = ['/sign-in', '/sign-up', "/stories", "/profile"];
 
 export async function middleware(request:NextRequest) {
   const cookieStore = await cookies()

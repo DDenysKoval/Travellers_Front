@@ -1,6 +1,12 @@
 import { nextServer } from "./api";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
+import axios from "axios";
+
+export const testServer = axios.create({
+  baseURL: "http://localhost:8000",
+  withCredentials: true,
+});
 
 export interface RegisterRequest {
   email: string;
@@ -25,8 +31,29 @@ export interface NotesHttpResponse {
   totalPages: number;
 }
 
+export interface RegisterResponse {
+  status: number;
+  message: string;
+  data: {
+    _id: string;
+    name: string;
+    avatarUrl: string;
+    articlesAmount: number;
+    description: string;
+    createdAt: string;
+    updatedAt: string;
+    favorites: string[];
+  };
+}
+
 export const register = async (data: RegisterRequest) => {
-  const response = await nextServer.post("/auth/register", data);
+  const response = await nextServer.post<RegisterResponse>(
+    "/auth/register",
+    data
+  );
+
+  console.log(response.data);
+
   return response.data;
 };
 
@@ -101,12 +128,7 @@ export async function fetchNoteById(storieId: string) {
   }
 }
 
-
-
-
 // Функція для Профіль мондрівника публічний
-
-
 
 export interface OwnerStoriesHttpResponse {
   data: {
@@ -143,4 +165,80 @@ export async function fetchOwnerStories(
   } catch {
     throw new Error("Fetch tasks failed");
   }
+}
+
+export interface addStoryToFavouriteResponse {
+  status: number;
+  message: string;
+  data: Story;
+}
+
+export async function addStoryToFavourite(storieId: string) {
+  try {
+    // console.log("Добавляем в избранное:", storieId);
+    const response = await testServer.post<addStoryToFavouriteResponse>(
+      `/users/favourites/${storieId}`,
+      {}
+      // { user: { _id: userId } }
+    );
+
+    // console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Create task failed");
+  }
+  // ){
+  //   throw new Error("Create task failed");
+  // }
+}
+
+export async function deleteStoryFromFavourite(storieId: string) {
+  try {
+    const response = await testServer.delete<{ message: string }>(
+      `/users/favourites/${storieId}`,
+      {}
+      // { user: { _id: userId } }
+    );
+
+    console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Create task failed");
+  }
+  // ){
+  //   throw new Error("Create task failed");
+  // }
+}
+
+export interface addFavoriteToStoryResponse {
+  status: number;
+  message: number;
+  data: Story;
+}
+
+export async function addFavoriteToStory(storieId: string, qty: string) {
+  try {
+    // console.log("Добавляем в избранное:", storieId);
+    const response = await testServer.patch<addFavoriteToStoryResponse>(
+      `/stories/${storieId}`,
+      {
+        favoriteCount: qty,
+      }
+      // { user: { _id: userId } }
+    );
+
+    // console.log(response.data);
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Create task failed");
+  }
+  // ){
+  //   throw new Error("Create task failed");
+  // }
 }

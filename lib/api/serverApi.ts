@@ -51,3 +51,25 @@ export const fetchServerNotebyId = async (storieId: string) => {
   })
     return response.data;
 }
+export const fetchServerUser = async () => {
+  const cookieStore = await cookies();
+
+  const response = await nextServer.get("/users/get-me", {
+    headers: {
+      Cookie: cookieStore.toString()
+    }
+  });
+
+  return response.data.user;
+};
+export const fetchServerMyStories = async () => {
+  const cookieStore = await cookies();
+
+  const response = await nextServer.get("/stories/my", {
+    headers: {
+      Cookie: cookieStore.toString()
+     }
+  });
+
+  return response.data.data;
+};

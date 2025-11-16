@@ -8,6 +8,11 @@
   margin: 0 auto;
 }
 
+.heroWrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+}
 .contentbox {
   padding-top: 196px;
   padding-bottom: 331px;

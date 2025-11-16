@@ -6,6 +6,7 @@ import { User } from "@/types/user";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { SyncLoader } from "react-spinners";
 
 interface TravellersListProps {
   limit?: number;
@@ -32,7 +33,7 @@ const TravellersList = ({ limit }: TravellersListProps) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const { data, isLoading } = useQuery<UsersHttpResponse>({
+  const { data, isFetching } = useQuery<UsersHttpResponse>({
     queryKey: ["users", page, perPage],
     queryFn: () => fetchUsers(page, perPage),
     placeholderData: keepPreviousData,
@@ -91,7 +92,21 @@ const TravellersList = ({ limit }: TravellersListProps) => {
         ))}
       </ul>
 
-      {isLoading && <p className={css.loadingText}>Loading, please wait...</p>}
+      {isFetching && (
+        <SyncLoader
+          color="#000000"
+          loading={true}
+          cssOverride={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "20px auto",
+            opacity: "0.3",
+          }}
+          size={10}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
+      )}
 
       {(width > 768 || (limit !== 4 && width < 768)) && (
         <button onClick={onLoadMore} className={css.LoadMoreBtn}>

@@ -1,12 +1,12 @@
 import { nextServer } from "./api";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
-import axios from "axios";
+// import axios from "axios";
 
-export const testServer = axios.create({
-  baseURL: "http://localhost:8000",
-  withCredentials: true,
-});
+// export const testServer = axios.create({
+//   baseURL: "http://localhost:8000",
+//   withCredentials: true,
+// });
 
 export interface RegisterRequest {
   email: string;
@@ -159,7 +159,7 @@ export async function fetchOwnerStories(
       }
     );
 
-    console.log(response.data);
+    // console.log(response.data);
 
     return response.data.data;
   } catch {
@@ -175,43 +175,33 @@ export interface addStoryToFavouriteResponse {
 
 export async function addStoryToFavourite(storieId: string) {
   try {
-    // console.log("Добавляем в избранное:", storieId);
-    const response = await testServer.post<addStoryToFavouriteResponse>(
+    const response = await nextServer.post<addStoryToFavouriteResponse>(
       `/users/favourites/${storieId}`,
       {}
-      // { user: { _id: userId } }
     );
 
     // console.log(response.data);
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw new Error("Create task failed");
+    // console.log(error);
+    throw new Error("Post task failed");
   }
-  // ){
-  //   throw new Error("Create task failed");
-  // }
 }
 
 export async function deleteStoryFromFavourite(storieId: string) {
   try {
-    const response = await testServer.delete<{ message: string }>(
-      `/users/favourites/${storieId}`,
-      {}
-      // { user: { _id: userId } }
+    const response = await nextServer.delete<{ message: string }>(
+      `/users/favourites/${storieId}`
     );
 
-    console.log(response.data);
+    // console.log(response.data);
 
     return response.data;
   } catch (error) {
-    console.log(error);
-    throw new Error("Create task failed");
+    // console.log(error);
+    throw new Error("Delete task failed");
   }
-  // ){
-  //   throw new Error("Create task failed");
-  // }
 }
 
 export interface addFavoriteToStoryResponse {
@@ -220,25 +210,23 @@ export interface addFavoriteToStoryResponse {
   data: Story;
 }
 
-export async function addFavoriteToStory(storieId: string, qty: string) {
+export async function changeFavoriteCountInStory(
+  storieId: string,
+  qty: string
+) {
   try {
-    // console.log("Добавляем в избранное:", storieId);
-    const response = await testServer.patch<addFavoriteToStoryResponse>(
+    const response = await nextServer.patch<addFavoriteToStoryResponse>(
       `/stories/${storieId}`,
       {
         favoriteCount: qty,
       }
-      // { user: { _id: userId } }
     );
 
     // console.log(response.data);
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     throw new Error("Create task failed");
   }
-  // ){
-  //   throw new Error("Create task failed");
-  // }
 }

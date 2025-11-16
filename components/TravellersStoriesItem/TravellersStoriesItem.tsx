@@ -6,7 +6,7 @@ import { useAuthStore } from "@/lib/store/authStore";
 import { useRouter } from "next/navigation";
 import { useMutation } from "@tanstack/react-query";
 import {
-  addFavoriteToStory,
+  changeFavoriteCountInStory,
   addFavoriteToStoryResponse,
   addStoryToFavourite,
   addStoryToFavouriteResponse,
@@ -42,7 +42,7 @@ export default function TravellersStoriesItem({ story }: Props) {
     mutationFn: async ({ storieId, qty }) => {
       const results = await Promise.all([
         addStoryToFavourite(storieId),
-        addFavoriteToStory(storieId, qty),
+        changeFavoriteCountInStory(storieId, qty),
       ]);
       return results;
     },
@@ -68,7 +68,7 @@ export default function TravellersStoriesItem({ story }: Props) {
     mutationFn: async ({ storieId, qty }) => {
       const results = await Promise.all([
         deleteStoryFromFavourite(storieId),
-        addFavoriteToStory(storieId, qty),
+        changeFavoriteCountInStory(storieId, qty),
       ]);
       return results;
     },

@@ -183,8 +183,7 @@ export async function addStoryToFavourite(storieId: string) {
     // console.log(response.data);
 
     return response.data;
-  } catch (error) {
-    // console.log(error);
+  } catch {
     throw new Error("Post task failed");
   }
 }
@@ -198,8 +197,7 @@ export async function deleteStoryFromFavourite(storieId: string) {
     // console.log(response.data);
 
     return response.data;
-  } catch (error) {
-    // console.log(error);
+  } catch {
     throw new Error("Delete task failed");
   }
 }
@@ -225,8 +223,7 @@ export async function changeFavoriteCountInStory(
     // console.log(response.data);
 
     return response.data;
-  } catch (error) {
-    // console.log(error);
+  } catch {
     throw new Error("Create task failed");
   }
 }

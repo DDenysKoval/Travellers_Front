@@ -1,0 +1,218 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Base pill button */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 4px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+
+  transition:
+    background-color 200ms ease-in-out,
+    color 200ms ease-in-out,
+    border-color 200ms ease-in-out,
+    box-shadow 200ms ease-in-out;
+}
+
+/* ================== Noauthorise ================== */
+
+/* Вхід: default */
+.chipLoginDefault {
+  background-color: rgba(243, 244, 246, 1);
+  color: #111827;
+  border-color: rgba(209, 213, 219, 1);
+  font-size: 18px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.chipLoginDefault:hover,
+.chipLoginDefault:focus-visible {
+  background-color: rgba(229, 231, 235, 1);
+}
+
+/* Вхід: hero */
+.chipLoginHero {
+  background-color: rgba(243, 244, 246, 0.1);
+  color: #ffffff;
+  /* border-color: rgba(243, 244, 246, 0.3); */
+  font-size: 18px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.chipLoginHero:hover,
+.chipLoginHero:focus-visible {
+  background-color: rgba(243, 244, 246, 0.2);
+}
+
+/* Реєстрація: default — (var(--normal-button-color)) */
+.chipRegisterDefault {
+  background-color: var(--normal-button-color);
+  color: #ffffff;
+  border-color: var(--normal-button-color);
+  font-size: 18px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.chipRegisterDefault:hover,
+.chipRegisterDefault:focus-visible {
+  background-color: var(--hover-button-color);
+}
+
+/* Реєстрація: hero — white */
+.chipRegisterHero {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #ffffff;
+  font-size: 18px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.chipRegisterHero:hover,
+.chipRegisterHero:focus-visible {
+  background-color: #f5f5f5;
+}
+
+/* ================== Authorised ================== */
+
+/* primary default — blue (Опублікувати історію) */
+.chipPrimaryDefault {
+  background-color: var(--normal-button-color);
+  color: #ffffff;
+  border-color: var(--normal-button-color);
+  font-size: 18px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.chipPrimaryDefault:hover,
+.chipPrimaryDefault:focus-visible {
+  background-color: var(--hover-button-color);
+}
+
+/* primary hero — white */
+.chipPrimaryHero {
+  background-color: #ffffff;
+  color: #111827;
+  border-color: #ffffff;
+  font-size: 18px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 500;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.chipPrimaryHero:hover,
+.chipPrimaryHero:focus-visible {
+  background-color: #f5f5f5;
+}
+
+.profileLink {
+  color: #111827;
+  font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+/* ================== Avatar / Name / Exit ================== */
+
+.avatarButton {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: none;
+  background-color: #e5e7eb;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition:
+    background-color 200ms ease-in-out,
+    transform 150ms ease-in-out;
+}
+
+.avatarButton:hover,
+.avatarButton:focus-visible {
+  background-color: #d1d5db;
+  transform: translateY(-1px);
+}
+
+.avatarImage {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.avatarInitials {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.userName {
+  font-size: 16px;
+  color: #000000;
+}
+
+/* Logout icon button */
+.logoutButton {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  padding: 4px;
+  margin-left: 4px;
+  color: #111827;
+
+  transition:
+    color 150ms ease-in-out,
+    transform 150ms ease-in-out;
+}
+
+.logoutButton:hover,
+.logoutButton:focus-visible {
+  color: #ef4444;
+  transform: translateY(-1px);
+}
+
+/* Mobile tweak */
+@media only screen and (max-width: 767.98px) {
+  .chip {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  .userName {
+    display: none;
+  }
+}

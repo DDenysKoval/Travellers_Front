@@ -7,21 +7,14 @@ import { isAxiosError } from 'axios';
 import { api } from '../../api';
 
 export async function GET() {
-  try {
+   try {
     const cookieStore = await cookies();
-    const token = cookieStore.get("accessToken")?.value;
 
-    if (!token) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const res = await api.get("/users/get-me", {
+    const res = await api.get('/users/get-me', {
       headers: {
-        Authorization: `Bearer ${token}`, // обов'язково токен
-        "Content-Type": "application/json",
+        Cookie: cookieStore.toString(),
       },
     });
-      
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -34,6 +27,7 @@ export async function GET() {
     logErrorResponse({ message: (error as Error).message });
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
+
 }
 
 export async function PATCH(request: Request) {

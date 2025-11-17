@@ -50,3 +50,20 @@ export type TagListResponse = {
   message: string,
   status: number,
 }
+
+export type Favorite = {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
+  category: Category;
+  ownerId: OwnerId;
+  date: string;
+  favoriteCount: number;
+};
+
+export type favoriteResponse = {
+  data: Favorite[],
+  message: string,
+  status: number,
+}

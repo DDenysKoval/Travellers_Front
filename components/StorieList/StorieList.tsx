@@ -7,7 +7,6 @@ import { BookmarkBtn } from "../BookmarkBtn/BookmarkBtn";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useEffect, useState } from "react";
 import { getFavorite } from "@/lib/api/clientApi";
-import { QueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 
 type Props = {
@@ -15,14 +14,13 @@ type Props = {
 };
 
 const StorieList = ({ stories }: Props) => {
-  const queryClient = new QueryClient();
-  console.log(queryClient.getQueryData);
-
-  const { isAuthenticated, user } = useAuthStore();
   const [storyList, setStoryList] = useState<StorieWithFavorite[]>([]);
+  const user = useAuthStore((state) => state.user);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  console.log(isAuthenticated, user);
-
+  console.log("user:", user);
+  console.log("Avtorith", isAuthenticated);
+  /////////Завантаження фаворіт після авториації
   useEffect(() => {
     const load = async () => {
       if (!isAuthenticated) {
@@ -30,12 +28,12 @@ const StorieList = ({ stories }: Props) => {
         setStoryList(stories.map((s) => ({ ...s, isFavorited: false })));
         return;
       }
-
-      const { data: favorites } = await getFavorite();
+      const favorites = await getFavorite();
+      console.log(favorites);
 
       const updated = stories.map((s) => ({
         ...s,
-        isFavorited: favorites.includes(s._id),
+        isFavorited: favorites.some((f) => f._id === s._id),
       }));
 
       setStoryList(updated);
@@ -43,6 +41,25 @@ const StorieList = ({ stories }: Props) => {
 
     load();
   }, [stories, isAuthenticated]);
+
+  //// Функція для оновлення однієї історії після toggle
+  const handleFavoriteToggle = (
+    storyId: string,
+    increment: number,
+    isFav: boolean
+  ) => {
+    setStoryList((prev) =>
+      prev.map((storie) =>
+        storie._id === storyId
+          ? {
+              ...storie,
+              isFavorited: isFav,
+              favoriteCount: (storie.favoriteCount || 0) + increment,
+            }
+          : storie
+      )
+    );
+  };
 
   return (
     <ul className={css.list}>
@@ -104,9 +121,9 @@ const StorieList = ({ stories }: Props) => {
             {/* кнопку треба доробити перевірка чи користувач зайшов, і чи додане в улюблене */}
             <BookmarkBtn
               storyId={storie._id}
-              initialFavoriteCount={storie.favoriteCount || 0}
               isFavorited={storie.isFavorited || false} // прапорець чи користувач вже зберіг статтю
               isAuthenticated={isAuthenticated} // true, якщо юзер авторизований
+              onToggle={handleFavoriteToggle}
             />
           </div>
         </li>

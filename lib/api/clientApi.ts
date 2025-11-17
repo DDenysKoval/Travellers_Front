@@ -1,6 +1,6 @@
 import { nextServer } from "./api";
 import { Owner } from "@/types/owner";
-import { StorieListResponse, TagListResponse, Storie } from "@/types/stories";
+import { StorieListResponse, TagListResponse, Storie, Favorite } from "@/types/stories";
 
 export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
   try {
@@ -28,18 +28,29 @@ export async function getCategories() {
 }
 
 export const getFavorite = async () => {
-  const response = nextServer.get("/users/favorites")
-  return response
+  const response = await nextServer.get<{ data: Favorite[] }>("/users/favourites", {
+    withCredentials: true,
+  })
+  console.log(response.data.data);
+  
+  return response.data.data
 } 
 
-export const addFavorite = async (storieId: string) => {
-  const response = nextServer.post(`/users/favorites/${storieId}`)
-  return response
+export const addFavorite = async (id: string) => {
+  const response = await nextServer.post(`/users/favourites/${id}`,
+    {},
+    {
+    withCredentials: true,
+  })
+  return response.data.data
 } 
 
-export const deleteFavorite = async (storieId: string) => {
-  const response = nextServer.delete(`users/favorites/${storieId}`)
-  return response
+export const deleteFavorite = async (id: string) => {
+  const response = await nextServer.delete(`users/favourites/${id}`,
+    {
+    withCredentials: true,
+  })
+  return response.data.data
 } 
 //////////////////////////////////////////////////////////
 

@@ -8,22 +8,18 @@ import { addFavorite, deleteFavorite } from "@/lib/api/clientApi";
 
 type Props = {
   storyId: string;
-  initialFavoriteCount: number;
   isFavorited: boolean;
   isAuthenticated: boolean;
-  onChange?: (newCount: number, newFavorited: boolean) => void;
+  onToggle: (storyId: string, increment: number, isFav: boolean) => void;
 };
 
 export const BookmarkBtn = ({
   storyId,
-  initialFavoriteCount,
   isFavorited: initialIsFavorited,
   isAuthenticated,
-  onChange,
+  onToggle,
 }: Props) => {
-  // const [loading, setLoading] = useState(false);
   const [favorited, setFavorited] = useState(initialIsFavorited);
-  const [favoriteCount, setFavoriteCount] = useState(initialFavoriteCount);
 
   const router = useRouter();
 
@@ -35,25 +31,24 @@ export const BookmarkBtn = ({
 
     try {
       if (favorited) {
-        // видаляємо з фаворитів
         await deleteFavorite(storyId);
-        setFavoriteCount((prev) => prev - 1);
         setFavorited(false);
-        if (onChange) onChange(favoriteCount - 1, false);
+        onToggle(storyId, -1, false); // зменшуємо count, вимикаємо прапорець
       } else {
-        // додаємо в фаворити
         await addFavorite(storyId);
-        setFavoriteCount((prev) => prev + 1);
         setFavorited(true);
-        if (onChange) onChange(favoriteCount + 1, true);
+        onToggle(storyId, 1, true); // збільшуємо count, включаємо прапорець
       }
-    } catch (err) {
-      toast.error("Помилка сервера");
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <button onClick={handleClick} className={`${css.button} ${css.icon}`}>
+    <button
+      onClick={handleClick}
+      className={`${css.button} ${css.icon} ${favorited ? css.active : ""}`}
+    >
       <svg className={css.iconBookmarkBtn} width="15" height="18">
         <use href="/icons.svg#icon-bookmark"></use>
       </svg>

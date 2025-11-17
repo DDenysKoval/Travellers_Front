@@ -1,0 +1,56 @@
+import { NextRequest, NextResponse } from "next/server";
+import { api } from "../../../api";
+import { cookies } from "next/headers";
+import { isAxiosError } from "axios";
+
+
+export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+  try {
+    const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+
+    if (!accessToken) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const res = await api.post(
+      `/users/favourites/${params.id}`,
+      {},
+      {
+        headers: {
+          Cookie: `accessToken=${accessToken}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    return NextResponse.json(res.data, { status: res.status });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      return NextResponse.json(
+        { error: error.message, response: error.response?.data },
+        { status: error.response?.status ?? 500 }
+      );
+    }
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request, context: { params: { id: string } }) {
+  const { params } = context;
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("accessToken")?.value;
+
+  if (!accessToken) {
+    return Response.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
+  const res = await api.delete(`/users/favourites/${params.id}`, {
+    headers: {
+      Cookie: `accessToken=${accessToken}`,
+      "Content-Type": "application/json",
+    },
+  });
+
+  return Response.json(res.data);
+}

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
 import css from "./BookmarkBtn.module.css";
 import { addFavorite, deleteFavorite } from "@/lib/api/clientApi";
 

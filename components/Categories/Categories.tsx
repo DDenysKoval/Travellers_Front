@@ -1,7 +1,7 @@
 "use client";
 
 import { getCategories } from "@/lib/api/clientApi";
-import { TagListResponse } from "@/types/stories";
+import { TagListResponse } from "@/types/story";
 import css from "./Categories.module.css";
 import { useEffect, useState } from "react";
 

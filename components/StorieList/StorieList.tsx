@@ -1,6 +1,6 @@
 "use client";
 
-import { Storie, StorieWithFavorite } from "@/types/stories";
+import { Story, StorieWithFavorite } from "@/types/story";
 import css from "./StorieList.module.css";
 import Link from "next/link";
 import { BookmarkBtn } from "../BookmarkBtn/BookmarkBtn";
@@ -10,7 +10,7 @@ import { getFavorite } from "@/lib/api/clientApi";
 import Image from "next/image";
 
 type Props = {
-  stories: Storie[];
+  stories: Story[];
 };
 
 const StorieList = ({ stories }: Props) => {

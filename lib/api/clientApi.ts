@@ -1,6 +1,6 @@
+import { Favorite, StorieListResponse, Story, TagListResponse } from "@/types/story";
 import { nextServer } from "./api";
 import { Owner } from "@/types/owner";
-import { StorieListResponse, TagListResponse, Storie, Favorite } from "@/types/stories";
 
 export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
   try {
@@ -143,7 +143,7 @@ export async function fetchNoteById(storieId: string) {
 export interface OwnerStoriesHttpResponse {
   data: {
     owner: Owner;
-    stories: Storie[];
+    stories: Story[];
     page: number;
     perPage: number;
     totalItems: number;

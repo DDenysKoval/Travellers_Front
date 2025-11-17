@@ -1,4 +1,10 @@
+import css from "./Loading.module.css";
+
 const Loading = () => {
-  return <p>Завантаження, зачекайте будь-ласка...</p>;
+  return (
+    <div className={css.loading}>
+      <p>Завантаження, зачекайте будь-ласка...</p>
+    </div>
+  );
 };
 export default Loading;

@@ -1,9 +1,9 @@
 import TravellerDetailsClient from "./TravellerDetails.client";
-import {
-  dehydrate,
-  HydrationBoundary,
-  QueryClient,
-} from "@tanstack/react-query";
+// import {
+//   dehydrate,
+//   HydrationBoundary,
+//   QueryClient,
+// } from "@tanstack/react-query";
 import { Metadata } from "next";
 
 interface Props {
@@ -30,16 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const TravellerDetails = async ({ params }: Props) => {
-  const queryClient = new QueryClient();
-
-  const testArray: string[] = ["1", "2", "3", "4", "5", "6"];
-
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <TravellerDetailsClient testArray={testArray}/>
-    </HydrationBoundary>
-  );
+const TravellerDetails = async () => {
+  return <TravellerDetailsClient />;
 };
 
 export default TravellerDetails;

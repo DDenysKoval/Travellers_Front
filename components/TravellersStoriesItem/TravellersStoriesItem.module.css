@@ -1,3 +1,30 @@
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 24px;
+  height: 24px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.loader::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+
+  background: conic-gradient(#3498db 0% 25%, rgba(255, 255, 255, 0.3) 25% 100%);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .storyCard {
   border: 0px solid rgba(0, 0, 0, 0.15);
   border-radius: 16px;
@@ -34,6 +61,7 @@
   line-height: 150%;
   color: #000;
   margin: 0;
+  height: 18px;
 }
 
 .storyHeading {
@@ -48,6 +76,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 54px;
 }
 
 .storyText {
@@ -128,13 +157,20 @@
   border-radius: 8px;
   width: 48px;
   height: 48px;
-  background: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.dot {
+.favorButtonPush {
+  border: 1px solid rgba(255, 255, 255, 0);
+  background-color: #1a2a5a;
+}
+
+.icon {
+  fill: white;
 }
 
 @media (min-width: 1440px) {
@@ -145,10 +181,12 @@
 
   .storyCountry {
     font-size: 16px;
+    height: 24px;
   }
 
   .storyHeading {
     font-size: 26px;
+    height: 78px;
   }
 
   .storyText {

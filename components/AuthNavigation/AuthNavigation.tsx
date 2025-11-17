@@ -135,3 +135,4 @@ const AuthNavigation = ({ variant = "default", showOnMobile = false }: AuthNavig
 
 export default AuthNavigation;
 
+

@@ -15,3 +15,11 @@ export interface Story {
   date: string;
   favoriteCount: number;
 }
+
+
+export interface NewStory {
+  img: string,
+  title: string,
+  article: string,
+  category: string,
+}

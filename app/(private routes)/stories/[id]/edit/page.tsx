@@ -1,4 +1,4 @@
-import StorieForm from "@/components/StorieForm/StorieForm";
+import StorieForm from "@/components/StoryForm/StoryForm";
 import css from "./EditStoriePage.module.css";
 
 const EditStoriePage = async () => {

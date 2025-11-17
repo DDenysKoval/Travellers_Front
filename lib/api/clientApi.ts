@@ -1,7 +1,8 @@
 import { User } from "@/types/user";
 import { nextServer } from "./api";
-import { Story } from "@/types/story";
+import { NewStory, Story } from "@/types/story";
 import { Owner } from "@/types/owner";
+// import { Category } from "@/types/category";
 
 export interface RegisterRequest {
   email: string;
@@ -31,6 +32,9 @@ export interface UsersHttpResponse {
     users: User[],
   }
 }
+
+
+
 
 export const register = async (data: RegisterRequest) => {
   const response = await nextServer.post("/auth/register", data);
@@ -81,9 +85,9 @@ export async function fetchNotes(
   }
 }
 
-export async function createNote(newStorie: string) {
+export async function createStory(newStory: NewStory) {
   try {
-    const response = await nextServer.post("/notes", newStorie);
+    const response = await nextServer.post("/notes", newStory);
     return response.data;
   } catch {
     throw new Error("Create task failed");
@@ -108,13 +112,13 @@ export async function fetchNoteById(storieId: string) {
   }
 }
 
-export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promise<UsersHttpResponse> {
+export async function fetchUsers(page: number = 1, perPage: number = 12): Promise<UsersHttpResponse> {
   const response = await nextServer.get<UsersHttpResponse>("/travellers", {
-      params: {
-        page,
-        perPage,
-      },
-    }
+    params: {
+      page,
+      perPage,
+    },
+  }
   )
 
   return {

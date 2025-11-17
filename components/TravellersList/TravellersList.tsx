@@ -108,13 +108,18 @@ const TravellersList = ({ limit }: TravellersListProps) => {
         />
       )}
 
-      {(width > 768 || (limit !== 4 && width < 768)) && (
-        <button onClick={onLoadMore} className={css.LoadMoreBtn}>
-          Показати ще
-        </button>
-      )}
+{
+  !isFetching &&
+  Array.isArray(data?.data?.users) &&
+  data?.data?.users.length > 0 &&
+  (width > 768 || (limit !== 4 && width < 768)) && (
+    <button onClick={onLoadMore} className={css.LoadMoreBtn}>
+      Показати ще
+    </button>
+  )
+}
+
     </div>
   );
 };
-
 export default TravellersList;

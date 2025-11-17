@@ -12,9 +12,9 @@ const Navigation = () => {
   ];
 
   const unauthenticatedLinks = [
-    { label: "Головна", href: "/auth/register" },
-    { label: "Історії", href: "/auth/register" },
-    { label: "Мандрівники", href: "/auth/register" },
+    { label: "Головна", href: "/" },
+    { label: "Історії", href: "/stories" },
+    { label: "Мандрівники", href: "/travellers" },
     { label: "Профіль", href: "/auth/register" },
   ];
 

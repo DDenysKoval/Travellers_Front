@@ -6,4 +6,3 @@ export const nextServer = axios.create({
   baseURL: baseURL,
   withCredentials: true,
 });
-

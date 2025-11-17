@@ -1,0 +1,36 @@
+.socialList {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
+
+.socialItem {
+  list-style: none;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  background-color: transparent;
+}
+
+.socialLink:hover {
+  transform: scale(1.15);
+  background-color: rgba(86, 88, 87, 0.1);
+}
+
+.socialIcon {
+  transition: transform 0.3s ease, color 0.3s ease;
+  color: #000;
+}
+
+.socialLink:hover .socialIcon {
+  color: #1d1d1d;
+}

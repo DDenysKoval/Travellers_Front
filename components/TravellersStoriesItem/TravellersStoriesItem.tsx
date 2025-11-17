@@ -156,8 +156,8 @@ export default function TravellersStoriesItem({ story }: Props) {
             <svg className={isFavourite ? css.icon : ""} width="24" height="24">
               <use href="/icons.svg#icon-bookmark"></use>
             </svg>
-            {addStoryToFavouriteMutation.isPending ? "Loading..." : ""}
-            {deleteStoryFromFavouriteMutation.isPending ? "Loading..." : ""}
+            {addStoryToFavouriteMutation.isPending && <div className={css.loader}></div>}
+            {deleteStoryFromFavouriteMutation.isPending && <div className={css.loader}></div>}
           </button>
         </div>
       </div>

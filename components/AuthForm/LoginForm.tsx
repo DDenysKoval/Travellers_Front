@@ -6,8 +6,9 @@ import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import styles from "./AuthForm.module.css";
-import { login } from "@/lib/api/clientApi";
+import { login, RegisterResponse } from "@/lib/api/clientApi";
 import Link from "next/link";
+import { useAuthStore } from "@/lib/store/authStore";
 
 interface LoginRequest {
   email: string;
@@ -23,6 +24,8 @@ interface ErrorWithResponse {
 }
 
 export default function LoginForm() {
+
+  const setUser = useAuthStore((state) => state.setUser);
   const router = useRouter();
 
   const validationSchema = Yup.object<LoginRequest>({
@@ -30,9 +33,10 @@ export default function LoginForm() {
     password: Yup.string().required("Обов’язкове поле"),
   });
 
-  const mutation = useMutation<unknown, ErrorWithResponse, LoginRequest>({
+  const mutation = useMutation<RegisterResponse, ErrorWithResponse, LoginRequest>({
     mutationFn: (values) => login(values),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUser(data.data); 
       toast.success("Вхід успішний!");
       router.push("/");
     },

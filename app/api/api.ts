@@ -1,8 +1,9 @@
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError } from "axios";
 
 export type ApiError = AxiosError<{ error: string }>;
 
 export const api = axios.create({
-  baseURL: 'https://travellers-back.onrender.com',
+  baseURL: "https://travellers-back.onrender.com",
+
   withCredentials: true,
 });

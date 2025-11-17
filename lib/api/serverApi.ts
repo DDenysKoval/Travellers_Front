@@ -71,8 +71,31 @@ export const fetchServerNotebyId = async (
 
   const response = await nextServer.get(`/stories/${storieId}`, {
     headers: {
-      Cookie: cookieStore.toString(),
-    },
+      Cookie: cookieStore.toString()
+    }
+  })
+    return response.data;
+}
+
+export const fetchServerUser = async () => {
+  const cookieStore = await cookies();
+
+  const response = await nextServer.get("/users/get-me", {
+    headers: {
+      Cookie: cookieStore.toString()
+    }
   });
-  return response.data;
+
+  return response.data.user;
+};
+export const fetchServerMyStories = async () => {
+  const cookieStore = await cookies();
+
+  const response = await nextServer.get("/stories/my", {
+    headers: {
+      Cookie: cookieStore.toString()
+     }
+  });
+
+  return response.data.data;
 };

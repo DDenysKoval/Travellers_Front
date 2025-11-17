@@ -7,7 +7,7 @@ export type OwnerId = {
   name: string;
   avatarUrl: string;
 };
-export type Story = {
+export type Storie = {
   _id: string;
   img: string;
   title: string;
@@ -31,7 +31,7 @@ export type StorieWithFavorite = {
 }
 
 export type StorieListResponse = {
-  stories: Story[];
+  stories: Storie[];
   page: number,
   perPage: number,
   totalItems: number,
@@ -66,4 +66,51 @@ export type favoriteResponse = {
   data: Favorite[],
   message: string,
   status: number,
+}
+export interface Story {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
+  category: Category | null;
+  author: User | null;
+  date: string;
+  favoriteCount: number;
+  ownerId: {
+    _id: string;
+    name: string;
+    avatarUrl: string;
+  };
+}
+
+export interface StoryWrapper {
+  status: number;
+  message: string;
+  data: StoryId;
+}
+
+export interface User {
+  _id: string;
+  name: string;
+  email?: string;
+  avatar?: string;
+}
+
+export interface StoryId {
+  _id: string;
+  img: string;
+  title: string;
+  article: string;
+  category: {
+    _id: string;
+    name: string;
+  };
+  author: User | null;
+  ownerId: {
+    _id: string;
+    name: string;
+    avatarUrl: string;
+  };
+  date: string;
+  favoriteCount: number;
 }

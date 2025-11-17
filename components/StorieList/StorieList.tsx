@@ -6,7 +6,7 @@ import Link from "next/link";
 import { BookmarkBtn } from "../BookmarkBtn/BookmarkBtn";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useEffect, useState } from "react";
-import { getFavorite } from "@/lib/api/clientApi";
+// import { getFavorite } from "@/lib/api/clientApi";
 import Image from "next/image";
 
 type Props = {

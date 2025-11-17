@@ -8,7 +8,19 @@
   margin: 0;
   margin-bottom: 40px;
 }
-
+.loadMoreButton{
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fff;
+  border: 1px solid #4169E1;
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 335px;
+    height: 48px;
+    background-color: #4169E1;
+}
 @media (min-width: 768px) {
   .travellerList {
     flex-direction: row;
@@ -16,6 +28,14 @@
     row-gap: 40px;
     width: 704px;
   }
+    .loadMoreButton {
+  max-width: 125px;
+      
+    }
+    .buttonContainer {
+    display: block;
+    text-align: center;
+    }
 }
 
 @media (min-width: 1440px) {
@@ -23,4 +43,8 @@
     row-gap: 24px;
     width: 1312px;
   }
+            .loadMoreButton {
+              max-width: 135px;
+      
+            }
 }

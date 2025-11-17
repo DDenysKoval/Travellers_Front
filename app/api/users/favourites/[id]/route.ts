@@ -1,56 +1,67 @@
-import { NextRequest, NextResponse } from "next/server";
-import { api } from "../../../api";
+import { NextResponse } from "next/server";
+
 import { cookies } from "next/headers";
+import { logErrorResponse } from "../../../_utils/utils";
 import { isAxiosError } from "axios";
+import { api } from "../../../api";
 
+type Props = {
+  params: Promise<{ id: string }>;
+};
 
-export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
-    const accessToken = cookieStore.get("accessToken")?.value;
+    const { id } = await params;
+    const body = await request.json();
 
-    if (!accessToken) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    const res = await api.post(
-      `/users/favourites/${params.id}`,
-      {},
-      {
-        headers: {
-          Cookie: `accessToken=${accessToken}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const res = await api.post(`/users/favourites/${id}`, body, {
+      headers: {
+        Cookie: cookieStore.toString(),
+        "Content-Type": "application/json",
+      },
+    });
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
+      logErrorResponse(error.response?.data);
       return NextResponse.json(
         { error: error.message, response: error.response?.data },
-        { status: error.response?.status ?? 500 }
+        { status: error.status }
       );
     }
-    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
+    logErrorResponse({ message: (error as Error).message });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
-export async function DELETE(req: Request, context: { params: { id: string } }) {
-  const { params } = context;
-  const cookieStore = await cookies();
-  const accessToken = cookieStore.get("accessToken")?.value;
+export async function DELETE(request: Request, { params }: Props) {
+  try {
+    const cookieStore = await cookies();
+    const { id } = await params;
 
-  if (!accessToken) {
-    return Response.json({ message: "Unauthorized" }, { status: 401 });
+    const res = await api.delete(`/users/favourites/${id}`, {
+      headers: {
+        Cookie: cookieStore.toString(),
+      },
+    });
+    return NextResponse.json(res.data, { status: res.status });
+  } catch (error) {
+    if (isAxiosError(error)) {
+      logErrorResponse(error.response?.data);
+      return NextResponse.json(
+        { error: error.message, response: error.response?.data },
+        { status: error.status }
+      );
+    }
+    logErrorResponse({ message: (error as Error).message });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-
-  const res = await api.delete(`/users/favourites/${params.id}`, {
-    headers: {
-      Cookie: `accessToken=${accessToken}`,
-      "Content-Type": "application/json",
-    },
-  });
-
-  return Response.json(res.data);
 }

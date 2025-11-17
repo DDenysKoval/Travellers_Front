@@ -1,32 +1,33 @@
 import TravellersList from "@/components/TravellersList/TravellersList";
 import css from "./TravellersPage.module.css";
 import { Metadata } from "next";
-import Pagination from "@/components/Pagination/Pagination";
 
 export const metadata: Metadata = {
-  title: "",
-  description: "",
+  title: "Travellers",
+  description: "Our Travellers List",
   openGraph: {
-    title: "",
-    description: "",
-    url: "",
+    title: "Travellers",
+    description: " Travellers List",
+    url: `${process.env.NEXT_PUBLIC_API_URL}/travellers`,
     images: [
       {
-        url: "",
-        width: 0,
-        height: 0,
-        alt: "",
+        url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
+        width: 1440,
+        height: 900,
+        alt: "Podorozhnuky",
       },
     ],
   },
 };
 
-const TravellersPage = async () => {
+const TravellersPage = () => {
   return (
     <main>
       <section>
-        <TravellersList />
-        <Pagination />
+        <div className="container">
+          <h2 className={css.TravellersPageTitle}>Мандрівники</h2>
+          <TravellersList limit={12} />
+        </div>
       </section>
     </main>
   );

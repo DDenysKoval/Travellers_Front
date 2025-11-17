@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import css from "./BookmarkBtn.module.css";
-import { addFavorite, deleteFavorite } from "@/lib/api/clientApi";
+// import { addFavorite, deleteFavorite } from "@/lib/api/clientApi";
 
 type Props = {
   storyId: string;

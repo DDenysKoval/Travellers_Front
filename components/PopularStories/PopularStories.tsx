@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { fetchStories } from "@/lib/api/clientApi";
-import { StorieListResponse, Story } from "@/types/story";
+import { StorieListResponse, Storie } from "@/types/story";
 import StorieList from "../StorieList/StorieList";
 import Loading from "@/app/loading";
 import css from "./popularStories.module.css";
@@ -12,7 +12,7 @@ export default function PopularStories() {
 
   const [perPage, setPerPage] = useState(3);
   const [page, setPage] = useState(1);
-  const [allStories, setAllStories] = useState<Story[]>([]);
+  const [allStories, setAllStories] = useState<Storie[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(false);
 

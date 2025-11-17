@@ -4,7 +4,7 @@ import { checkServerSession } from "./lib/api/serverApi";
 import { parse } from "cookie";
 
 // const privateRoutes = ['/profile'];
-const publicRoutes = ['/sign-in', '/sign-up', "/stories", "/travellers", "/profile"];
+const publicRoutes = ['/sign-in', '/sign-up', "/profile"];
 
 export async function middleware(request:NextRequest) {
   const cookieStore = await cookies()
@@ -54,9 +54,9 @@ export async function middleware(request:NextRequest) {
     //   return NextResponse.redirect(new URL('/sign-in', request.url))
     // }
   }
-  if (isPublicRoute) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
+  // if (isPublicRoute) {
+  //   return NextResponse.redirect(new URL('/', request.url))
+  // }
   // if (isPrivateRoute) {
   //   return NextResponse.next()
   // }

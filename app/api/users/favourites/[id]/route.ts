@@ -1,20 +1,27 @@
-export const dynamic = 'force-dynamic';
+import { NextResponse } from "next/server";
 
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { logErrorResponse } from '../../_utils/utils';
-import { isAxiosError } from 'axios';
-import { api } from '../../api';
+import { cookies } from "next/headers";
+import { logErrorResponse } from "../../../_utils/utils";
+import { isAxiosError } from "axios";
+import { api } from "../../../api";
 
-export async function GET() {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function POST(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
+    const { id } = await params;
+    const body = await request.json();
 
-    const res = await api.get('/users/get-me', {
+    const res = await api.post(`/users/favourites/${id}`, body, {
       headers: {
         Cookie: cookieStore.toString(),
+        "Content-Type": "application/json",
       },
     });
+
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {
@@ -25,16 +32,19 @@ export async function GET() {
       );
     }
     logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }
 
-export async function PATCH(request: Request) {
+export async function DELETE(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
-    const body = await request.json();
+    const { id } = await params;
 
-    const res = await api.patch('/users/getme', body, {
+    const res = await api.delete(`/users/favourites/${id}`, {
       headers: {
         Cookie: cookieStore.toString(),
       },
@@ -49,6 +59,9 @@ export async function PATCH(request: Request) {
       );
     }
     logErrorResponse({ message: (error as Error).message });
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

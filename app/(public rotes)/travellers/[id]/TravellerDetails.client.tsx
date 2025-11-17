@@ -7,6 +7,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { fetchOwnerStories } from "@/lib/api/clientApi";
 import { useMediaQuery } from "react-responsive";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
 
 export default function TravellerDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -36,12 +37,24 @@ export default function TravellerDetailsClient() {
       <div className={css.traveller}>
         <TravellerInfo owner={data.pages[0].owner} />
         <h2 className={css.title}>Історії Мандрівника</h2>
-        <TravellersStories stories={allStories} />
 
-        {hasNextPage && (
-          <button onClick={() => fetchNextPage()} className={css.showNext}>
-            Показати ще
-          </button>
+        {allStories.length > 0 && (
+          <>
+            <TravellersStories stories={allStories} />
+
+            {hasNextPage && (
+              <button onClick={() => fetchNextPage()} className={css.showNext}>
+                Показати ще
+              </button>
+            )}
+          </>
+        )}
+
+        {allStories.length === 0 && (
+          <MessageNoStories
+            text="Цей користувач ще не публікував історій"
+            buttonText="Назад до історій"
+          />
         )}
       </div>
     </div>

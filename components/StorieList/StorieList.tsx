@@ -7,12 +7,17 @@ import { BookmarkBtn } from "../BookmarkBtn/BookmarkBtn";
 import { useAuthStore } from "@/lib/store/authStore";
 import { useEffect, useState } from "react";
 import { getFavorite } from "@/lib/api/clientApi";
+import { QueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 
 type Props = {
   stories: Storie[];
 };
 
 const StorieList = ({ stories }: Props) => {
+  const queryClient = new QueryClient();
+  console.log(queryClient.getQueryData);
+
   const { isAuthenticated, user } = useAuthStore();
   const [storyList, setStoryList] = useState<StorieWithFavorite[]>([]);
 
@@ -43,11 +48,17 @@ const StorieList = ({ stories }: Props) => {
     <ul className={css.list}>
       {storyList.map((storie) => (
         <li key={storie._id} className={css.listStorie}>
-          <img
+          <Image
             className={css.imgStorie}
-            src={storie.img}
+            src={
+              storie?.img ||
+              "https://ftp.goit.study/img/travel-blog/68498236a100312bea079011.webp"
+            }
+            width={421}
+            height={280}
+            sizes="(max-width: 768px) 100vw, 50vw"
             alt={storie?.title || "Автор невідомий"}
-          ></img>
+          />
 
           <div className={css.divContainer}>
             <p className={css.category}>
@@ -59,9 +70,14 @@ const StorieList = ({ stories }: Props) => {
                 "Тут повинен бути опис, але його тут немає"}
             </p>
             <div className={css.divUserContainer}>
-              <img
+              <Image
                 className={css.avatar}
-                src={storie.ownerId.avatarUrl}
+                src={
+                  storie.ownerId?.avatarUrl ||
+                  "https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd009.webp"
+                }
+                width={48}
+                height={48}
                 alt={storie.ownerId?.name || "Автор"}
               />
               <div className={css.divUser}>
@@ -91,17 +107,7 @@ const StorieList = ({ stories }: Props) => {
               initialFavoriteCount={storie.favoriteCount || 0}
               isFavorited={storie.isFavorited || false} // прапорець чи користувач вже зберіг статтю
               isAuthenticated={isAuthenticated} // true, якщо юзер авторизований
-              onChange={(newCount, newFavorited) => {
-                // тут можна оновити стан у StorieList, якщо потрібно
-                storie.favoriteCount = newCount;
-                storie.isFavorited = newFavorited;
-              }}
             />
-            {/* <Link href="/auth/register" className={`${css.button} ${css.icon}`}>
-              <svg className={css.iconBookmarkBtn} width="15" height="18">
-                <use href="/icons.svg#icon-bookmark"></use>
-              </svg>
-            </Link> */}
           </div>
         </li>
       ))}

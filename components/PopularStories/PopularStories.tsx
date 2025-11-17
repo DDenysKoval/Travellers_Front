@@ -10,68 +10,93 @@ import css from "./popularStories.module.css";
 export default function PopularStories() {
   const type = "popular";
 
-  const [perPage, setPerPage] = useState<number | null>(null);
+  const [perPage, setPerPage] = useState(3);
   const [page, setPage] = useState(1);
   const [allStories, setAllStories] = useState<Storie[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const getPerPage = () => {
-      const width = window.innerWidth;
-      if (width >= 1440) return 3; // десктоп
-      if (width >= 768) return 4; // планшет
-      return 3; // мобільний
-    };
-
-    const initialPerPage = getPerPage();
-    setPerPage(initialPerPage);
-  }, []);
-
-  useEffect(() => {
-    if (perPage !== null) {
-      fetchNextPage(1, perPage);
-    }
-  }, [perPage]);
-
-  const fetchNextPage = async (
-    currentPage = page,
-    currentPerPage = perPage!
-  ) => {
-    if (loading || !hasNextPage || currentPerPage === null) return;
-    setLoading(true);
-    try {
-      const data: StorieListResponse = await fetchStories(
-        currentPage,
-        currentPerPage,
-        "",
-        type
-      );
-
-      setAllStories((prev) => [
-        ...prev,
-        ...data.stories.filter((s) => !prev.some((p) => p._id === s._id)),
-      ]);
-      setPage((prev) => prev + 1);
-      setHasNextPage(data.hasNextPage);
-    } catch (err) {
-      console.error("Помилка завантаження:", err);
-    } finally {
-      setLoading(false);
-    }
+  const getPerPage = () => {
+    const width = window.innerWidth;
+    if (width >= 1440) return 3; // десктоп
+    if (width >= 768) return 4; // планшет
+    return 3; // мобільний
   };
 
   useEffect(() => {
+    setPerPage(getPerPage());
+  }, []);
+
+  //////////Завантаження першої сторінки
+  useEffect(() => {
+    loadFirstPage();
+  }, [perPage]);
+
+  const loadFirstPage = async () => {
+    setLoading(true);
+    setPage(1);
+    setHasNextPage(true);
+    if (perPage !== null) {
+      try {
+        const data: StorieListResponse = await fetchStories(
+          1,
+          perPage,
+          "",
+          type
+        );
+
+        setAllStories(data.stories);
+        setHasNextPage(data.hasNextPage);
+      } catch (err) {
+        console.error("Помилка завантаження:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+  ////////////////Завантаження наступних сторінок
+  const loadMore = async () => {
+    if (loading || !hasNextPage) return;
+    setLoading(true);
+    if (perPage !== null)
+      try {
+        const nextPage = page + 1;
+        const data: StorieListResponse = await fetchStories(
+          nextPage,
+          perPage,
+          "",
+          type
+        );
+        console.log(data);
+
+        // фільтруємо дублікати
+        const uniqueStories = data.stories.filter(
+          (s) => !allStories.some((p) => p._id === s._id)
+        );
+
+        setAllStories((prev) => [...prev, ...uniqueStories]);
+        setPage(nextPage);
+        setHasNextPage(data.hasNextPage);
+      } catch (err) {
+        console.error("Помилка завантаження:", err);
+      } finally {
+        setLoading(false);
+      }
+  };
+
+  ////////////Перезавантаження при зміні ширини екрана
+  useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth;
-      const newPerPage = width >= 1440 ? 3 : width >= 768 ? 4 : 3;
-      setPerPage(newPerPage);
+      const newPerPage = getPerPage();
+      setPerPage(newPerPage); // це автоматично викличе loadFirstPage()
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  if (perPage === null) return <Loading />;
+  if (!allStories.length && loading) return <Loading />;
+  // if (perPage === null) return <Loading />;
 
   return (
     <section className={css.sectionPopularStories}>
@@ -82,7 +107,7 @@ export default function PopularStories() {
         {loading && <Loading />}
         {!loading && hasNextPage && (
           <button
-            onClick={() => fetchNextPage()}
+            onClick={loadMore}
             disabled={loading}
             className={css.popularStoriesBtn}
           >

@@ -3,7 +3,6 @@ import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
 
 
-
 export const getServerMe = async () => {
   const cookieStore = await cookies();
   const response = await nextServer.get("/users/get-me", {

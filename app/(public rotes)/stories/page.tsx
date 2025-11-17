@@ -5,18 +5,16 @@ import { fetchStories } from "@/lib/api/clientApi";
 import { StorieListResponse, Storie } from "@/types/stories";
 import Loading from "@/app/loading";
 import css from "./StoriesPage.module.css";
-import { useSearchParams } from "next/navigation";
 import StorieList from "@/components/StorieList/StorieList";
 import Categories from "@/components/Categories/Categories";
 
 export default function StoriesPage() {
+  const [category, setCategory] = useState<string | null>(null);
   const [perPage, setPerPage] = useState<number | null>(null);
   const [page, setPage] = useState(1);
   const [allStories, setAllStories] = useState<Storie[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
   const [loading, setLoading] = useState(false);
-  const searchParams = useSearchParams();
-  const category = searchParams.get("category") || "";
 
   useEffect(() => {
     const getPerPage = () => {
@@ -29,20 +27,22 @@ export default function StoriesPage() {
     setPerPage(getPerPage());
   }, []);
 
+  const handleCategorySelect = (id: string | null) => {
+    setCategory(id);
+    setPage(1);
+    setAllStories([]);
+  };
+
   // основна функція запиту
-  const fetchNextPage = async (
-    pageToLoad: number,
-    perPageVal: number,
-    category: string
-  ) => {
+  const fetchNextPage = async () => {
+    if (perPage === null) return;
     setLoading(true);
     try {
       const data: StorieListResponse = await fetchStories(
-        pageToLoad,
-        perPageVal,
-        category
+        page,
+        perPage,
+        category || ""
       );
-      console.log(data);
 
       setAllStories((prev) => [
         ...prev,
@@ -50,7 +50,7 @@ export default function StoriesPage() {
       ]);
 
       setHasNextPage(data.hasNextPage);
-      setPage(pageToLoad + 1);
+      setPage((page) => page + 1);
     } catch (err) {
       console.error("Помилка:", err);
     } finally {
@@ -61,10 +61,7 @@ export default function StoriesPage() {
   // перше завантаження
   useEffect(() => {
     if (perPage !== null) {
-      setAllStories([]); // очищаємо
-      setPage(1); // починаємо з першої сторінки
-      setHasNextPage(true);
-      fetchNextPage(1, perPage, category);
+      fetchNextPage();
     }
   }, [perPage, category]);
 
@@ -85,13 +82,13 @@ export default function StoriesPage() {
     <main>
       <section className={css.sectionStories}>
         <div className="container">
-          <h2 className={css.titleStorie}>Історі мандрівників</h2>
-          {/* <Categories /> */}
+          <h2 className={css.titleStorie}>Історії Мандрівників</h2>
+          <Categories onSelect={handleCategorySelect} />
           <StorieList stories={allStories} />
           {loading && <Loading />}
           {!loading && hasNextPage && (
             <button
-              onClick={() => fetchNextPage(page, perPage, category)}
+              onClick={fetchNextPage}
               disabled={loading}
               className={css.StoriesBtn}
             >

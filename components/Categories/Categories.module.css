@@ -1,0 +1,130 @@
+.menuContainer {
+    padding-bottom: 40px;
+}
+
+@media only screen and (max-width: 768px) {
+    .categoryDiv {
+        position: relative;
+        display: inline-block;
+    } 
+    .category {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        padding-bottom: 8px;
+    }
+    .iconKeyboardArrow {
+        fill: currentColor;
+        align-items: end;
+        width: 24px;
+        height: 24px;
+    }
+
+    .menuButton {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 8px;
+        padding: 8px;
+        width: 335px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0);
+        cursor: pointer;
+
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 1.5;
+        transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .menuButton:hover,
+    .menuButton:focus,
+    .menuItem:hover,
+    .menuItem:focus {
+        background-color: #4169e1;
+        color: #fff;
+        fill: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .iconKeyboardArrow:active,
+    .menuButton:active,
+    .menuItem:active {
+        background: #1a2a5a;
+        color: #fff;
+        fill: #fff;
+    }
+    .iconKeyboardArrow:disabled,
+    .menuItem:disabled,
+    .menuButton:disabled {
+    background: rgba(0, 0, 0, 0.05);
+    opacity: 0.3;
+    color: #000;
+    fill: #000;
+    }
+
+    .menuList {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 6px 0;
+    margin: 0;
+    list-style: none;
+    min-width: 335px;
+    z-index: 1000;
+    }
+
+    .menuItem {
+        display: block;
+        padding: 8px 16px;
+        text-decoration: none;
+        font-size: 15px;
+        transition: background-color 0.2s ease;
+    }
+}
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+    .menuList {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .menuItem {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #000;
+        padding: 6px 12px;
+        align-items: center;
+        align-content: center;
+    }
+    .menuItem:hover,
+    .menuItem:focus,
+    .menuItem:active {
+        border: 1px solid rgba(255, 255, 255, 0);
+        border-radius: 8px;
+        background: #f2f2f2;
+    }
+    
+    .active {
+        border: 1px solid rgba(255, 255, 255, 0);
+        background: #f2f2f2;
+        border-radius: 8px;
+    }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+    .menuItem {
+        font-size: 18px;
+    }
+
+}

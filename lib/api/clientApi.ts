@@ -1,6 +1,6 @@
 import { nextServer } from "./api";
 import { Owner } from "@/types/owner";
-import { StorieListResponse, Tag, Storie } from "@/types/stories";
+import { StorieListResponse, TagListResponse, Storie } from "@/types/stories";
 
 export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
   try {
@@ -18,9 +18,9 @@ export async function fetchStories(page: number, perPage: number, category?: str
   }
 }
 
-export async function getCategory() {
+export async function getCategories() {
   try {
-    const response = await nextServer.get<{ data: Tag }>("/categories")
+    const response = await nextServer.get<{ data: TagListResponse }>("/categories")
     return response.data.data;
   } catch {
     throw new Error("Fetch tasks failed");
@@ -33,12 +33,12 @@ export const getFavorite = async () => {
 } 
 
 export const addFavorite = async (storieId: string) => {
-  const response = nextServer.post(`/users/favorites${storieId}`)
+  const response = nextServer.post(`/users/favorites/${storieId}`)
   return response
 } 
 
 export const deleteFavorite = async (storieId: string) => {
-  const response = nextServer.delete(`users/favorites${storieId}`)
+  const response = nextServer.delete(`users/favorites/${storieId}`)
   return response
 } 
 //////////////////////////////////////////////////////////
@@ -83,7 +83,9 @@ export const checkSession = async () => {
 
 export const getMe = async () => {
   const response = await nextServer.get("/users/get-me")
-  return response.data;
+  console.log(response.data);
+  
+  return response.data.data;
 };
 
 export const logout = async (): Promise<void> => {
@@ -92,7 +94,7 @@ export const logout = async (): Promise<void> => {
 };
 
 export const updateMe = async (body: UpdateUserRequest) => {
-  const response = await nextServer.patch("/users/getme", body);
+  const response = await nextServer.patch("/users/get-me", body);
   return response.data;
 };
 

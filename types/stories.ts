@@ -41,6 +41,12 @@ export type StorieListResponse = {
 };
 
 export type Tag = {
-  id: string;
+  _id: string;
   name: string;
 };
+
+export type TagListResponse = {
+  data: Tag[],
+  message: string,
+  status: number,
+}

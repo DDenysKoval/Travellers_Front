@@ -22,6 +22,10 @@
   letter-spacing: -0.01em;
 }
 
+.socialList {
+  position: relative;
+}
+
 .link {
   display: flex;
   flex-direction: row;
@@ -67,7 +71,7 @@
 
 .logoUlWrapper {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   align-items: center;
@@ -112,6 +116,12 @@
   .socialLogo {
     width: 24px;
     height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .logoUlWrapper {
+    flex-direction: row;
   }
 }
 
@@ -131,26 +141,30 @@
 
   .footerWrapper {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    margin-bottom: 0;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .logoUlWrapper {
     margin-bottom: 0;
-    gap: 444px;
   }
 
   .footerLogo {
     margin-bottom: 0;
   }
 
-  .footerSocial {
+  .socialList {
     position: absolute;
     left: 50%;
+    top: 0;
     transform: translateX(-50%);
     margin-bottom: 0;
     gap: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .navigationWrapper {
@@ -171,5 +185,14 @@
     font-size: 16px;
     padding-top: 32px;
     margin-top: 0;
+  }
+
+  .footerNav {
+    display: flex;
+    margin-left: auto;
+  }
+  .link {
+    margin-bottom: 0;
+    height: 24px;
   }
 }

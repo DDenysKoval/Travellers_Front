@@ -49,7 +49,9 @@ const Footer = () => {
                   </li>
                 </ul>
               </div>
-              <Navigation />
+              <div className={css.footerNav}>
+                <Navigation />
+              </div>
             </div>
           </div>
           <div className={css.footerBottom}>

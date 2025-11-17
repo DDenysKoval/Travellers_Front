@@ -3,7 +3,6 @@ import AuthNavigation from "../AuthNavigation/AuthNavigation";
 import css from "./Header.module.css";
 import Image from "next/image";
 
-
 type HeaderVariant = "default" | "hero";
 
 interface HeaderProps {
@@ -26,21 +25,19 @@ const Header = ({ variant = "default" }: HeaderProps) => {
     variant === "hero"
       ? `${css.navLink} ${css.navLinkHero}`
       : `${css.navLink} ${css.navLinkDefault}`;
-  
-  
 
   return (
     <header className={headerClassName}>
       <div className="container">
         <div className={css.inner}>
           <Link href="/" className={logoClassName}>
-              <Image
-                src="/plant.svg"          
-                alt="Подорожники"
-                width={22}
-                height={22}
-                className={css.logoIcon}
-              />
+            <Image
+              src="/plant.svg"
+              alt="Подорожники"
+              width={22}
+              height={22}
+              className={css.logoIcon}
+            />
             <span className={css.logoText}>Подорожники</span>
           </Link>
 
@@ -55,10 +52,7 @@ const Header = ({ variant = "default" }: HeaderProps) => {
               Мандрівники
             </a>
             {isAuth && (
-              <Link
-                href="/profile"
-                className={navLinkClassName}
-              >
+              <Link href="/profile" className={navLinkClassName}>
                 Мій Профіль
               </Link>
             )}

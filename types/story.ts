@@ -18,7 +18,7 @@ export interface Story {
 
 
 export interface NewStory {
-  img: string,
+  img: File,
   title: string,
   article: string,
   category: string,

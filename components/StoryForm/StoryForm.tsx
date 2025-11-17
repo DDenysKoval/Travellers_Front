@@ -8,7 +8,7 @@ import { NewStory } from "@/types/story";
 
 type Props = {
   categories: Category[],
-  onSubmit: (formData: FormData) => Promise<void | NewStory>
+  onSubmit: (formData: FormData) => Promise<void>
 };
 
 export default function StorieForm({ categories, onSubmit }: Props) {
@@ -84,7 +84,7 @@ export default function StorieForm({ categories, onSubmit }: Props) {
           <label htmlFor={`category-${fieldId}`} className={css.subtitle}>Категорія</label>
           <select name="category" id={`category-${fieldId}`} className={`${css.select} ${css.input}`}>
             <option value="" >Категорія</option>
-            {categories?.map((category) => (<option key={category._id} value={category._id} >{category.name}</option>))}
+            {categories && categories.data?.map((category) => (<option key={category._id} value={category._id} >{category.name}</option>))}
           </select>
         </div>
 

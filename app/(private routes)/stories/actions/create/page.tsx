@@ -23,48 +23,49 @@ export const metadata: Metadata = {
   },
 };
 
-const categories = [
-  {
-    "_id": "68fb50c80ae91338641121f0",
-    "name": "Азія"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f1",
-    "name": "Гори"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f2",
-    "name": "Європа"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f3",
-    "name": "Америка"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f4",
-    "name": "Африка"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f6",
-    "name": "Пустелі"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f7",
-    "name": "Балкани"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f8",
-    "name": "Кавказ"
-  },
-  {
-    "_id": "68fb50c80ae91338641121f9",
-    "name": "Океанія"
-  }
-];
+// const categories = [
+//   {
+//     "_id": "68fb50c80ae91338641121f0",
+//     "name": "Азія"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f1",
+//     "name": "Гори"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f2",
+//     "name": "Європа"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f3",
+//     "name": "Америка"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f4",
+//     "name": "Африка"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f6",
+//     "name": "Пустелі"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f7",
+//     "name": "Балкани"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f8",
+//     "name": "Кавказ"
+//   },
+//   {
+//     "_id": "68fb50c80ae91338641121f9",
+//     "name": "Океанія"
+//   }
+// ];
 
 
 const CreateStoriePage = async () => {
-  // const categories = await getCategories();
+  let categories = []
+  categories = await getCategories();
 
   console.log(categories);
 

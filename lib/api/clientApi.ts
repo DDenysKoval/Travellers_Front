@@ -85,9 +85,15 @@ export async function fetchNotes(
   }
 }
 
-export async function createStory(newStory: NewStory) {
+export async function createStory(formData: FormData) {
   try {
-    const response = await nextServer.post("/notes", newStory);
+    const response = await nextServer.post<Story>("/stories", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    });
+
+    console.log(response)
     return response.data;
   } catch {
     throw new Error("Create task failed");

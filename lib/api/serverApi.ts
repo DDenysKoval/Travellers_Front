@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
 import axios from "axios";
 import { Category } from "@/types/category";
+import { Story } from "@/types/story";
 
 
 export const getServerMe = async () => {
@@ -63,9 +64,7 @@ export const checkServerSession = async () => {
 
 export async function getCategories() {
 
-  const response = await nextServer.get<Category[]>(`/categories`, {
-
-  });
+  const response = await nextServer.get<Category[]>(`/categories`);
   return response.data;
 
 

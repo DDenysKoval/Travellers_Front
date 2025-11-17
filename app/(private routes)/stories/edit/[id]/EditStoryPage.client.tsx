@@ -1,19 +1,19 @@
 "use client";
 
 import StoryForm from "@/components/StoryForm/StoryForm";
-import { createStory } from "@/lib/api/clientApi";
-import { CategoryProps } from "@/types/category";
-import { NewStory } from "@/types/story";
+import { createStory, patchStory } from "@/lib/api/clientApi";
+import { Category } from "@/types/category";
+import { NewStory, Story } from "@/types/story";
 // import { NewStory } from "@/types/story";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 
 
-const CreateStoryClient = ({ categories }: CategoryProps) => {
+const EditStoryClient = ({ categories, entity }: { categories: Category[], entity: Story }) => {
     // const router = useRouter();
 
     const { mutate } = useMutation({
-        mutationFn: (formData: FormData) => createStory(formData),
+        mutationFn: (formData: FormData) => patchStory(entity._id, formData),
         onSuccess: () => {
             // router.push(`/stories/storyId`)
         }
@@ -30,10 +30,10 @@ const CreateStoryClient = ({ categories }: CategoryProps) => {
 
     return (
         <>
-            <StoryForm categories={categories} onSubmit={handleSubmit} />
+            <StoryForm categories={categories} entity={entity} onSubmit={handleSubmit} />
 
         </>
     );
 };
 
-export default CreateStoryClient
+export default EditStoryClient

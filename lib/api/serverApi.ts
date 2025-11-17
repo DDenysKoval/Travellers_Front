@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
 import { StoryWrapper } from "@/types/story";
 import axios from "axios";
-import { Category } from "@/types/category";
+import { CategoryProps, CategoryRes } from "@/types/category";
 import { Story } from "@/types/story";
 
 
@@ -98,6 +98,6 @@ export const fetchServerMyStories = async () => {
 
 
 export async function getCategories() {
-  const response = await nextServer.get<Category[]>(`/categories`);
-  return response.data;
+  const response = await nextServer.get<CategoryProps>(`/categories`);
+  return response.data.data;
 }

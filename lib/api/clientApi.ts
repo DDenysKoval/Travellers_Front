@@ -129,6 +129,24 @@ export async function createStory(formData: FormData) {
   }
 }
 
+
+export async function patchStory(id: string, formData: FormData) {
+  try {
+    const response = await nextServer.patch<Story>(`/stories${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    });
+
+    console.log(response)
+    return response.data;
+  } catch {
+    throw new Error("Create task failed");
+  }
+}
+
+
+
 export async function deleteNote(storieId: string) {
   try {
     const response = await nextServer.delete(`/stories/${storieId}`);

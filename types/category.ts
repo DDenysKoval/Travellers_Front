@@ -5,5 +5,5 @@ export interface Category {
 
 
 export type CategoryProps = {
-    categories: Category[]
+    data: Category[]
 };

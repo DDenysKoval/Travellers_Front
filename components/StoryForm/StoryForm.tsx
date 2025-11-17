@@ -3,18 +3,37 @@ import { useId, useRef, useState } from "react";
 import Image from "next/image";
 import css from "./StoryForm.module.css"
 import { Category } from "@/types/category";
-import { NewStory } from "@/types/story";
+import { NewStory, Story } from "@/types/story";
+import Link from "next/link";
 
 
 type Props = {
   categories: Category[],
+  entity: Story,
   onSubmit: (formData: FormData) => Promise<void>
 };
 
-export default function StorieForm({ categories, onSubmit }: Props) {
+export default function StorieForm({ categories, entity, onSubmit }: Props) {
   const [preview, setPreview] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const fieldId = useId();
+
+  console.log(entity?.data)
+
+  const [formData, setFormData] = useState({
+    title: entity?.data.title ?? '',
+    email: '',
+    message: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -77,14 +96,17 @@ export default function StorieForm({ categories, onSubmit }: Props) {
 
         <div className={css.formGroup}>
           <label htmlFor={`title-${fieldId}`} className={css.subtitle}>Заголовок</label>
-          <input type="text" name="title" id={`title-${fieldId}`} placeholder="Введіть заголовок історії" className={css.input} />
+          <input type="text" name="title" id={`title-${fieldId}`}
+            value={formData.title}
+            onChange={handleChange}
+            placeholder="Введіть заголовок історії" className={css.input} />
         </div>
 
         <div className={css.formGroup}>
           <label htmlFor={`category-${fieldId}`} className={css.subtitle}>Категорія</label>
           <select name="category" id={`category-${fieldId}`} className={`${css.select} ${css.input}`}>
             <option value="" >Категорія</option>
-            {categories && categories.data?.map((category) => (<option key={category._id} value={category._id} >{category.name}</option>))}
+            {categories && categories?.map((category) => (<option key={category._id} value={category._id} >{category.name}</option>))}
           </select>
         </div>
 
@@ -101,7 +123,8 @@ export default function StorieForm({ categories, onSubmit }: Props) {
       </div>
       <div className={css.form}>
         <button type="submit" className={css.btnSubmit}>Зберегти</button>
-        <button type="button" className={css.btnCancel}>Відмінити</button>
+        <Link href={"/"} className={css.btnCancel}>Відмінити</Link>
+
       </div>
     </div>
 

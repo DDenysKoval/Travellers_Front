@@ -13,7 +13,6 @@ type HeaderVariant = "default" | "hero";
 interface HeaderProps {
   variant?: HeaderVariant;
 }
-// const isAuthenticated = true;
 
 const Header = ({ variant = "default" }: HeaderProps) => {
   const { isAuthenticated } = useAuthStore();
@@ -38,7 +37,12 @@ const Header = ({ variant = "default" }: HeaderProps) => {
     const menuButtonClassName =
     variant === "hero"
       ? `${css.menuButton} ${css.menuButtonHero}`
-      : `${css.menuButton} ${css.menuButtonDefault}`;
+        : `${css.menuButton} ${css.menuButtonDefault}`;
+  
+  const menuIconClassName =
+  variant === "hero"
+    ? `${css.menuIcon} ${css.menuIconHero}`
+    : `${css.menuIcon} ${css.menuIconDefault}`;
 
 
  const toggleMenu = () => setIsMenuOpen(prev => !prev);
@@ -98,61 +102,12 @@ const Header = ({ variant = "default" }: HeaderProps) => {
                     alt="Подорожники"
                     width={24}
                     height={24}
-                    className={css.logoIcon}
+                    className={menuIconClassName} 
                   />
               </button>
             </div>
         </div>
-      </div>
 
-{/* {isMenuOpen && (
-        <div className={css.mobileMenuOverlay}>
-          <div className={css.mobileMenu}>
-            <div className={css.mobileHeader}>
-              <Link href="/" className={logoClassName} onClick={toggleMenu}>
-                <Image
-                  src="/plant.svg"
-                  alt="Подорожники"
-                  width={22}
-                  height={22}
-                  className={css.logoIcon}
-                />
-                <span className={css.logoTextModal}>Подорожники</span>
-              </Link>
-              <button
-                type="button"
-                className={css.closeButton}
-                onClick={toggleMenu}
-                aria-label="Закрити меню"
-              >
-                ✕
-              </button>
-            </div>
-
-            <nav className={css.mobileNav}>
-              <Link href="/" onClick={toggleMenu}>
-                Головна
-              </Link>
-              <Link href="/stories" onClick={toggleMenu}>
-                Історії
-              </Link>
-              <Link href="/travellers" onClick={toggleMenu}>
-                Мандрівники
-              </Link>
-
-              {isAuthenticated && (
-                <Link href="/profile" onClick={toggleMenu}>
-                  Мій Профіль
-                </Link>
-              )}
-            </nav>
-
-            <div className={css.mobileAuth}>
-             <AuthNavigation variant="default" showOnMobile /> 
-            </div>
-          </div>
-        </div>
-      )} */}
       <MobileMenu
         isOpen={isMenuOpen}
         onClose={closeMenu}
@@ -160,6 +115,9 @@ const Header = ({ variant = "default" }: HeaderProps) => {
         variant={variant}
         logoClassName={logoClassName}
       />
+      </div>
+
+
     </header>
   );
 };

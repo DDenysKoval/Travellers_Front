@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import css from "./AuthNavigation.module.css";
 import { useAuthStore } from "@/lib/store/authStore";
 import { logout } from "@/lib/api/clientApi";
-
+import ModalReuse from "../ModalReuse/ModaReuse";
 
 type HeaderVariant = "default" | "hero";
 
@@ -22,6 +24,13 @@ const AuthNavigation = ({ variant = "default", showOnMobile = false }: AuthNavig
   // const user = {
   //   "name": "test",
   // }
+
+  const router = useRouter();
+
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const openLogoutModal = () => setIsLogoutModalOpen(true);
+  const closeLogoutModal = () => setIsLogoutModalOpen(false);
+
 
     const loginClass =
     variant === "hero"
@@ -53,6 +62,11 @@ const AuthNavigation = ({ variant = "default", showOnMobile = false }: AuthNavig
       ? `${css.logoutButton} ${css.logoutButtonHero}`
       : css.logoutButton;
   
+  const logoutIconClass =
+  variant === "hero"
+    ? `${css.logoutIcon} ${css.logoutIconHero}`
+    : `${css.logoutIcon} ${css.logoutIconDefault}`;
+  
   
   const navClassName = showOnMobile ? `${css.nav} ${css.navMobile}` : css.nav;
 
@@ -61,7 +75,8 @@ const AuthNavigation = ({ variant = "default", showOnMobile = false }: AuthNavig
         try {
           await logout();
           clearIsAuthenticated();
-          close();
+          closeLogoutModal();
+          router.refresh();
         } catch (error) {
           console.error(error);
         }
@@ -86,50 +101,70 @@ const AuthNavigation = ({ variant = "default", showOnMobile = false }: AuthNavig
   const userName = user?.name || "Користувач";
 
   return (
-    <nav className={navClassName}>
+    <>
+        <nav className={navClassName}>
 
-      <Link
-        href="/stories/create"
-        className={primaryClass}
-      >
-        Опублікувати історію
-      </Link>
-      <div className={css.userBlock}>
-          <button type="button" className={avatarButtonClass}>
-            {user?.avatarUrl ? (
-              <Image
-                src={user.avatarUrl}
-                alt={userName}
-                width={28}
-                height={28}
-                className={css.avatarImage}
-              />
-            ) : (
-              <span className={css.avatarInitials}>
-                {userName.charAt(0).toUpperCase()}
-              </span>
-            )}
-          </button>
-
-          <span className={userNameClass}>{userName}</span>
-          
-          <span className={css.userDivider} />
-          
-          <button
-            type="button"
-            className={logoutButtonClass}
-            onClick={handleLogout}
-            aria-label="Вийти"
+          <Link
+            href="/stories/create"
+            className={primaryClass}
           >
+            Опублікувати історію
+          </Link>
+          <div className={css.userBlock}>
+              <button type="button" className={avatarButtonClass}>
+                {user?.avatarUrl ? (
+                  <Image
+                    src={user.avatarUrl}
+                    alt={userName}
+                    width={28}
+                    height={28}
+                    className={css.avatarImage}
+                  />
+                ) : (
+                  <span className={css.avatarInitials}>
+                    {userName.charAt(0).toUpperCase()}
+                  </span>
+                )}
+              </button>
+
+              <span className={userNameClass}>{userName}</span>
+              
+              <span className={css.userDivider} />
+              
+              <button
+                type="button"
+                onClick={openLogoutModal} 
+                className={logoutButtonClass}
+                aria-label="Вийти"
+              >
             <Image
-              src="/logout.svg"
-              alt="Вийти"
-              width={20}
-              height={20}
-            />
-          </button>
-      </div>
-    </nav>
+                  className={logoutIconClass}
+                  src="/logout.svg"
+                  alt="Вийти"
+                  width={20}
+                  height={20}
+                />
+              </button>
+          </div>
+        </nav>
+          <ModalReuse
+        isOpen={isLogoutModalOpen}
+        onClose={closeLogoutModal}
+        title="Ви точно хочете вийти?"
+        message="Ми будемо сумувати за вами!"
+        actions={[
+          {
+            label: "Вiдмiнити",
+            onClick: closeLogoutModal,
+          },
+          {
+            label: "Вийти",
+            onClick: handleLogout,
+            primary: true,
+          },
+        ]}
+      />
+    </>
   );
 };
 

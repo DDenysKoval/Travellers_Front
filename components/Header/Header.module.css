@@ -155,6 +155,17 @@ font-weight: 400;
   color: #ffffff;
 }
 
+.menuIcon {
+  display: block;
+}
+
+.menuIconDefault {
+  filter: invert(1);
+}
+
+.menuIconHero {
+  filter: none;
+}
 
 .menuButton {
   display: block;
@@ -183,8 +194,8 @@ font-weight: 400;
 }
 
 .menuButtonDefault {
-  background-color: #f3f4f6;
-  border-color: rgba(148, 163, 184, 0.4);
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(148, 163, 184, 0.5);
   color: #111827;
 }
 
@@ -218,10 +229,6 @@ font-weight: 400;
     margin-left: auto;
     margin-right: 24px;
   }
-
-  /* .menuButton {
-    display: none;
-  } */
 
   .authDesktop {
     display: block;

@@ -24,11 +24,22 @@ export default function StoriesPage() {
   };
 
   useEffect(() => {
-    setPerPage(getPerPage());
-    const handleResize = () => setPerPage(getPerPage());
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const resizeHandler = () => {
+      const newPerPage = getPerPage();
+      setPerPage(newPerPage);
+    };
+
+    resizeHandler();
+    window.addEventListener("resize", resizeHandler);
+
+    return () => window.removeEventListener("resize", resizeHandler);
   }, []);
+
+  useEffect(() => {
+    setPage(1);
+    // setAllStories([]);
+    setHasNextPage(true);
+  }, [perPage]);
 
   const { data, isFetching } = useQuery<StorieListResponse>({
     queryKey: ["stories", page, perPage, category],
@@ -36,41 +47,54 @@ export default function StoriesPage() {
     keepPreviousData: true,
   });
 
-  // Оновлюємо локальний стан при зміні даних
   useEffect(() => {
     if (data?.data?.stories) {
-      const newStories = data?.data?.stories.filter(
+      const newStories = data.data.stories.filter(
         (s) => !allStories.some((prev) => prev._id === s._id)
       );
+
       setAllStories((prev) => [...prev, ...newStories]);
-      setHasNextPage(data?.data?.hasNextPage);
+      setHasNextPage(data.data.hasNextPage);
     }
   }, [data]);
 
   const loadMore = () => {
-    if (hasNextPage) setPage((prev) => prev + 1);
+    if (!isFetching && hasNextPage) {
+      setPage((prev) => prev + 1);
+    }
   };
 
   const handleCategorySelect = (id: string | null) => {
     setCategory(id);
     setPage(1);
     setAllStories([]);
+    setHasNextPage(true);
   };
 
-  if (!allStories.length && isFetching) return <Loading />;
+  const isInitialLoading = isFetching && allStories.length === 0 && page === 1;
 
   return (
     <main>
       <section className={css.sectionStories}>
         <div className="container">
           <h2 className={css.titleStorie}>Історії Мандрівників</h2>
+
           <Categories onSelect={handleCategorySelect} />
-          <TravellersStories stories={allStories} />
-          {isFetching && allStories.length > 0 && <Loading />}
-          {!isFetching && hasNextPage && (
-            <button onClick={loadMore} className={css.StoriesBtn}>
-              Показати ще
-            </button>
+
+          {isInitialLoading ? (
+            <Loading />
+          ) : (
+            <>
+              <TravellersStories stories={allStories} />
+
+              {isFetching && <Loading />}
+
+              {!isFetching && hasNextPage && (
+                <button onClick={loadMore} className={css.StoriesBtn}>
+                  Показати ще
+                </button>
+              )}
+            </>
           )}
         </div>
       </section>

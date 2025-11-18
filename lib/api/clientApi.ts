@@ -1,6 +1,6 @@
 
 import { nextServer } from "./api";
-import { StorieListResponse, StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/story";
+import { StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/story";
 import { User } from "@/types/user";
 import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";

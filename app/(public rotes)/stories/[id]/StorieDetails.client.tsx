@@ -40,7 +40,7 @@ const StorieDetailsClient = () => {
         saved={saved}
         onSave={() => mutation.mutate()}
       />
-      <PopularStories />
+      <PopularStories limit={3} />
     </div>
   );
 };

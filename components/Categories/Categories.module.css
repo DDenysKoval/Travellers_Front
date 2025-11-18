@@ -81,6 +81,7 @@
     }
 
     .menuItem {
+        cursor: pointer;
         display: block;
         padding: 8px 16px;
         text-decoration: none;
@@ -98,6 +99,7 @@
     }
 
     .menuItem {
+        cursor: pointer;
         font-weight: 500;
         font-size: 16px;
         line-height: 1.5;

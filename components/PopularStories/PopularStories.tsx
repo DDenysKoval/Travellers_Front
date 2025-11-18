@@ -8,7 +8,11 @@ import css from "./popularStories.module.css";
 import { Story, StorieListResponse } from "@/types/story";
 import TravellersStories from "../TravellersStories/TravellersStories";
 
-export default function PopularStories() {
+interface Props {
+  limit?: number;
+}
+
+export default function PopularStories({ limit }: Props) {
   const type = "popular";
 
   const [perPage, setPerPage] = useState(3);
@@ -24,7 +28,6 @@ export default function PopularStories() {
     return 3;
   };
 
-  // При завантаженні + при зміні розміру змінюємо perPage
   useEffect(() => {
     const handleResize = () => {
       const newPerPage = getPerPage();
@@ -32,12 +35,11 @@ export default function PopularStories() {
     };
 
     window.addEventListener("resize", handleResize);
-    handleResize(); // перший виклик
-
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, []); // 🟢 Без deps — не викликає loop
+  }, []);
 
-  // Якщо перPage змінюється → скидаємо все
+  // Скидання при зміні perPage
   useEffect(() => {
     setPage(1);
     setAllStories([]);
@@ -57,7 +59,6 @@ export default function PopularStories() {
       const newStories = data.data.stories.filter(
         (s) => !allStories.some((prev) => prev._id === s._id)
       );
-
       setAllStories((prev) => [...prev, ...newStories]);
       setHasNextPage(data.data.hasNextPage);
     }
@@ -82,7 +83,7 @@ export default function PopularStories() {
 
         {allStories.length > 0 && isFetching && <Loading />}
 
-        {hasNextPage && !isFetching && (
+        {!limit && hasNextPage && !isFetching && (
           <button onClick={loadMore} className={css.popularStoriesBtn}>
             Переглянути всі
           </button>

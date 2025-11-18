@@ -11,7 +11,6 @@ import {
   addStoryToFavourite,
   addStoryToFavouriteResponse,
   deleteStoryFromFavourite,
-  getMe,
 } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -110,10 +109,14 @@ export default function TravellersStoriesItem({ story }: Props) {
   return (
     <div className={css.storyCard}>
       <Image
-        src={story.img}
+        src={
+          story?.img ||
+          "https://ftp.goit.study/img/travel-blog/68498236a100312bea079011.webp"
+        }
         alt="Photo of place"
-        width={335}
-        height={223}
+        width={421}
+        height={280}
+        sizes="(max-width: 768px) 100vw, 50vw"
         className={css.avatar}
       />
       <div className={css.infoBlock}>
@@ -121,16 +124,15 @@ export default function TravellersStoriesItem({ story }: Props) {
           <p className={css.storyCountry}>
             {story.category ? story.category.name : ""}
           </p>
-          <h4 className={css.storyHeading}>{story.title}</h4>
-          <p className={css.storyText}>{story.article}</p>
+          <h4 className={css.storyHeading}>{story?.title || ""}</h4>
+          <p className={css.storyText}>{story?.article || ""}</p>
         </div>
 
         <div className={css.favouriteInfo}>
           <Image
             src={
-              story.ownerId?.avatarUrl
-                ? story.ownerId.avatarUrl
-                : "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762709153/Default_Avatar_om76t3.webp"
+              story.ownerId?.avatarUrl ||
+              "https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd009.webp"
             }
             alt="User Avatar"
             width={48}
@@ -139,7 +141,7 @@ export default function TravellersStoriesItem({ story }: Props) {
           />
 
           <div>
-            <p className={css.name}>{story.ownerId.name}</p>
+            <p className={css.name}>{story.ownerId?.name || ""}</p>
             <div className={css.datecontainer}>
               <p className={css.data}>
                 {story.date.split("T")[0]} • {favoriteCount}
@@ -151,11 +153,14 @@ export default function TravellersStoriesItem({ story }: Props) {
           </div>
         </div>
         <div className={css.buttons}>
-          <Link className={css.link} href={`/stories/${story._id}`}>
+          <Link
+            className={`${css.buttonEfect} ${css.link}`}
+            href={`/stories/${story._id}`}
+          >
             Переглянути статтю
           </Link>
           <button
-            className={`${css.favorButton} ${isFavourite ? css.favorButtonPush : ""}`}
+            className={`${css.favorButton} ${css.buttonEfect} ${isFavourite ? css.favorButtonPush : ""}`}
             onClick={handleClick}
           >
             <svg className={isFavourite ? css.icon : ""} width="24" height="24">

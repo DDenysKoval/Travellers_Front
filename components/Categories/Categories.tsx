@@ -17,8 +17,6 @@ const Categories = ({
 
   const handleSelect = (id: string | null) => {
     setSelectedId(id);
-    console.log(selectedId);
-
     onSelect(id);
   };
 
@@ -32,7 +30,7 @@ const Categories = ({
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
-  console.log(selectedId);
+
   const toggle = () => setIsOpen(!isOpen);
 
   return (

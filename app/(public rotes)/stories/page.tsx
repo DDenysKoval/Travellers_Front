@@ -8,25 +8,6 @@ import Loading from "@/app/loading";
 import css from "./StoriesPage.module.css";
 import Categories from "@/components/Categories/Categories";
 import TravellersStories from "@/components/TravellersStories/TravellersStories";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "Stories",
-  description: "Stories List",
-  openGraph: {
-    title: "Stories",
-    description: " Stories List",
-    url: `${process.env.NEXT_PUBLIC_API_URL}/stories`,
-    images: [
-      {
-        url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
-        width: 1440,
-        height: 900,
-        alt: "Podorozhnuky",
-      },
-    ],
-  },
-};
 
 export default function StoriesPage() {
   const [category, setCategory] = useState<string | null>(null);

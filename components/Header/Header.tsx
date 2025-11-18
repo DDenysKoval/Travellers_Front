@@ -5,8 +5,8 @@ import AuthNavigation from "../AuthNavigation/AuthNavigation";
 import css from "./Header.module.css";
 import Image from "next/image";
 import { useState } from "react";
-import { useAuthStore } from "../../lib/store/authStore"; 
-import MobileMenu from "../MobileMenu/MobileMenu"; 
+import { useAuthStore } from "../../lib/store/authStore";
+import MobileMenu from "../MobileMenu/MobileMenu";
 
 type HeaderVariant = "default" | "hero";
 
@@ -33,39 +33,36 @@ const Header = ({ variant = "default" }: HeaderProps) => {
     variant === "hero"
       ? `${css.navLink} ${css.navLinkHero}`
       : `${css.navLink} ${css.navLinkDefault}`;
-  
-    const menuButtonClassName =
+
+  const menuButtonClassName =
     variant === "hero"
       ? `${css.menuButton} ${css.menuButtonHero}`
-        : `${css.menuButton} ${css.menuButtonDefault}`;
-  
+      : `${css.menuButton} ${css.menuButtonDefault}`;
+
   const menuIconClassName =
-  variant === "hero"
-    ? `${css.menuIcon} ${css.menuIconHero}`
-    : `${css.menuIcon} ${css.menuIconDefault}`;
+    variant === "hero"
+      ? `${css.menuIcon} ${css.menuIconHero}`
+      : `${css.menuIcon} ${css.menuIconDefault}`;
 
-
- const toggleMenu = () => setIsMenuOpen(prev => !prev);
+  const toggleMenu = () => setIsMenuOpen((prev) => !prev);
   const closeMenu = () => setIsMenuOpen(false);
-
 
   return (
     <header className={headerClassName}>
       <div className="container">
         <div className={css.inner}>
           <Link href="/" className={logoClassName}>
-              <Image
-                src="/plant.svg"          
-                alt="Подорожники"
-                width={22}
-                height={22}
-                className={css.logoIcon}
-              />
+            <Image
+              src="/plant.svg"
+              alt="Подорожники"
+              width={22}
+              height={22}
+              className={css.logoIcon}
+            />
             <span className={css.logoText}>Подорожники</span>
           </Link>
 
           <nav className={css.nav}>
-
             <Link href="/" className={navLinkClassName}>
               Головна
             </Link>
@@ -79,45 +76,40 @@ const Header = ({ variant = "default" }: HeaderProps) => {
             </Link>
 
             {isAuthenticated && (
-              <Link
-                href="/profile"
-                className={navLinkClassName}
-              >
+              <Link href="/profile" className={navLinkClassName}>
                 Мій Профіль
               </Link>
             )}
           </nav>
 
-            <div className={css.rightBlock}>
-              <AuthNavigation variant={variant} />
+          <div className={css.rightBlock}>
+            <AuthNavigation variant={variant} />
 
-              <button
-                type="button"
-                className={menuButtonClassName}
-                onClick={toggleMenu}
-                aria-label="Відкрити меню"
-              >
-                <Image
-                    src="/menu.svg"          
-                    alt="Подорожники"
-                    width={24}
-                    height={24}
-                    className={menuIconClassName} 
-                  />
-              </button>
-            </div>
+            <button
+              type="button"
+              className={menuButtonClassName}
+              onClick={toggleMenu}
+              aria-label="Відкрити меню"
+            >
+              <Image
+                src="/menu.svg"
+                alt="Подорожники"
+                width={24}
+                height={24}
+                className={menuIconClassName}
+              />
+            </button>
+          </div>
         </div>
 
-      <MobileMenu
-        isOpen={isMenuOpen}
-        onClose={closeMenu}
-        isAuthenticated={isAuthenticated}
-        variant={variant}
-        logoClassName={logoClassName}
-      />
+        <MobileMenu
+          isOpen={isMenuOpen}
+          onClose={closeMenu}
+          isAuthenticated={isAuthenticated}
+          variant={variant}
+          logoClassName={logoClassName}
+        />
       </div>
-
-
     </header>
   );
 };

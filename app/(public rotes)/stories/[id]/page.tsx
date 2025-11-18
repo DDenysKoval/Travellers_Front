@@ -12,29 +12,29 @@ interface Props {
   params: Promise<{ id: string }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const wrapper = await fetchServerNotebyId(id);
-  const story = wrapper.data;
+// export async function generateMetadata({ params }: Props): Promise<Metadata> {
+//   const { id } = await params;
+//   const wrapper = await fetchServerNotebyId(id);
+//   const story = wrapper.data;
 
-  return {
-    title: `Story: ${story.title}`,
-    description: "",
-    openGraph: {
-      title: `Story: ${story.title}`,
-      description: "",
-      // url: "`https://localhost:3000/stories/${id}`",
-      images: [
-        {
-          url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
-          width: 1440,
-          height: 900,
-          alt: "Podorozhnuky",
-        },
-      ],
-    },
-  };
-}
+//   return {
+//     title: `Story: ${story.title}`,
+//     description: "",
+//     openGraph: {
+//       title: `Story: ${story.title}`,
+//       description: "",
+//       // url: "`https://localhost:3000/stories/${id}`",
+//       images: [
+//         {
+//           url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp ",
+//           width: 1440,
+//           height: 900,
+//           alt: "Podorozhnuky",
+//         },
+//       ],
+//     },
+//   };
+// }
 
 const StorieDetails = async ({ params }: Props) => {
   const { id } = await params;

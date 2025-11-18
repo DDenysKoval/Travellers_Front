@@ -1,11 +1,9 @@
 import Link from "next/link";
 import css from "./Hero.module.css";
-import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 
 export default function Hero() {
   return (
     <section className={css.hero}>
-      <ThemeToggle />
       <div className="container">
         <div className={css.contentbox}>
           <h1 className={css.title}>Відкрийте світ подорожей з нами!</h1>

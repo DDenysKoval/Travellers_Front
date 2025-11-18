@@ -17,6 +17,7 @@ const StorieDetailsClient = () => {
     queryKey: ["note", id],
     queryFn: () => fetchNoteById(id),
     refetchOnMount: false,
+    retry: false,
   });
   const mutation = useMutation({
     mutationFn: () => addToFavourites(id),

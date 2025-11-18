@@ -1,7 +1,9 @@
+"use client";
+
 import { Metadata } from "next";
-import StoriesClient from "./Stories.client";
 import Categories from "@/components/Categories/Categories";
-import Pagination from "@/components/Pagination/Pagination";
+import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 interface Props {
   params: Promise<{ slug: string[] }>;
@@ -27,14 +29,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function StoriesByCategory({ params }: Props) {
-  return (
-    <main>
-      <section>
-        <Categories />
-        <StoriesClient />
-        <Pagination />
-      </section>
-    </main>
-  );
-}
+// export default function StoriesByCategory({ params }: Props) {
+
+//   return (
+//     <main>
+//       <section>
+//         <Categories onSelect={handleCategoryChange} />
+//       </section>
+//     </main>
+//   );
+// }

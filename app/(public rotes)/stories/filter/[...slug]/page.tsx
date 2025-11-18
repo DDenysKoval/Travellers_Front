@@ -1,33 +1,13 @@
-"use client";
+// "use client";
 
-import { Metadata } from "next";
-import Categories from "@/components/Categories/Categories";
-import { useRouter } from "next/router";
-import { useSearchParams } from "next/navigation";
+// import { Metadata } from "next";
+// import Categories from "@/components/Categories/Categories";
+// import { useRouter } from "next/router";
+// import { useSearchParams } from "next/navigation";
 
-interface Props {
-  params: Promise<{ slug: string[] }>;
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  return {
-    title: "",
-    description: "",
-    openGraph: {
-      title: "",
-      description: "",
-      url: "",
-      images: [
-        {
-          url: "",
-          width: 0,
-          height: 0,
-          alt: "1",
-        },
-      ],
-    },
-  };
-}
+// interface Props {
+//   params: Promise<{ slug: string[] }>;
+// }
 
 // export default function StoriesByCategory({ params }: Props) {
 

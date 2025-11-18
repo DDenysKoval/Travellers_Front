@@ -1,6 +1,5 @@
 import Link from "next/link";
 import css from "./Hero.module.css";
-import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 
 export default function Hero() {
   return (
@@ -13,7 +12,6 @@ export default function Hero() {
             своїми історіями та отримувати натхнення для нових пригод. Відкрийте
             для себе нові місця та знайдіть однодумців!
           </p>
-          <ThemeToggle />
           <Link
             className={css.button}
             href="/auth/register"

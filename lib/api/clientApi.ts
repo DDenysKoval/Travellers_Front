@@ -81,7 +81,7 @@ export const checkSession = async () => {
 };
 
 export const getMe = async () => {
-  const response = await nextServer.get("/users/getme");
+  const response = await nextServer.get("/users/get-me");
   return response.data;
 };
 
@@ -91,7 +91,7 @@ export const logout = async (): Promise<void> => {
 };
 
 export const updateMe = async (body: UpdateUserRequest) => {
-  const response = await nextServer.patch("/users/getme", body);
+  const response = await nextServer.patch("/users/get-me", body);
   return response.data;
 };
 

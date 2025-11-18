@@ -9,7 +9,7 @@ import { Story } from "@/types/story";
 
 export const getServerMe = async () => {
   const cookieStore = await cookies();
-  const response = await nextServer.get("/users/me", {
+  const response = await nextServer.get("/users/get-me", {
     headers: {
       Cookie: cookieStore.toString(),
     },
@@ -101,3 +101,15 @@ export async function getCategories() {
   const response = await nextServer.get<CategoryProps>(`/categories`);
   return response.data.data;
 }
+
+export const fetchServerFavouriteStories = async () => {
+  const cookieStore = await cookies();
+
+  const response = await nextServer.get(`/users/favourites`, {
+    headers: {
+      Cookie: cookieStore.toString()
+     }
+  });
+
+  return response.data.data;
+};

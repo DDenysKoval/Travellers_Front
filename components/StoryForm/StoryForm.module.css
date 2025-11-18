@@ -1,208 +1,181 @@
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .formGroup {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .formFirstItem {
-    margin-bottom: 24px;
+  margin-bottom: 24px;
 }
-
 
 .subtitle {
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 8px;
-
-
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 8px;
 }
 
-
-
-
-
 .input {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 8px;
-    width: 100%;
-    max-width: 335px;
-    height: 40px;
-    outline: transparent;
-    transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 8px;
+  width: 100%;
+  max-width: 335px;
+  height: 40px;
+  outline: transparent;
+  transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .input::placeholder {
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, 0.6);
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
 }
-
 
 .input:focus,
 .textarea:focus,
-select:focus {
-    border-color: #4D5AE5;
+.select:focus {
+  border-color: #4d5ae5;
 }
 
 .select {
-    color: #4c4c4c;
-    outline: transparent;
+  color: #4c4c4c;
+  outline: transparent;
 }
 
 .textarea {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 12px;
-    max-width: 335px;
-    outline: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 12px;
+  max-width: 335px;
+  outline: transparent;
 }
 
 .textarea::placeholder {
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: rgba(0, 0, 0, 0.6);
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.6);
 }
 
 .textareaShort {
-    height: 120px;
-    margin-bottom: 8px;
+  height: 120px;
+  margin-bottom: 8px;
 }
 
 .article {
-    height: 180px;
+  height: 180px;
 }
 
 .btnSubmit {
-    border: 1px solid #4169e1;
-    border-radius: 8px;
-    padding: 6px 12px;
-    max-width: 335px;
-    height: 48px;
-    background: #4169e1;
-    opacity: 0.3;
+  border: 1px solid #4169e1;
+  border-radius: 8px;
+  padding: 6px 12px;
+  max-width: 335px;
+  height: 48px;
+  background: #4169e1;
+  opacity: 0.3;
 
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #fff;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #fff;
 }
 
 .btnCancel {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 6px 12px;
-    max-width: 335px;
-    height: 48px;
-    background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 6px 12px;
+  max-width: 335px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.05);
 
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #000;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .previewImage {
-    width: 100%;
-    max-width: 335px;
-    margin-bottom: 24px;
+  width: 100%;
+  max-width: 335px;
+  margin-bottom: 24px;
 }
 
 .uploadButton {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 4px 10px;
-    max-width: 169px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 4px 10px;
+  max-width: 169px;
 
-    background-color: rgba(0, 0, 0, 0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 
-    font-family: "Nunito Sans", sans-serif;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #000;
+  font-family: "Nunito Sans", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
 }
-
 
 @media only screen and (min-width: 768px) {
+  .previewImage {
+    max-width: 704px;
+  }
 
-    .previewImage {
+  .input,
+  .btnSubmit,
+  .btnCancel {
+    max-width: 704px;
+  }
 
-        max-width: 704px;
-    }
-
-    .input,
-    .btnSubmit,
-    .btnCancel {
-
-        max-width: 704px;
-
-    }
-
-    .textarea {
-
-        max-width: 704px;
-        height: 120px;
-    }
-
-
+  .textarea {
+    max-width: 704px;
+    height: 120px;
+  }
 }
 
-
-
-
 @media only screen and (min-width: 1440px) {
+  .previewImage {
+    max-width: 865px;
+    margin-bottom: 24px;
+  }
 
-    .previewImage {
+  .box {
+    display: flex;
+    gap: 24px;
+  }
 
-        max-width: 865px;
-        margin-bottom: 24px;
-    }
+  .input {
+    max-width: 865px;
+  }
 
-    .box {
-        display: flex;
-        gap: 24px;
-    }
+  .textarea {
+    max-width: 865px;
+    height: 120px;
+  }
 
+  .btnSubmit {
+    margin-top: 32px;
+  }
 
-    .input {
-
-        max-width: 865px;
-
-    }
-
-    .textarea {
-
-        max-width: 865px;
-        height: 120px;
-    }
-
-    .btnSubmit {
-        margin-top: 32px;
-    }
-
-    .btnSubmit,
-    .btnCancel {
-        width: 423px;
-    }
+  .btnSubmit,
+  .btnCancel {
+    width: 423px;
+  }
 }

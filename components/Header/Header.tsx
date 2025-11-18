@@ -1,16 +1,24 @@
+"use client";
+
 import Link from "next/link";
 import AuthNavigation from "../AuthNavigation/AuthNavigation";
 import css from "./Header.module.css";
 import Image from "next/image";
+import { useState } from "react";
+import { useAuthStore } from "../../lib/store/authStore"; 
+import MobileMenu from "../MobileMenu/MobileMenu"; 
 
 type HeaderVariant = "default" | "hero";
 
 interface HeaderProps {
   variant?: HeaderVariant;
 }
-const isAuth = true;
 
 const Header = ({ variant = "default" }: HeaderProps) => {
+  const { isAuthenticated } = useAuthStore();
+  // const  isAuthenticated  = true;
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const headerClassName =
     variant === "hero"
       ? `${css.header} ${css.headerHero}`
@@ -25,42 +33,91 @@ const Header = ({ variant = "default" }: HeaderProps) => {
     variant === "hero"
       ? `${css.navLink} ${css.navLinkHero}`
       : `${css.navLink} ${css.navLinkDefault}`;
+  
+    const menuButtonClassName =
+    variant === "hero"
+      ? `${css.menuButton} ${css.menuButtonHero}`
+        : `${css.menuButton} ${css.menuButtonDefault}`;
+  
+  const menuIconClassName =
+  variant === "hero"
+    ? `${css.menuIcon} ${css.menuIconHero}`
+    : `${css.menuIcon} ${css.menuIconDefault}`;
+
+
+ const toggleMenu = () => setIsMenuOpen(prev => !prev);
+  const closeMenu = () => setIsMenuOpen(false);
+
 
   return (
     <header className={headerClassName}>
       <div className="container">
         <div className={css.inner}>
           <Link href="/" className={logoClassName}>
-            <Image
-              src="/plant.svg"
-              alt="Подорожники"
-              width={22}
-              height={22}
-              className={css.logoIcon}
-            />
+              <Image
+                src="/plant.svg"          
+                alt="Подорожники"
+                width={22}
+                height={22}
+                className={css.logoIcon}
+              />
             <span className={css.logoText}>Подорожники</span>
           </Link>
 
           <nav className={css.nav}>
-            <a href="#home" className={navLinkClassName}>
+
+            <Link href="/" className={navLinkClassName}>
               Головна
-            </a>
-            <a href="#stories" className={navLinkClassName}>
+            </Link>
+
+            <Link href="/stories" className={navLinkClassName}>
               Історії
-            </a>
-            <a href="#travellers" className={navLinkClassName}>
+            </Link>
+
+            <Link href="/travellers" className={navLinkClassName}>
               Мандрівники
-            </a>
-            {isAuth && (
-              <Link href="/profile" className={navLinkClassName}>
+            </Link>
+
+            {isAuthenticated && (
+              <Link
+                href="/profile"
+                className={navLinkClassName}
+              >
                 Мій Профіль
               </Link>
             )}
           </nav>
 
-          <AuthNavigation variant={variant} />
+            <div className={css.rightBlock}>
+              <AuthNavigation variant={variant} />
+
+              <button
+                type="button"
+                className={menuButtonClassName}
+                onClick={toggleMenu}
+                aria-label="Відкрити меню"
+              >
+                <Image
+                    src="/menu.svg"          
+                    alt="Подорожники"
+                    width={24}
+                    height={24}
+                    className={menuIconClassName} 
+                  />
+              </button>
+            </div>
         </div>
+
+      <MobileMenu
+        isOpen={isMenuOpen}
+        onClose={closeMenu}
+        isAuthenticated={isAuthenticated}
+        variant={variant}
+        logoClassName={logoClassName}
+      />
       </div>
+
+
     </header>
   );
 };

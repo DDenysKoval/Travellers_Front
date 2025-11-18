@@ -1,9 +1,13 @@
 .nav {
-  display: flex;
+  display: none;
   align-items: center;
   gap: 12px;
 }
-
+.navMobile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 /* Base pill button */
 .chip {
   display: inline-flex;
@@ -122,7 +126,7 @@
   font-size: 18px;
   font-family: var(--font-nunito-sans);
   font-weight: 500;
-  line-height: 150%;
+  line-height: 120%;
   letter-spacing: 0;
 }
 
@@ -140,6 +144,7 @@
   line-height: 150%;
   letter-spacing: 0;
 }
+
 
 /* ================== Avatar / Name / Exit ================== */
 
@@ -183,6 +188,43 @@
   color: #000000;
 }
 
+.userBlock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userDivider {
+  width: 1px;
+  height: 24px;
+  background-color: #d1d5db;
+}
+
+
+/* HERO */
+
+.avatarButtonHero {
+  background-color: rgba(243, 244, 246, 0.2);
+}
+
+.avatarButtonHero:hover,
+.avatarButtonHero:focus-visible {
+  background-color: rgba(243, 244, 246, 0.3);
+}
+
+.userNameHero {
+  color: #f9fafb;
+  /* почти белый */
+}
+
+.logoutButtonHero {
+  color: #f9fafb;
+}
+
+.logoutButtonHero:hover,
+.logoutButtonHero:focus-visible {
+  color: #fee2e2;
+}
 /* Logout icon button */
 .logoutButton {
   border: none;
@@ -198,6 +240,17 @@
     color 150ms ease-in-out,
     transform 150ms ease-in-out;
 }
+.logoutIcon {
+  display: block;
+}
+
+.logoutIconDefault {
+  filter: none;
+}
+
+.logoutIconHero {
+  filter: invert(1);
+}
 
 .logoutButton:hover,
 .logoutButton:focus-visible {
@@ -205,14 +258,44 @@
   transform: translateY(-1px);
 }
 
-/* Mobile tweak */
-@media only screen and (max-width: 767.98px) {
-  .chip {
-    padding: 6px 14px;
-    font-size: 13px;
+@media only screen and (min-width: 768px) {
+
+  .nav {
+    display: none;
+  }
+  .navMobile {
+    flex-direction: row;
+  }
+  .avatarButton {
+    display: none;
   }
 
   .userName {
     display: none;
+  }
+  /* .userDivider {
+    display: none;
+  } */
+
+  .logoutButton {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1440px) {
+
+  .nav {
+    display: flex;
+    gap: 32px;
+  }
+  .avatarButton {
+    display: inline-flex;
+  }
+
+  .userName {
+    display: inline;
+  }
+
+  .logoutButton {
+    display: inline-flex;
   }
 }

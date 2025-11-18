@@ -51,19 +51,19 @@ export interface StoryId {
   favoriteCount: number;
 }
 
-export type StorieListResponse = {
-  status: number;
-  message: string;
-  data: {
-    stories: Story[];
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
-    page: number;
-    perPage: number;
-    totalItems: number;
-    totalPages: number;
-  };
-};
+// export type StorieListResponse = {
+//   status: number;
+//   message: string;
+//   data: {
+//     stories: Story[];
+//     hasNextPage: boolean;
+//     hasPreviousPage: boolean;
+//     page: number;
+//     perPage: number;
+//     totalItems: number;
+//     totalPages: number;
+//   };
+// };
 
 export type StorieListResponseData = {
   data: {

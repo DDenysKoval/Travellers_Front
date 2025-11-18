@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchStories } from "@/lib/api/clientApi";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { fetchStories, Storie, StorieListResponse } from "@/lib/api/clientApi";
+import { Story } from "@/types/story";
 import Loading from "@/app/loading";
-import css from "./popularStories.module.css";
-import { Story, StorieListResponse } from "@/types/story";
 import TravellersStories from "../TravellersStories/TravellersStories";
+import css from "./popularStories.module.css";
 
 interface Props {
   limit?: number;
@@ -16,11 +16,8 @@ export default function PopularStories({ limit }: Props) {
   const type = "popular";
 
   const [perPage, setPerPage] = useState(3);
-  const [page, setPage] = useState(1);
-  const [allStories, setAllStories] = useState<Story[]>([]);
-  const [hasNextPage, setHasNextPage] = useState(true);
 
-  // Перевірка ширини
+  // Перевірка ширини екрану
   const getPerPage = () => {
     const width = window.innerWidth;
     if (width >= 1440) return 3;
@@ -29,62 +26,51 @@ export default function PopularStories({ limit }: Props) {
   };
 
   useEffect(() => {
-    const handleResize = () => {
-      const newPerPage = getPerPage();
-      setPerPage(newPerPage);
-    };
-
+    const handleResize = () => setPerPage(getPerPage());
     window.addEventListener("resize", handleResize);
     handleResize();
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Скидання при зміні perPage
-  useEffect(() => {
-    setPage(1);
-    setAllStories([]);
-    setHasNextPage(true);
-  }, [perPage]);
-
-  // React Query
-  const { data, isFetching } = useQuery<StorieListResponse>({
-    queryKey: ["stories", page, perPage, type],
-    queryFn: () => fetchStories(page, perPage, "", type),
-    keepPreviousData: true,
+  // Infinite Query
+  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
+    queryKey: ["stories", perPage, type],
+    queryFn: ({ pageParam = 1 }) => fetchStories(pageParam, perPage, "", type),
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.hasNextPage ? pages.length + 1 : undefined;
+    },
+    initialPageParam: 1,
   });
 
-  // Оновлення списку історій
-  useEffect(() => {
-    if (data?.data?.stories) {
-      const newStories = data.data.stories.filter(
-        (s) => !allStories.some((prev) => prev._id === s._id)
-      );
-      setAllStories((prev) => [...prev, ...newStories]);
-      setHasNextPage(data.data.hasNextPage);
-    }
-  }, [data]);
+  const allStories = data ? data.pages.flatMap((page) => page.stories) : [];
 
-  const loadMore = () => {
-    if (hasNextPage && !isFetching) {
-      setPage((prev) => prev + 1);
-    }
-  };
+  // Приводимо до Story[], щоб TS не скаржився
+  const storiesForComponent: Story[] = allStories.map((s) => ({
+    ...s,
+    category: s.category
+      ? { _id: String(s.category._id), name: s.category.name }
+      : null,
+    author: s.author ?? null,
+  }));
 
   return (
     <section className={css.sectionPopularStories}>
       <div className="container">
         <h2 className={css.titleStorie}>Популярні історії</h2>
 
-        {allStories.length === 0 && isFetching ? (
+        {storiesForComponent.length === 0 && isFetching ? (
           <Loading />
         ) : (
-          <TravellersStories stories={allStories} />
+          <TravellersStories stories={storiesForComponent} />
         )}
 
-        {allStories.length > 0 && isFetching && <Loading />}
+        {storiesForComponent.length > 0 && isFetching && <Loading />}
 
         {!limit && hasNextPage && !isFetching && (
-          <button onClick={loadMore} className={css.popularStoriesBtn}>
+          <button
+            onClick={() => fetchNextPage()}
+            className={css.popularStoriesBtn}
+          >
             Переглянути всі
           </button>
         )}

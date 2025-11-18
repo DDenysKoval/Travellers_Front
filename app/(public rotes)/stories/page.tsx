@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { fetchStories } from "@/lib/api/clientApi";
-import { Story, StorieListResponse } from "@/types/story";
+import { Story } from "@/types/story";
 import Loading from "@/app/loading";
 import css from "./StoriesPage.module.css";
 import Categories from "@/components/Categories/Categories";
@@ -11,10 +11,7 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 
 export default function StoriesPage() {
   const [category, setCategory] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
   const [perPage, setPerPage] = useState(9);
-  const [allStories, setAllStories] = useState<Story[]>([]);
-  const [hasNextPage, setHasNextPage] = useState(true);
 
   const getPerPage = () => {
     const width = window.innerWidth;
@@ -35,43 +32,36 @@ export default function StoriesPage() {
     return () => window.removeEventListener("resize", resizeHandler);
   }, []);
 
-  useEffect(() => {
-    setPage(1);
-    // setAllStories([]);
-    setHasNextPage(true);
-  }, [perPage]);
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } =
+    useInfiniteQuery({
+      queryKey: ["stories", perPage, category],
+      queryFn: ({ pageParam = 1 }) =>
+        fetchStories(pageParam, perPage, category || ""),
+      getNextPageParam: (lastPage, pages) => {
+        return lastPage.hasNextPage ? pages.length + 1 : undefined;
+      },
 
-  const { data, isFetching } = useQuery<StorieListResponse>({
-    queryKey: ["stories", page, perPage, category],
-    queryFn: () => fetchStories(page, perPage, category || ""),
-    keepPreviousData: true,
-  });
+      initialPageParam: 1,
+    });
 
-  useEffect(() => {
-    if (data?.data?.stories) {
-      const newStories = data.data.stories.filter(
-        (s) => !allStories.some((prev) => prev._id === s._id)
-      );
-
-      setAllStories((prev) => [...prev, ...newStories]);
-      setHasNextPage(data.data.hasNextPage);
-    }
-  }, [data]);
-
-  const loadMore = () => {
-    if (!isFetching && hasNextPage) {
-      setPage((prev) => prev + 1);
-    }
-  };
+  // Об’єднуємо всі сторінки в один масив
+  const allStories: Story[] = data
+    ? data.pages.flatMap((page) =>
+        page.stories.map((s) => ({
+          ...s,
+          category: s.category
+            ? { ...s.category, _id: String(s.category._id) }
+            : null,
+          author: s.author ?? null,
+        }))
+      )
+    : [];
 
   const handleCategorySelect = (id: string | null) => {
     setCategory(id);
-    setPage(1);
-    setAllStories([]);
-    setHasNextPage(true);
   };
 
-  const isInitialLoading = isFetching && allStories.length === 0 && page === 1;
+  const isInitialLoading = isLoading && allStories.length === 0;
 
   return (
     <main>
@@ -89,8 +79,11 @@ export default function StoriesPage() {
 
               {isFetching && <Loading />}
 
-              {!isFetching && hasNextPage && (
-                <button onClick={loadMore} className={css.StoriesBtn}>
+              {hasNextPage && !isFetching && (
+                <button
+                  onClick={() => fetchNextPage()}
+                  className={css.StoriesBtn}
+                >
                   Показати ще
                 </button>
               )}

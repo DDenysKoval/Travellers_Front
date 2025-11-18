@@ -1,8 +1,8 @@
 import css from "./CreateStoryPage.module.css";
 
 import { Metadata } from "next";
-import CreateStoryClient from "./CreateStory.client";
-import { getCategories } from "@/lib/api/serverApi";
+// import CreateStoryClient from "./CreateStory.client";
+// import { getCategories } from "@/lib/api/serverApi";
 
 export const metadata: Metadata = {
   title: "",
@@ -22,19 +22,14 @@ export const metadata: Metadata = {
   },
 };
 
-
 const CreateStoryPage = async () => {
-  const categories = await getCategories();
-
-  return (
-    <main className={`container ${css.stories}`}>
-      <h1 className={css.title}>Створити нову історію</h1>
-
-      <CreateStoryClient categories={categories} />
-    </main>
-  );
+  // const categories = await getCategories();
+  // return (
+  //   <main className={`container ${css.stories}`}>
+  //     <h1 className={css.title}>Створити нову історію</h1>
+  //     <CreateStoryClient categories={categories} />
+  //   </main>
+  // );
 };
 
 export default CreateStoryPage;
-
-

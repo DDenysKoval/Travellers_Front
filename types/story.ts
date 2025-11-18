@@ -51,6 +51,13 @@ export interface StoryId {
   favoriteCount: number;
 }
 
+export interface NewStory {
+  img: File,
+  title: string,
+  article: string,
+  category: string,
+};
+
 export type StorieListResponse = {
   status: number;
   message: string;

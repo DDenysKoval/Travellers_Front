@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchStories, Storie, StorieListResponse } from "@/lib/api/clientApi";
+import { fetchStories } from "@/lib/api/clientApi";
 import { Story } from "@/types/story";
 import Loading from "@/app/loading";
 import TravellersStories from "../TravellersStories/TravellersStories";

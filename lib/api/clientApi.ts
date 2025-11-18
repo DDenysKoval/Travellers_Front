@@ -302,7 +302,6 @@ export async function fetchStories(page: number, perPage: number, category?: str
         ...(type && {type}),
       },
     })
-    // console.log(response.data);
     
     return response.data.data;
   } catch {

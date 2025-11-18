@@ -7,8 +7,6 @@ interface Props {
 }
 
 export default function TravellersStories({ stories = [] }: Props) {
-  console.log(stories);
-
   return (
     <ul className={css.travellerList}>
       {stories.map((story, index) => {

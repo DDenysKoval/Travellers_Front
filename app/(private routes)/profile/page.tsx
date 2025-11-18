@@ -12,7 +12,6 @@ export default async function ProfilePage() {
   const owner = await getServerMe();
   const myStories = await fetchServerMyStories();
   const favouriteStories = await fetchServerFavouriteStories();
-  console.log(owner);
 
   return (
     <main>

@@ -11,7 +11,6 @@ import {
   addStoryToFavourite,
   addStoryToFavouriteResponse,
   deleteStoryFromFavourite,
-  getMe,
 } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";

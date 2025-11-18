@@ -65,8 +65,6 @@ export const register = async (data: RegisterRequest) => {
     data
   );
 
-  console.log(response.data);
-
   return response.data;
 };
 
@@ -119,7 +117,6 @@ export async function createStory(formData: FormData) {
     const response = await nextServer.post<Story>("/stories", formData, {
     });
 
-    console.log("CREATED", response.data)
     return response.data;
   } catch {
     throw new Error("Create task failed");
@@ -132,7 +129,6 @@ export async function patchStory(id: string, formData: FormData) {
     const response = await nextServer.patch<Story>(`/stories/${id}`, formData, {
     });
 
-    console.log(response)
     return response.data;
   } catch {
     throw new Error("Create task failed");
@@ -218,8 +214,6 @@ export async function fetchOwnerStories(
       }
     );
 
-    // console.log(response.data);
-
     return response.data.data;
   } catch {
     throw new Error("Fetch tasks failed");
@@ -239,8 +233,6 @@ export async function addStoryToFavourite(storieId: string) {
       {}
     );
 
-    // console.log(response.data);
-
     return response.data;
   } catch {
     throw new Error("Post task failed");
@@ -252,8 +244,6 @@ export async function deleteStoryFromFavourite(storieId: string) {
     const response = await nextServer.delete<{ message: string }>(
       `/users/favourites/${storieId}`
     );
-
-    // console.log(response.data);
 
     return response.data;
   } catch {
@@ -279,7 +269,6 @@ export async function changeFavoriteCountInStory(
       }
     );
 
-    // console.log(response.data);
 
     return response.data;
   } catch {
@@ -297,7 +286,6 @@ export async function fetchStories(page: number, perPage: number, category?: str
         ...(type && {type}),
       },
     })
-    console.log(response.data);
     
     return response.data;
   } catch {

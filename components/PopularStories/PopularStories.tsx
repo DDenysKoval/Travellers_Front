@@ -50,16 +50,17 @@ export default function PopularStories({ limit }: Props) {
   const { data, isFetching } = useQuery<StorieListResponse>({
     queryKey: ["stories", page, perPage, type],
     queryFn: () => fetchStories(page, perPage, "", type),
-    placeholderData: (prev) => prev,
   });
 
   // Оновлення списку історій
   useEffect(() => {
     if (data?.data?.stories) {
-      const newStories = data.data.stories.filter(
-        (s) => !allStories.some((prev) => prev._id === s._id)
-      );
-      setAllStories((prev) => [...prev, ...newStories]);
+      setAllStories((prev) => {
+        const newStories = data.data.stories.filter(
+          (s) => !prev.some((prevStory) => prevStory._id === s._id)
+        );
+        return [...prev, ...newStories];
+      });
       setHasNextPage(data.data.hasNextPage);
     }
   }, [data]);

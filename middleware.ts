@@ -7,7 +7,6 @@ const privateRoutes = ['/profile', "/profile/edit", "/stories/create", "/stories
 const publicRoutes = ['/auth/register', '/auth/login', "/travellers/:path*", "/stories/:path*"];
 
 export async function middleware(request: NextRequest) {
-  console.log(request.nextUrl.pathname)
   const cookieStore = await cookies()
   const { pathname } = request.nextUrl
   const accessToken = cookieStore.get("accessToken")?.value

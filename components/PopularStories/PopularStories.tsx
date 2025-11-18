@@ -50,7 +50,7 @@ export default function PopularStories({ limit }: Props) {
   const { data, isFetching } = useQuery<StorieListResponse>({
     queryKey: ["stories", page, perPage, type],
     queryFn: () => fetchStories(page, perPage, "", type),
-    keepPreviousData: true,
+    placeholderData: (prev) => prev,
   });
 
   // Оновлення списку історій

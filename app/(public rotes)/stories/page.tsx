@@ -1,31 +1,55 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchStories } from "@/lib/api/clientApi";
-import { StorieListResponse, Storie } from "@/types/stories";
+import { Story, StorieListResponse } from "@/types/story";
 import Loading from "@/app/loading";
 import css from "./StoriesPage.module.css";
-import StorieList from "@/components/StorieList/StorieList";
 import Categories from "@/components/Categories/Categories";
+import TravellersStories from "@/components/TravellersStories/TravellersStories";
 
 export default function StoriesPage() {
   const [category, setCategory] = useState<string | null>(null);
-  const [perPage, setPerPage] = useState<number | null>(null);
   const [page, setPage] = useState(1);
-  const [allStories, setAllStories] = useState<Storie[]>([]);
+  const [perPage, setPerPage] = useState(9);
+  const [allStories, setAllStories] = useState<Story[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [loading, setLoading] = useState(false);
+
+  const getPerPage = () => {
+    const width = window.innerWidth;
+    if (width >= 1440) return 9;
+    if (width >= 768) return 8;
+    return 9;
+  };
 
   useEffect(() => {
-    const getPerPage = () => {
-      const width = window.innerWidth;
-      if (width >= 1440) return 9;
-      if (width >= 768) return 8;
-      return 9;
-    };
-
     setPerPage(getPerPage());
+    const handleResize = () => setPerPage(getPerPage());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  const { data, isFetching } = useQuery<StorieListResponse>({
+    queryKey: ["stories", page, perPage, category],
+    queryFn: () => fetchStories(page, perPage, category || ""),
+    keepPreviousData: true,
+  });
+
+  // Оновлюємо локальний стан при зміні даних
+  useEffect(() => {
+    if (data?.data?.stories) {
+      const newStories = data?.data?.stories.filter(
+        (s) => !allStories.some((prev) => prev._id === s._id)
+      );
+      setAllStories((prev) => [...prev, ...newStories]);
+      setHasNextPage(data?.data?.hasNextPage);
+    }
+  }, [data]);
+
+  const loadMore = () => {
+    if (hasNextPage) setPage((prev) => prev + 1);
+  };
 
   const handleCategorySelect = (id: string | null) => {
     setCategory(id);
@@ -33,50 +57,7 @@ export default function StoriesPage() {
     setAllStories([]);
   };
 
-  // основна функція запиту
-  const fetchNextPage = async () => {
-    if (perPage === null) return;
-    setLoading(true);
-    try {
-      const data: StorieListResponse = await fetchStories(
-        page,
-        perPage,
-        category || ""
-      );
-
-      setAllStories((prev) => [
-        ...prev,
-        ...data.stories.filter((s) => !prev.some((p) => p._id === s._id)),
-      ]);
-
-      setHasNextPage(data.hasNextPage);
-      setPage((page) => page + 1);
-    } catch (err) {
-      console.error("Помилка:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // перше завантаження
-  useEffect(() => {
-    if (perPage !== null) {
-      fetchNextPage();
-    }
-  }, [perPage, category]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const newPerPage = width >= 1440 ? 9 : width >= 768 ? 8 : 9;
-      setPerPage(newPerPage);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  if (perPage === null) return <Loading />;
+  if (!allStories.length && isFetching) return <Loading />;
 
   return (
     <main>
@@ -84,14 +65,10 @@ export default function StoriesPage() {
         <div className="container">
           <h2 className={css.titleStorie}>Історії Мандрівників</h2>
           <Categories onSelect={handleCategorySelect} />
-          <StorieList stories={allStories} />
-          {loading && <Loading />}
-          {!loading && hasNextPage && (
-            <button
-              onClick={fetchNextPage}
-              disabled={loading}
-              className={css.StoriesBtn}
-            >
+          <TravellersStories stories={allStories} />
+          {isFetching && allStories.length > 0 && <Loading />}
+          {!isFetching && hasNextPage && (
+            <button onClick={loadMore} className={css.StoriesBtn}>
               Показати ще
             </button>
           )}

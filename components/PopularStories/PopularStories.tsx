@@ -1,116 +1,89 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { fetchStories } from "@/lib/api/clientApi";
-import { StorieListResponse, Storie } from "@/types/story";
-import StorieList from "../StorieList/StorieList";
 import Loading from "@/app/loading";
 import css from "./popularStories.module.css";
+import { Story, StorieListResponse } from "@/types/story";
+import TravellersStories from "../TravellersStories/TravellersStories";
 
 export default function PopularStories() {
   const type = "popular";
 
   const [perPage, setPerPage] = useState(3);
   const [page, setPage] = useState(1);
-  const [allStories, setAllStories] = useState<Storie[]>([]);
+  const [allStories, setAllStories] = useState<Story[]>([]);
   const [hasNextPage, setHasNextPage] = useState(true);
-  const [loading, setLoading] = useState(false);
 
+  // Перевірка ширини
   const getPerPage = () => {
     const width = window.innerWidth;
-    if (width >= 1440) return 3; // десктоп
-    if (width >= 768) return 4; // планшет
-    return 3; // мобільний
+    if (width >= 1440) return 3;
+    if (width >= 768) return 4;
+    return 3;
   };
 
-  useEffect(() => {
-    setPerPage(getPerPage());
-  }, []);
-
-  //////////Завантаження першої сторінки
-  useEffect(() => {
-    loadFirstPage();
-  }, [perPage]);
-
-  const loadFirstPage = async () => {
-    setLoading(true);
-    setPage(1);
-    setHasNextPage(true);
-    if (perPage !== null) {
-      try {
-        const data: StorieListResponse = await fetchStories(
-          1,
-          perPage,
-          "",
-          type
-        );
-
-        setAllStories(data.stories);
-        setHasNextPage(data.hasNextPage);
-      } catch (err) {
-        console.error("Помилка завантаження:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-  };
-  ////////////////Завантаження наступних сторінок
-  const loadMore = async () => {
-    if (loading || !hasNextPage) return;
-    setLoading(true);
-    if (perPage !== null)
-      try {
-        const nextPage = page + 1;
-        const data: StorieListResponse = await fetchStories(
-          nextPage,
-          perPage,
-          "",
-          type
-        );
-        console.log(data);
-
-        // фільтруємо дублікати
-        const uniqueStories = data.stories.filter(
-          (s) => !allStories.some((p) => p._id === s._id)
-        );
-
-        setAllStories((prev) => [...prev, ...uniqueStories]);
-        setPage(nextPage);
-        setHasNextPage(data.hasNextPage);
-      } catch (err) {
-        console.error("Помилка завантаження:", err);
-      } finally {
-        setLoading(false);
-      }
-  };
-
-  ////////////Перезавантаження при зміні ширини екрана
+  // При завантаженні + при зміні розміру змінюємо perPage
   useEffect(() => {
     const handleResize = () => {
       const newPerPage = getPerPage();
-      setPerPage(newPerPage); // це автоматично викличе loadFirstPage()
+      setPerPage(newPerPage);
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    handleResize(); // перший виклик
 
-  if (!allStories.length && loading) return <Loading />;
-  // if (perPage === null) return <Loading />;
+    return () => window.removeEventListener("resize", handleResize);
+  }, []); // 🟢 Без deps — не викликає loop
+
+  // Якщо перPage змінюється → скидаємо все
+  useEffect(() => {
+    setPage(1);
+    setAllStories([]);
+    setHasNextPage(true);
+  }, [perPage]);
+
+  // React Query
+  const { data, isFetching } = useQuery<StorieListResponse>({
+    queryKey: ["stories", page, perPage, type],
+    queryFn: () => fetchStories(page, perPage, "", type),
+    keepPreviousData: true,
+  });
+
+  // Оновлення списку історій
+  useEffect(() => {
+    if (data?.data?.stories) {
+      const newStories = data.data.stories.filter(
+        (s) => !allStories.some((prev) => prev._id === s._id)
+      );
+
+      setAllStories((prev) => [...prev, ...newStories]);
+      setHasNextPage(data.data.hasNextPage);
+    }
+  }, [data]);
+
+  const loadMore = () => {
+    if (hasNextPage && !isFetching) {
+      setPage((prev) => prev + 1);
+    }
+  };
 
   return (
     <section className={css.sectionPopularStories}>
       <div className="container">
         <h2 className={css.titleStorie}>Популярні історії</h2>
-        <StorieList stories={allStories} />
 
-        {loading && <Loading />}
-        {!loading && hasNextPage && (
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className={css.popularStoriesBtn}
-          >
+        {allStories.length === 0 && isFetching ? (
+          <Loading />
+        ) : (
+          <TravellersStories stories={allStories} />
+        )}
+
+        {allStories.length > 0 && isFetching && <Loading />}
+
+        {hasNextPage && !isFetching && (
+          <button onClick={loadMore} className={css.popularStoriesBtn}>
             Переглянути всі
           </button>
         )}

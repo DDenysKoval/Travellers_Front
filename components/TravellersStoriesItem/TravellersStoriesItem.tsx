@@ -11,6 +11,7 @@ import {
   addStoryToFavourite,
   addStoryToFavouriteResponse,
   deleteStoryFromFavourite,
+  getMe,
 } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -126,7 +127,11 @@ export default function TravellersStoriesItem({ story }: Props) {
 
         <div className={css.favouriteInfo}>
           <Image
-            src={story.ownerId.avatarUrl}
+            src={
+              story.ownerId?.avatarUrl
+                ? story.ownerId.avatarUrl
+                : "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762709153/Default_Avatar_om76t3.webp"
+            }
             alt="User Avatar"
             width={48}
             height={48}
@@ -156,8 +161,12 @@ export default function TravellersStoriesItem({ story }: Props) {
             <svg className={isFavourite ? css.icon : ""} width="24" height="24">
               <use href="/icons.svg#icon-bookmark"></use>
             </svg>
-            {addStoryToFavouriteMutation.isPending && <div className={css.loader}></div>}
-            {deleteStoryFromFavouriteMutation.isPending && <div className={css.loader}></div>}
+            {addStoryToFavouriteMutation.isPending && (
+              <div className={css.loader}></div>
+            )}
+            {deleteStoryFromFavouriteMutation.isPending && (
+              <div className={css.loader}></div>
+            )}
           </button>
         </div>
       </div>

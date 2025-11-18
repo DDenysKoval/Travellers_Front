@@ -1,61 +1,9 @@
 
-import { Favorite, StoryWrapper, StorieListResponse, Story, TagListResponse } from "@/types/story";
 import { nextServer } from "./api";
-import {  } from "@/types/story";
+import { StorieListResponse, StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/story";
 import { User } from "@/types/user";
+import { Story } from "@/types/story";
 import { Owner } from "@/types/owner";
-
-export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
-  try {
-    const response = await nextServer.get<{ data: StorieListResponse }>("/stories", {
-      params: {
-        page,
-        perPage,
-        ...(category && { category }),
-        ...(type && {type}),
-      },
-    })
-    return response.data.data;
-  } catch {
-    throw new Error("Fetch tasks failed");
-  }
-}
-
-export async function getCategories() {
-  try {
-    const response = await nextServer.get<{ data: TagListResponse }>("/categories")
-    return response.data.data;
-  } catch {
-    throw new Error("Fetch tasks failed");
-  }
-}
-
-// export const getFavorite = async () => {
-//   const response = await nextServer.get<{ data: Favorite[] }>("/users/favourites", {
-//     withCredentials: true,
-//   })
-//   console.log(response.data.data);
-  
-//   return response.data.data
-// } 
-
-// export const addFavorite = async (id: string) => {
-//   const response = await nextServer.post(`/users/favourites/${id}`,
-//     {},
-//     {
-//     withCredentials: true,
-//   })
-//   return response.data.data
-// } 
-
-// export const deleteFavorite = async (id: string) => {
-//   const response = await nextServer.delete(`users/favourites/${id}`,
-//     {
-//     withCredentials: true,
-//   })
-//   return response.data.data
-// } 
-//////////////////////////////////////////////////////////
 
 export interface RegisterRequest {
   email: string;
@@ -123,10 +71,8 @@ export const checkSession = async () => {
 };
 
 export const getMe = async () => {
-  const response = await nextServer.get("/users/get-me")
-  console.log(response.data);
-  
-  return response.data.data;
+  const response = await nextServer.get("/users/getme");
+  return response.data;
 };
 
 export const logout = async (): Promise<void> => {
@@ -135,11 +81,30 @@ export const logout = async (): Promise<void> => {
 };
 
 export const updateMe = async (body: UpdateUserRequest) => {
-  const response = await nextServer.patch("/users/get-me", body);
+  const response = await nextServer.patch("/users/getme", body);
   return response.data;
 };
 
-export async function createNote(newStorie:string) {
+export async function fetchNotes(
+  search: string,
+  page: number,
+  category?: string
+) {
+  try {
+    const response = await nextServer.get<NotesHttpResponse>("/stories", {
+      params: {
+        page,
+        perPage: 12,
+        ...(category && { category }),
+      },
+    });
+    return response.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export async function createNote(newStorie: string) {
   try {
     const response = await nextServer.post("/notes", newStorie);
     return response.data;
@@ -194,7 +159,6 @@ export async function fetchUsers(page: number = 1, perPage: number = 12 ): Promi
     }
   }
 }
-
 // Функція для Профіль мондрівника публічний
 
 export interface OwnerStoriesHttpResponse {
@@ -292,5 +256,34 @@ export async function changeFavoriteCountInStory(
     return response.data;
   } catch {
     throw new Error("Create task failed");
+  }
+}
+
+//////////////////////////////
+
+export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
+  try {
+    const response = await nextServer.get<{ data: StorieListResponseData }>("/stories", {
+      params: {
+        page,
+        perPage,
+        ...(category && { category }),
+        ...(type && {type}),
+      },
+    })
+    console.log(response.data);
+    
+    return response.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export async function getCategories() {
+  try {
+    const response = await nextServer.get<{ data: TagListResponse }>("/categories")
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
   }
 }

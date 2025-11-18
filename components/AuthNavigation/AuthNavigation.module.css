@@ -259,10 +259,18 @@
 }
 
 @media only screen and (min-width: 768px) {
+  .chipLoginDefault,
+    .chipLoginHero,
+    .chipRegisterDefault,
+    .chipRegisterHero {
+      display: none !important;
+    }
 
   .nav {
-    display: none;
-  }
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
   .navMobile {
     flex-direction: row;
   }
@@ -273,16 +281,21 @@
   .userName {
     display: none;
   }
-  /* .userDivider {
+  .userDivider {
     display: none;
-  } */
+  }
 
   .logoutButton {
     display: none;
   }
 }
 @media only screen and (min-width: 1440px) {
-
+  .chipLoginDefault,
+    .chipLoginHero,
+    .chipRegisterDefault,
+    .chipRegisterHero {
+      display: flex !important;
+    }
   .nav {
     display: flex;
     gap: 32px;
@@ -297,5 +310,8 @@
 
   .logoutButton {
     display: inline-flex;
+  }
+  .userDivider {
+    display: block;
   }
 }

@@ -1,6 +1,6 @@
 "use client";
 
-// import StoryForm from "@/components/StoryForm/StoryForm";
+import StoryForm from "@/components/StoryForm/StoryForm";
 import { createStory } from "@/lib/api/clientApi";
 import { Category } from "@/types/category";
 import { useMutation } from "@tanstack/react-query";
@@ -38,12 +38,14 @@ const CreateStoryClient = ({ categories }: { categories: Category[] }) => {
     },
   });
 
-  //   const handleSubmit = async (formData: FormData) => {
-  //     mutate(formData);
-  //   };
+  const handleSubmit = async (formData: FormData) => {
+    mutate(formData);
+  };
 
   return (
-    <>{/* <StoryForm categories={categories} onSubmit={handleSubmit} /> */}</>
+    <>
+      <StoryForm categories={categories} onSubmit={handleSubmit} />
+    </>
   );
 };
 

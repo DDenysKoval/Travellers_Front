@@ -20,9 +20,11 @@ export default function HeaderFooterWrapper({
     pathname === "/auth/register" ||
     pathname === "/profile/edit";
 
+  const isHomePage = pathname === "/";
+  
   return (
     <>
-      {!isAuthPage && <Header />}
+      {!isAuthPage && !isHomePage && <Header variant="default" />}
       {children}
       {modal}
       {!isAuthPage && <Footer />}

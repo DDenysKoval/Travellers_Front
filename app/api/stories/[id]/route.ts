@@ -60,11 +60,12 @@ export async function PATCH(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
     const { id } = await params;
-    const body = await request.json();
+    const formData = await request.formData();
 
-    const res = await api.patch(`/stories/${id}`, body, {
+    const res = await api.patch(`/stories/${id}`, formData, {
       headers: {
         Cookie: cookieStore.toString(),
+        "Content-Type": "multipart/form-data"
       },
     });
     return NextResponse.json(res.data, { status: res.status });

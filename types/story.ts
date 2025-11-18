@@ -51,6 +51,27 @@ export interface StoryId {
   favoriteCount: number;
 }
 
+export interface NewStory {
+  img: File,
+  title: string,
+  article: string,
+  category: string,
+};
+
+export type StorieListResponse = {
+  status: number;
+  message: string;
+  data: {
+    stories: Story[];
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
+  };
+};
+
 export type Tag = {
   _id: string;
   name: string;

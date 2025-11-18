@@ -1,0 +1,326 @@
+.header {
+  width: 100%;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+}
+.rightBlock {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ====== (default) ====== */
+
+.headerDefault {
+  position: static;
+  background-color: #f7f8fc;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-sora), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.logoDefault {
+  color: #111827;
+}
+
+.logoText {
+  font-family: var(--font-sora);
+  font-size: 18px;
+  letter-spacing: -0.001em;
+  font-weight: 400;
+  font-style: regular;
+  line-height: 1.1;
+  color: inherit;
+}
+
+.logoTextModal {
+color: black; 
+font-size: 18px;
+font-weight: 400;
+}
+.logoIcon {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.nav {
+  display: none;
+}
+
+.navLink {
+  position: relative;
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 4px 0;
+}
+
+.navLinkDefault {
+  color: #111827;
+  font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.navLinkDefault::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: #111827;
+  transition: width 200ms ease-in-out;
+}
+
+.navLinkDefault:hover::after,
+.navLinkDefault:focus-visible::after {
+  width: 100%;
+}
+
+/* ======  (hero) ====== */
+
+.headerHero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: transparent;
+  border: none;
+}
+
+.logoHero {
+  color: #ffffff;
+}
+
+.logoHero .logoText {
+  font-weight: 400;
+}
+
+.navLinkHero {
+  color: #ffffff;
+  font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 150%;
+  letter-spacing: 0;
+}
+
+.navLinkHero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: width 200ms ease-in-out;
+}
+
+.navLinkHero:hover::after,
+.navLinkHero:focus-visible::after {
+  width: 100%;
+}
+
+.logoIcon {
+  font-size: 24px;
+}
+
+.logoTextHero {
+  font-family: var(--font-sora);
+  font-size: 18px;
+  letter-spacing: -0.001em;
+  font-weight: 400;
+  font-style: regular;
+  line-height: 1.1;
+  color: #ffffff;
+}
+
+.menuIcon {
+  display: block;
+}
+
+.menuIconDefault {
+  filter: invert(1);
+}
+
+.menuIconHero {
+  filter: none;
+}
+
+.menuButton {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  padding: 0;
+  cursor: pointer;
+  transition:
+  background-color 150ms ease-in-out,
+  border-color 150ms ease-in-out,
+  box-shadow 150ms ease-in-out,
+  transform 120ms ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menuButtonHero {
+  background-color: rgba(243, 244, 246, 0.1);
+  border-color: rgba(148, 163, 184, 0.1);
+  color: #ffffff;
+}
+
+.menuButtonDefault {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(148, 163, 184, 0.5);
+  color: #111827;
+}
+
+.menuButtonHero:hover,
+.menuButtonHero:focus-visible {
+  background-color: rgba(15, 23, 42, 0.6);
+}
+
+.menuButtonDefault:hover,
+.menuButtonDefault:focus-visible {
+  background-color: #e5e7eb;
+}
+
+/* tablet+ */
+
+@media only screen and (min-width: 768px) {
+  .inner {
+    padding: 18px 0;
+    gap: 32px;
+    justify-content: space-between;
+    align-items: end;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  .nav {
+    display: none;
+    gap: 24px;
+    margin-left: auto;
+    margin-right: 24px;
+  }
+
+  .authDesktop {
+    display: block;
+  }
+}
+
+/* desktop+ */
+
+@media only screen and (min-width: 1440px) {
+  .inner {
+    padding: 20px 0;
+  }
+
+  .logo {
+    font-size: 18px;
+  }
+
+  .nav {
+    display: flex;
+    gap: 32px;
+  }
+
+.menuButton {
+  display: none;
+}
+}
+
+
+
+
+/* auth buttons only desktop */
+.authDesktop {
+  display: none;
+}
+
+/* mobile menu overlay / panel */
+
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.3);
+  z-index: 40;
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 375px;
+  background: #f9fafb;
+  padding: 16px 20px 20px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.2);
+}
+
+.mobileHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.closeButton {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+  margin-top: 32px;
+}
+
+.mobileNav a {
+  font-size: 18px;
+  font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #111827;
+}
+
+/* auth блок внутри мобильного меню */
+.mobileAuth {
+  margin-top: 8px;
+}
+
+/* ====== BREAKPOINTS ====== */
+
+@media only screen and (min-width: 768px) {
+
+}

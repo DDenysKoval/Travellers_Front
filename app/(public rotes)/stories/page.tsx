@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchStories } from "@/lib/api/clientApi";
 import { Story } from "@/types/story";
 import Loading from "@/app/loading";
@@ -40,7 +40,6 @@ export default function StoriesPage() {
       getNextPageParam: (lastPage, pages) => {
         return lastPage.hasNextPage ? pages.length + 1 : undefined;
       },
-
       initialPageParam: 1,
     });
 

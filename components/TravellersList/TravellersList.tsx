@@ -75,7 +75,7 @@ const TravellersList = ({ limit }: TravellersListProps) => {
               <p className={css.travellersDescription}>
                 {user.description
                   ? user.description.length > 100
-                    ? user.description.slice(0, 76) + "..."
+                    ? user.description.slice(0, 69) + "..."
                     : user.description
                   : "Опис відсутній"}
               </p>
@@ -108,13 +108,15 @@ const TravellersList = ({ limit }: TravellersListProps) => {
         />
       )}
 
-      {(width > 768 || (limit !== 4 && width < 768)) && (
-        <button onClick={onLoadMore} className={css.LoadMoreBtn}>
-          Показати ще
-        </button>
-      )}
+      {!isFetching &&
+        Array.isArray(data?.data?.users) &&
+        data?.data?.users.length > 0 &&
+        (width > 768 || (limit !== 4 && width < 768)) && (
+          <button onClick={onLoadMore} className={css.LoadMoreBtn}>
+            Показати ще
+          </button>
+        )}
     </div>
   );
 };
-
 export default TravellersList;

@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 480px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 64px 0;
   overflow-x: hidden;
   box-sizing: border-box;
 }
@@ -14,7 +14,6 @@
   width: 100%;
   margin-bottom: 24px;
   position: relative;
-  border-bottom: 1px solid #e5e7eb;
 }
 .tab {
   flex: 1 1 50%;
@@ -140,7 +139,6 @@
 @media (min-width: 768px) {
   .authWrapper {
     max-width: 480px;
-    padding: 0 24px;
   }
 
   .tabsWrapper {
@@ -179,7 +177,7 @@
 @media (min-width: 1440px) {
   .authWrapper {
     max-width: 644px;
-    padding: 0;
+    padding: 64px 0;
   }
 
   .tabsWrapper {

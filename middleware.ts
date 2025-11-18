@@ -3,17 +3,17 @@ import { NextRequest, NextResponse } from "next/server";
 import { checkServerSession } from "./lib/api/serverApi";
 import { parse } from "cookie";
 
-// const privateRoutes = ['/profile'];
-const publicRoutes = ['/sign-in', '/sign-up', "/profile"];
+const privateRoutes = ['/profile', "/profile/edit", "/stories/create", "/stories/edit"];
+const publicRoutes = ['/auth/register', '/auth/login', "/travellers/:path*", "/stories/:path*"];
 
-export async function middleware(request:NextRequest) {
+export async function middleware(request: NextRequest) {
   const cookieStore = await cookies()
   const { pathname } = request.nextUrl
   const accessToken = cookieStore.get("accessToken")?.value
   const refreshToken = cookieStore.get("refreshToken")?.value
   const isPublicRoute = publicRoutes.some((route) => pathname.startsWith(route));
-  // const isPrivateRoute = privateRoutes.some((route) => pathname.startsWith(route));
-  
+  const isPrivateRoute = privateRoutes.some((route) => pathname.startsWith(route));
+
   if (!accessToken) {
     if (refreshToken) {
       const res = await checkServerSession()
@@ -30,7 +30,7 @@ export async function middleware(request:NextRequest) {
           if (parsed.accessToken) NextResponse.next().cookies.set("accessToken", parsed.accessToken, options)
           if (parsed.refreshToken) NextResponse.next().cookies.set("refreshToken", parsed.refreshToken, options)
         }
-        
+
         if (isPublicRoute) {
           return NextResponse.redirect(new URL("/", request.url), {
             headers: {
@@ -38,31 +38,32 @@ export async function middleware(request:NextRequest) {
             }
           })
         }
-        // if (isPrivateRoute) {
-        //   return NextResponse.next({
-        //     headers: {
-        //       Cookie: cookieStore.toString()
-        //     }
-        //   })
-        // }
+        if (isPrivateRoute) {
+          return NextResponse.next({
+            headers: {
+              Cookie: cookieStore.toString()
+            }
+          })
+        }
       }
     }
     if (isPublicRoute) {
       return NextResponse.next()
     }
-    // if (isPrivateRoute) {
-    //   return NextResponse.redirect(new URL('/sign-in', request.url))
-    // }
+    if (isPrivateRoute) {
+      return NextResponse.redirect(new URL('/auth/login', request.url))
+    }
   }
-  // if (isPublicRoute) {
-  //   return NextResponse.redirect(new URL('/', request.url))
-  // }
-  // if (isPrivateRoute) {
-  //   return NextResponse.next()
-  // }
+  if (isPrivateRoute) {
+    return NextResponse.next()
+  }
+  if (isPublicRoute) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+  
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/profile/:path*', '/sign-in', '/sign-up', "/stories/:path*", "/travellers/:path*"],
+  matcher: ['/profile/:path*', '/auth/login', '/auth/register', "/stories/:path*", "/travellers/:path*"],
 };

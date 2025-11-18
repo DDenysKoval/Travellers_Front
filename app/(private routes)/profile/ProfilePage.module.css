@@ -1,1 +1,33 @@
+.section {
+  padding: 48px 0 72px;
+}
 
+.switchWrapper {
+  border: 1px solid rgba(255, 255, 255, 0);
+  border-radius: 10px;
+  padding: 4px;
+  width: 422px;
+  height: 48px;
+  background-color: #e8eeff;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  border: none;
+  background-color: transparent;
+  width: 207px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.active {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 4px 12px;
+  width: 207px;
+  height: 40px;
+  background-color: #f7f9ff;
+}

@@ -7,6 +7,8 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { fetchOwnerStories } from "@/lib/api/clientApi";
 import { useMediaQuery } from "react-responsive";
+import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import { SyncLoader } from "react-spinners";
 
 export default function TravellerDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -25,7 +27,22 @@ export default function TravellerDetailsClient() {
       },
     });
 
-  if (isLoading) return <p>Loading, please wait...</p>;
+  if (isLoading)
+    return (
+      <SyncLoader
+        color="#000000"
+        loading={true}
+        cssOverride={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "20px auto",
+          opacity: "0.3",
+        }}
+        size={10}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
 
   if (error || !data) return <p>Something went wrong.</p>;
 
@@ -36,12 +53,24 @@ export default function TravellerDetailsClient() {
       <div className={css.traveller}>
         <TravellerInfo owner={data.pages[0].owner} />
         <h2 className={css.title}>Історії Мандрівника</h2>
-        <TravellersStories stories={allStories} />
 
-        {hasNextPage && (
-          <button onClick={() => fetchNextPage()} className={css.showNext}>
-            Показати ще
-          </button>
+        {allStories.length > 0 && (
+          <>
+            <TravellersStories stories={allStories} />
+
+            {hasNextPage && (
+              <button onClick={() => fetchNextPage()} className={css.showNext}>
+                Показати ще
+              </button>
+            )}
+          </>
+        )}
+
+        {allStories.length === 0 && (
+          <MessageNoStories
+            text="Цей користувач ще не публікував історій"
+            buttonText="Назад до історій"
+          />
         )}
       </div>
     </div>

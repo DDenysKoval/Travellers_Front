@@ -1,0 +1,185 @@
+
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.3);
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+
+}
+
+.mobileMenu {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  background: #f9fafb;
+  padding: 16px 20px 20px;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mobileHeader {
+  width: 100%;
+  max-width: 335px;
+  margin: 0 auto 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-sora);
+}
+.closeButton {
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  margin: 32px 0 32px;
+}
+.mobileNav a {
+  font-size: 16px;
+  font-family: var(--font-nunito-sans);
+  font-weight: 400;
+  color: #111827;
+  text-decoration: none;
+}
+
+.mobileNav a:hover,
+.mobileNav a:focus-visible {
+  text-decoration: underline;
+}
+
+.mobileAuth {
+  margin-top: 8px;
+  width: 100%;
+  max-width: 335px;
+}
+
+.logoIcon {
+  width: auto;
+  height: 22px;
+}
+
+.crossIcon {
+  display: block;
+  height: 14px;
+  width: 14px;
+}
+
+.logoTextModal {
+  color: #111827;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.closeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.05);;
+  cursor: pointer;
+}
+
+.mobileAuth {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* buttons */
+
+.primaryButton {
+  font-family: var(--font-nunito-sans);
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #4169E1;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  text-decoration: none;
+}
+
+.primaryButton:hover,
+.primaryButton:focus-visible {
+  background-color: #1d4ed8;
+}
+
+.secondaryButton {
+  font-family: var(--font-nunito-sans);
+  display: block;
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #e5e7eb;
+  color: #111827;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  text-decoration: none;
+}
+
+.secondaryButton:hover,
+.secondaryButton:focus-visible {
+  background-color: #d1d5db;
+}
+
+/* profile */
+
+.profileRow {
+  margin-top: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  gap: 8px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.profileAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background-color: #d1d5db;
+}
+
+.profileName {
+  text-align: center;
+  font-size: 14px;
+  color: #111827;
+}
+
+.profileLogoutIcon {
+  font-size: 16px;
+}
+
+@media only screen and (min-width: 1440px) {
+
+  /* .mobileMenu {
+  width: 100%;
+  height: 100vh;
+  padding: 16px 200px 20px;
+  } */
+  }

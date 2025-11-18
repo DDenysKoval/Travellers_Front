@@ -67,10 +67,10 @@
 
 .avatar {
   display: block;
-    height: 223px;
-    width: 335px;
-    object-fit: cover;
-    object-position: center;
+  height: 223px;
+  width: 335px;
+  object-fit: cover;
+  object-position: center;
 }
 .regionCountryStory {
   width: 287px;
@@ -79,7 +79,6 @@
   gap: 8px;
 }
 .storyCountry {
-  font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
   font-size: 12px;
   line-height: 150%;
@@ -201,8 +200,8 @@
 
 @media only screen and (min-width: 768px) {
   .storyCard {
-      width: 340px;
-    }
+    width: 340px;
+  }
 
   .avatar {
     height: 226px;

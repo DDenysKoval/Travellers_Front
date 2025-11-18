@@ -25,8 +25,8 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  params: Promise<{ id: string }>
-}
+  params: Promise<{ id: string }>;
+};
 
 const EditStoryPage = async ({ params }: Props) => {
   const { id } = await params;
@@ -37,7 +37,7 @@ const EditStoryPage = async ({ params }: Props) => {
     <main className={`container ${css.stories}`}>
       <h1 className={css.title}>Створити нову історію</h1>
 
-      <EditStoryClient categories={categories} entity={entity} />
+      <EditStoryClient categories={categories} entity={entity.data} />
     </main>
   );
 };

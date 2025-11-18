@@ -39,7 +39,9 @@ const Categories = ({
         <div className={css.categoryDiv}>
           <p className={css.category}>Категорії</p>
           <button onClick={toggle} className={css.menuButton}>
-            Всі історії
+            {selectedId
+              ? tags?.data.find((tag) => tag._id === selectedId)?.name
+              : "Всі історії"}
             {isOpen ? (
               <svg className={css.iconKeyboardArrow} width="12" height="7">
                 <use href="/icons.svg#icon-keyboard_arrow_up"></use>

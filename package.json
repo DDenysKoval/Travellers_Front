@@ -13,7 +13,7 @@
     "axios": "^1.11.0",
     "coockies": "^1.0.1",
     "cookie": "^1.0.2",
-    "formik": "^2.4.6",
+    "formik": "^2.4.9",
     "izitoast": "^1.4.0",
     "modern-normalize": "^3.0.1",
     "next": "15.4.4",

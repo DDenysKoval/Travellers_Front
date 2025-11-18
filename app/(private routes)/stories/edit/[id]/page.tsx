@@ -33,7 +33,6 @@ const EditStoryPage = async ({ params }: Props) => {
   const categories = await getCategories();
   const entity = await fetchNoteById(id);
 
-  console.log(entity)
   return (
     <main className={`container ${css.stories}`}>
       <h1 className={css.title}>Створити нову історію</h1>

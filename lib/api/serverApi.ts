@@ -3,7 +3,7 @@ import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
 import { StoryWrapper } from "@/types/story";
 import axios from "axios";
-import { CategoryProps, CategoryRes } from "@/types/category";
+import { CategoryProps } from "@/types/category";
 import { Story } from "@/types/story";
 
 

@@ -122,7 +122,7 @@ export async function createStory(formData: FormData) {
       }
     });
 
-    console.log(response)
+    console.log("CREATED", response.data)
     return response.data;
   } catch {
     throw new Error("Create task failed");
@@ -132,7 +132,7 @@ export async function createStory(formData: FormData) {
 
 export async function patchStory(id: string, formData: FormData) {
   try {
-    const response = await nextServer.patch<Story>(`/stories${id}`, formData, {
+    const response = await nextServer.patch<Story>(`/stories/${id}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       }

@@ -9,7 +9,7 @@ import Link from "next/link";
 
 type Props = {
   categories: Category[],
-  entity: Story,
+  entity?: Story,
   onSubmit: (formData: FormData) => Promise<void>
 };
 
@@ -18,17 +18,20 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const fieldId = useId();
 
-  console.log(entity?.data)
 
-  const [formData, setFormData] = useState({
+
+  const [formDataOld, setFormDataOld] = useState({
     title: entity?.data.title ?? '',
-    email: '',
-    message: ''
+    img: entity?.data.img ?? '',
+    article: entity?.data.article ?? '',
+    category: entity?.data.category ? entity?.data.category.name : null,
   });
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormDataOld(prev => ({
       ...prev,
       [name]: value
     }));
@@ -51,6 +54,8 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
   const handleSubmit = async (formData: FormData) => {
     await onSubmit(formData);
 
+
+
   }
 
   return <form action={handleSubmit} >
@@ -65,7 +70,7 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
 
           {preview ? (
             <Image src={preview} alt="Preview" className={css.previewImage} width={335} height={223} />
-          ) : (
+          ) : formDataOld.img ? (<Image src={formDataOld.img} alt="Image" className={css.previewImage} width={335} height={223} />) : (
 
             <picture>
 
@@ -76,6 +81,8 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
             </picture>
 
           )}
+
+          { }
 
           <input ref={fileInputRef}
             type="file"
@@ -97,33 +104,28 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
         <div className={css.formGroup}>
           <label htmlFor={`title-${fieldId}`} className={css.subtitle}>Заголовок</label>
           <input type="text" name="title" id={`title-${fieldId}`}
-            value={formData.title}
+            value={formDataOld.title}
             onChange={handleChange}
             placeholder="Введіть заголовок історії" className={css.input} />
         </div>
 
         <div className={css.formGroup}>
           <label htmlFor={`category-${fieldId}`} className={css.subtitle}>Категорія</label>
-          <select name="category" id={`category-${fieldId}`} className={`${css.select} ${css.input}`}>
-            <option value="" >Категорія</option>
+          <select onChange={handleChange} name="category" id={`category-${fieldId}`} className={`${css.select} ${css.input}`}>
+            {formDataOld.category ? (<option value={formDataOld.category}
+            >{formDataOld.category}</option>) : (<option value="" >Категорія</option>)}
             {categories && categories?.map((category) => (<option key={category._id} value={category._id} >{category.name}</option>))}
           </select>
         </div>
 
-        {/* <div className={css.formGroup}>
-      <label htmlFor={`short-article-${fieldId}`} className={css.subtitle}>Короткий опис</label>
-      <textarea name="short-article" id={`short-article-${fieldId}`} placeholder="Введіть короткий опис історії" rows={8} className={`${css.textarea} ${css.textareaShort}`}></textarea>
-      <p>Лишилось символів: ${3}</p>
-    </div> */}
-
         <div className={css.formGroup}>
           <label htmlFor={`article-${fieldId}`} className={css.subtitle}>Текст історії</label>
-          <textarea name="article" id={`article-${fieldId}`} placeholder="Ваша історія тут" rows={9} className={`${css.textarea} ${css.article}`}></textarea>
+          <textarea name="article" id={`article-${fieldId}`} placeholder="Ваша історія тут" rows={9} className={`${css.textarea} ${css.article}`} onChange={handleChange} value={formDataOld.article}></textarea>
         </div>
       </div>
       <div className={css.form}>
         <button type="submit" className={css.btnSubmit}>Зберегти</button>
-        <Link href={"/"} className={css.btnCancel}>Відмінити</Link>
+        <Link href="/" className={css.btnCancel}>Відмінити</Link>
 
       </div>
     </div>

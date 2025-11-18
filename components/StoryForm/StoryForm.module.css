@@ -116,6 +116,10 @@ select:focus {
     font-size: 16px;
     line-height: 1.5;
     color: #000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .previewImage {

@@ -1,0 +1,76 @@
+.sectionPopularStories{
+    padding-bottom: 64px;
+    padding-top: 64px;
+}
+.titleStorie {
+    font-family: "Sora", sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: #000;
+
+    padding-bottom: 24px;
+}
+.popularStoriesBtn {
+    display: none;
+}
+
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+    .popularStoriesBtn {
+        display: block;
+
+        border: 1px solid #4169e1;
+        background: #4169e1;
+        border-radius: 8px;
+        padding: 6px 12px;
+        /* width: 147px; */
+        height: 48px;
+        margin: 24px auto 0;
+
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 1.5;
+        color: #fff;
+    }
+    .popularStoriesBtn:hover,
+    .popularStoriesBtn:focus {
+        background: #e8eeff;
+        color: #000;
+    }
+    .popularStoriesBtn:active {
+        background: #7a96ea;
+        color: #000;
+    }
+    .popularStoriesBtn:disabled {
+        border: none;
+        border: 1px solid #4169e1;
+        background: #4169e1;
+        opacity: 0.3;
+        color: #fff;
+    }
+
+    .titleStorie {
+        font-size: 44px;  
+    }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+    .sectionPopularStories {
+        padding-bottom: 72px;
+        padding-top: 72px;
+    }
+
+    .titleStorie {
+        font-size: 52px;
+    }
+    
+    .popularStoriesBtn {
+        margin: 40px auto 0;
+    }
+}
+    
+                

@@ -6,5 +6,4 @@ export interface User{
     articlesAmount: number;
     description: string;
     favorites: string[],
-
 }

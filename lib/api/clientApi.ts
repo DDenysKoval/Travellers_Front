@@ -1,6 +1,6 @@
 
 import { nextServer } from "./api";
-import { StoryWrapper } from "@/types/story";
+import { StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/story";
 import { User } from "@/types/user";
 import { NewStory, Story } from "@/types/story";
 import { Owner } from "@/types/owner";
@@ -284,5 +284,32 @@ export async function changeFavoriteCountInStory(
     return response.data;
   } catch {
     throw new Error("Create task failed");
+  }
+}
+
+export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
+  try {
+    const response = await nextServer.get<{ data: StorieListResponseData }>("/stories", {
+      params: {
+        page,
+        perPage,
+        ...(category && { category }),
+        ...(type && {type}),
+      },
+    })
+    console.log(response.data);
+    
+    return response.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export async function getCategories() {
+  try {
+    const response = await nextServer.get<{ data: TagListResponse }>("/categories")
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
   }
 }

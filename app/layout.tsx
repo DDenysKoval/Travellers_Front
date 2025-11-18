@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     url: "https://podorozhnuky.com",
     images: [
       {
-        url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
+        url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp",
         width: 1374,
         height: 916,
         alt: "Podorozhnuky logo",

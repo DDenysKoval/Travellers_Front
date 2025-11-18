@@ -12,18 +12,18 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
-    title: "",
-    description: "",
+    title: "Treveller Info",
+    description: "Treveller Info",
     openGraph: {
-      title: `"`,
-      description: "",
+      title: `Treveller Info`,
+      description: "Treveller Info",
       url: "",
       images: [
         {
-          url: "",
-          width: 0,
-          height: 0,
-          alt: "",
+          url: "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762789255/Podorozhnuky_kznt8n.webp",
+          width: 1374,
+          height: 916,
+          alt: "Podorozhnuky logo",
         },
       ],
     },

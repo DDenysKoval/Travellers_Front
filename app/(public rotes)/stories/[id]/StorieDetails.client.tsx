@@ -7,6 +7,7 @@ import css from "./StorieDetails.module.css";
 import { useState } from "react";
 import StoryIdDetails from "@/components/StoryIdDetails/StoryIdDetails";
 import PopularStories from "@/components/PopularStories/PopularStories";
+import { SyncLoader } from "react-spinners";
 
 const StorieDetailsClient = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,8 +28,22 @@ const StorieDetailsClient = () => {
     },
   });
 
-  if (isLoading) return <p>Завантаження...</p>;
-  if (error || !data) return <p>Помилка завантаження історії</p>;
+  if (error || !data)
+    return (
+      <SyncLoader
+        color="#000000"
+        loading={true}
+        cssOverride={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "20px auto",
+          opacity: "0.3",
+        }}
+        size={10}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
 
   const story = data.data;
 

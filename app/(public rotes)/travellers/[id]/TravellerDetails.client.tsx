@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { fetchOwnerStories } from "@/lib/api/clientApi";
 import { useMediaQuery } from "react-responsive";
 import MessageNoStories from "@/components/MessageNoStories/MessageNoStories";
+import { SyncLoader } from "react-spinners";
 
 export default function TravellerDetailsClient() {
   const { id } = useParams<{ id: string }>();
@@ -26,7 +27,22 @@ export default function TravellerDetailsClient() {
       },
     });
 
-  if (isLoading) return <p>Loading, please wait...</p>;
+  if (isLoading)
+    return (
+      <SyncLoader
+        color="#000000"
+        loading={true}
+        cssOverride={{
+          display: "flex",
+          justifyContent: "center",
+          margin: "20px auto",
+          opacity: "0.3",
+        }}
+        size={10}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+    );
 
   if (error || !data) return <p>Something went wrong.</p>;
 

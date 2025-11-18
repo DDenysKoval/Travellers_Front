@@ -9,13 +9,13 @@ const Navigation = () => {
     { label: "Головна", href: "/" },
     { label: "Історії", href: "/stories" },
     { label: "Мандрівники", href: "/travelers" },
+    { label: "Профіль", href: "/auth/register" },
   ];
 
   const unauthenticatedLinks = [
     { label: "Головна", href: "/" },
     { label: "Історії", href: "/stories" },
     { label: "Мандрівники", href: "/travellers" },
-    { label: "Профіль", href: "/auth/register" },
   ];
 
   const navLinks = isAuthenticated ? authenticatedLinks : unauthenticatedLinks;

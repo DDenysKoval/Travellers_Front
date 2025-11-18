@@ -8,13 +8,12 @@ import Header from "@/components/Header/Header";
 export default function MainPage() {
   return (
     <main>
-            <section className="heroSection">
+      <section className="heroSection">
         <div className="heroWrapper">
           <Header variant="hero" />
           <Hero />
         </div>
       </section>
-      {/* <Hero /> */}
       <About />
       <PopularStories />
       <OurTravellers />

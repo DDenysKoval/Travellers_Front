@@ -12,11 +12,7 @@ export default function Hero() {
             своїми історіями та отримувати натхнення для нових пригод. Відкрийте
             для себе нові місця та знайдіть однодумців!
           </p>
-          <Link
-            className={css.button}
-            href="/auth/register"
-            aria-label="Register"
-          >
+          <Link className={css.button} href="#join" aria-label="Register">
             Доєднатись
           </Link>
         </div>

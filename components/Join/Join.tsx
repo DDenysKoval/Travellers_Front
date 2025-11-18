@@ -3,7 +3,7 @@ import css from "./Join.module.css";
 
 export default function Join() {
   return (
-    <section className={css.join}>
+    <section className={css.join} id="join">
       <div className="container">
         <div className={css.contentbox}>
           <h2 className={css.title}>Приєднуйтесь до нашої спільноти</h2>

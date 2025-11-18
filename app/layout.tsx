@@ -73,7 +73,12 @@ export default function RootLayout({
         <ThemeProvider>
           <TanStackProvider>
             <AuthProvider>
-              <HeaderFooterWrapper modal>{children}</HeaderFooterWrapper>
+              <div className="page-wrapper">
+                <HeaderFooterWrapper modal>
+                  <main className="page-main">{children}</main>
+                </HeaderFooterWrapper>
+              </div>
+
               <Toaster position="top-center" reverseOrder={false} />
             </AuthProvider>
           </TanStackProvider>

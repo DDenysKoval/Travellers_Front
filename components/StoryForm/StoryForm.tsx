@@ -153,6 +153,7 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
               name="category"
               id={`category-${fieldId}`}
               className={`${css.select} ${css.input}`}
+              value={formDataOld.category || ""}
             >
               {formDataOld.category ? (
                 <option value={formDataOld.category}>
@@ -161,7 +162,7 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
               ) : (
                 <option value="">Категорія</option>
               )}
-              {categories &&
+              {Array.isArray(categories) &&
                 categories?.map((category) => (
                   <option key={category._id} value={category._id}>
                     {category.name}

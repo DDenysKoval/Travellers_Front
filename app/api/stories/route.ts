@@ -43,12 +43,12 @@ export async function POST(request: NextRequest) {
   try {
     const cookieStore = await cookies();
 
-    const body = await request.json();
+    const formData = await request.formData();
 
-    const res = await api.post('/stories', body, {
+    const res = await api.post('/stories', formData, {
       headers: {
         Cookie: cookieStore.toString(),
-        'Content-Type': 'application/json',
+        "Content-Type": "multipart/form-data"
       },
     });
 

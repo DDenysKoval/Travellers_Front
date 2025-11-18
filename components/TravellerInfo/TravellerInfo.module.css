@@ -16,6 +16,8 @@
 .avatar {
   border-radius: 100%;
   margin-bottom: 24px;
+  width: 199px;
+  height: 199px;
 }
 
 .name {

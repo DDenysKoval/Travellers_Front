@@ -23,7 +23,7 @@ export const metadata: Metadata = {
 const TravellersPage = () => {
   return (
     <main>
-      <section>
+      <section className={css.section}>
         <div className="container">
           <h2 className={css.TravellersPageTitle}>Мандрівники</h2>
           <TravellersList limit={12} />

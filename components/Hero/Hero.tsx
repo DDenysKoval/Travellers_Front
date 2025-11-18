@@ -1,11 +1,9 @@
 import Link from "next/link";
 import css from "./Hero.module.css";
-import { ThemeToggle } from "../ThemeToggle/ThemeToggle";
 
 export default function Hero() {
   return (
     <section className={css.hero}>
-      <ThemeToggle />
       <div className="container">
         <div className={css.contentbox}>
           <h1 className={css.title}>Відкрийте світ подорожей з нами!</h1>
@@ -14,11 +12,7 @@ export default function Hero() {
             своїми історіями та отримувати натхнення для нових пригод. Відкрийте
             для себе нові місця та знайдіть однодумців!
           </p>
-          <Link
-            className={css.button}
-            href="/auth/register"
-            aria-label="Register"
-          >
+          <Link className={css.button} href="#join" aria-label="Register">
             Доєднатись
           </Link>
         </div>

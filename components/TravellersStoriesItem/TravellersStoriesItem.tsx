@@ -11,10 +11,12 @@ import {
   addStoryToFavourite,
   addStoryToFavouriteResponse,
   deleteStoryFromFavourite,
+  getMe,
 } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { AxiosError } from "axios";
+import ModalReuse from "../ModalReuse/ModaReuse";
 
 interface Props {
   story: Story;
@@ -23,6 +25,9 @@ interface Props {
 export default function TravellersStoriesItem({ story }: Props) {
   const [favoriteCount, setFavoriteCount] = useState(story.favoriteCount);
   const { isAuthenticated, user, setUser } = useAuthStore();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const openLoginModal = () => setIsLoginModalOpen(true);
+  const closeLoginModal = () => setIsLoginModalOpen(false);
 
   const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
@@ -88,6 +93,13 @@ export default function TravellersStoriesItem({ story }: Props) {
     },
   });
 
+  const handleLogin = async () => {
+    router.push("/auth/login");
+  };
+  const handleRegister = async () => {
+    router.push("/auth/register");
+  };
+
   const handleClick = () => {
     if (isAuthenticated) {
       if (isFavourite) {
@@ -102,7 +114,7 @@ export default function TravellersStoriesItem({ story }: Props) {
         });
       }
     } else {
-      router.push("/auth/register");
+      openLoginModal();
     }
   };
 
@@ -132,8 +144,9 @@ export default function TravellersStoriesItem({ story }: Props) {
         <div className={css.favouriteInfo}>
           <Image
             src={
-              story.ownerId?.avatarUrl ||
-              "https://ftp.goit.study/img/harmoniq/users/6881563901add19ee16fd009.webp"
+              story.ownerId?.avatarUrl
+                ? story.ownerId.avatarUrl
+                : "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762709153/Default_Avatar_om76t3.webp"
             }
             alt="User Avatar"
             width={48}
@@ -175,6 +188,23 @@ export default function TravellersStoriesItem({ story }: Props) {
             )}
           </button>
         </div>
+        <ModalReuse
+          isOpen={isLoginModalOpen}
+          onClose={closeLoginModal}
+          title="Помилка під час збереження"
+          message="Щоб зберегти статтю вам треба увійти, якщо ще немає облікового запису зареєструйтесь"
+          actions={[
+            {
+              label: "Увійти",
+              onClick: handleLogin,
+            },
+            {
+              label: "Зареєструватись",
+              onClick: handleRegister,
+              primary: true,
+            },
+          ]}
+        />
       </div>
     </div>
   );

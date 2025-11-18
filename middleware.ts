@@ -4,7 +4,7 @@ import { checkServerSession } from "./lib/api/serverApi";
 import { parse } from "cookie";
 
 const privateRoutes = ['/profile', "/profile/edit", "/stories/create", "/stories/edit"];
-const publicRoutes = ['/auth/register', '/auth/login', "/travellers", "/stories"];
+const publicRoutes = ['/auth/register', '/auth/login', "/travellers", "/stories/:path*"];
 
 export async function middleware(request: NextRequest) {
   console.log(request.nextUrl.pathname)
@@ -55,12 +55,13 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/auth/login', request.url))
     }
   }
-  if (isPublicRoute) {
-    return NextResponse.redirect(new URL('/', request.url))
-  }
   if (isPrivateRoute) {
     return NextResponse.next()
   }
+  if (isPublicRoute) {
+    return NextResponse.redirect(new URL('/', request.url))
+  }
+  
   return NextResponse.next();
 }
 

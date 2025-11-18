@@ -1,7 +1,7 @@
 "use client";
 
 import StoryForm from "@/components/StoryForm/StoryForm";
-import { createStory } from "@/lib/api/serverApi";
+import { createStory } from "@/lib/api/clientApi";
 import { Category } from "@/types/category";
 import { useMutation } from "@tanstack/react-query";
 

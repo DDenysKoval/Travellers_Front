@@ -1,7 +1,7 @@
 "use client";
 
 import StoryForm from "@/components/StoryForm/StoryForm";
-import { patchStory } from "@/lib/api/serverApi";
+import { patchStory } from "@/lib/api/clientApi";
 import { Category } from "@/types/category";
 import { Story } from "@/types/story";
 // import { NewStory } from "@/types/story";

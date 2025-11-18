@@ -121,11 +121,7 @@ export default function TravellersStoriesItem({ story }: Props) {
   return (
     <div className={css.storyCard}>
       <Image
-        src={
-          story.ownerId?.avatarUrl
-            ? story.ownerId.avatarUrl
-            : "https://res.cloudinary.com/dsr7znzlu/image/upload/v1762709153/Default_Avatar_om76t3.webp"
-        }
+        src={story.img}
         alt="Photo of place"
         width={421}
         height={280}

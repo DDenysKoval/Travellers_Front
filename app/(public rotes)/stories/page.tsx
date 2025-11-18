@@ -44,7 +44,7 @@ export default function StoriesPage() {
   const { data, isFetching } = useQuery<StorieListResponse>({
     queryKey: ["stories", page, perPage, category],
     queryFn: () => fetchStories(page, perPage, category || ""),
-    keepPreviousData: true,
+    placeholderData: (prev) => prev,
   });
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function StoriesPage() {
       setAllStories((prev) => [...prev, ...newStories]);
       setHasNextPage(data.data.hasNextPage);
     }
-  }, [data]);
+  }, [data, allStories]);
 
   const loadMore = () => {
     if (!isFetching && hasNextPage) {

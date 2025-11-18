@@ -289,7 +289,7 @@ export async function changeFavoriteCountInStory(
 
 export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
   try {
-    const response = await nextServer.get<{ data: StorieListResponseData }>("/stories", {
+    const response = await nextServer.get("/stories", {
       params: {
         page,
         perPage,

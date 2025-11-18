@@ -1,6 +1,6 @@
 
 import { nextServer } from "./api";
-import { StoryWrapper } from "@/types/story";
+import { StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/story";
 import { User } from "@/types/user";
 import { NewStory, Story } from "@/types/story";
 import { Owner } from "@/types/owner";
@@ -64,8 +64,6 @@ export const register = async (data: RegisterRequest) => {
     "/auth/register",
     data
   );
-
-  console.log(response.data);
 
   return response.data;
 };
@@ -218,8 +216,6 @@ export async function fetchOwnerStories(
       }
     );
 
-    // console.log(response.data);
-
     return response.data.data;
   } catch {
     throw new Error("Fetch tasks failed");
@@ -239,8 +235,6 @@ export async function addStoryToFavourite(storieId: string) {
       {}
     );
 
-    // console.log(response.data);
-
     return response.data;
   } catch {
     throw new Error("Post task failed");
@@ -252,8 +246,6 @@ export async function deleteStoryFromFavourite(storieId: string) {
     const response = await nextServer.delete<{ message: string }>(
       `/users/favourites/${storieId}`
     );
-
-    // console.log(response.data);
 
     return response.data;
   } catch {
@@ -279,10 +271,35 @@ export async function changeFavoriteCountInStory(
       }
     );
 
-    // console.log(response.data);
 
     return response.data;
   } catch {
     throw new Error("Create task failed");
+  }
+}
+
+export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
+  try {
+    const response = await nextServer.get("/stories", {
+      params: {
+        page,
+        perPage,
+        ...(category && { category }),
+        ...(type && {type}),
+      },
+    })
+    
+    return response.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
+  }
+}
+
+export async function getCategories() {
+  try {
+    const response = await nextServer.get<{ data: TagListResponse }>("/categories")
+    return response.data.data;
+  } catch {
+    throw new Error("Fetch tasks failed");
   }
 }

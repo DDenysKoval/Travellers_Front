@@ -7,21 +7,23 @@ import { api } from '../api';
 
 export async function GET(request: NextRequest) {
   try {
-    const cookieStore = await cookies();
     const page = Number(request.nextUrl.searchParams.get('page') ?? 1);
-    const rawCategory = request.nextUrl.searchParams.get('categery') ?? '';
+    const perPage = Number(request.nextUrl.searchParams.get('perPage') ?? 10);
+    const rawCategory = request.nextUrl.searchParams.get('category') ?? '';
     const category = rawCategory === 'All' ? '' : rawCategory;
+    const type = request.nextUrl.searchParams.get('type') ?? '';
 
-    const res = await api('/stories', {
-      params: {
-        page,
-        perPage: 12,
-        ...(category && { category }),
-      },
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+    const params: Partial<Record<string, string | number>> = {
+      page,
+      perPage,
+      ...(category && { category }),
+    };
+
+    if (type === 'popular') {
+      params.type = 'popular';
+    }
+
+    const res = await api('/stories', { params });
 
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {

@@ -34,7 +34,7 @@ export async function PATCH(request: Request) {
     const cookieStore = await cookies();
     const body = await request.json();
 
-    const res = await api.patch('/users/getme', body, {
+    const res = await api.patch('/users/get-me', body, {
       headers: {
         Cookie: cookieStore.toString(),
       },

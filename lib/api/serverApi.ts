@@ -17,16 +17,8 @@ export const getServerMe = async () => {
   return response.data;
 };
 
-// export const checkServerSession = async () => {
-//   const cookieStore = await cookies();
+//////////////////////////////////////////////////
 
-//   const response = await nextServer.get("/auth/session", {
-//     headers: {
-//       Cookie: cookieStore.toString(),
-//     },
-//   });
-//   return response;
-// };
 
 export const checkServerSession = async () => {
   const cookieStore = await cookies();
@@ -40,7 +32,7 @@ export const checkServerSession = async () => {
 
     return response;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 };

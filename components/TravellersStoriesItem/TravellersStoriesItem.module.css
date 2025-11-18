@@ -1,3 +1,23 @@
+.buttonEfect:hover,
+.buttonEfect:focus {
+  background-color: #4169e1;
+  color: #fff;
+  fill: #fff;
+}
+
+.buttonEfect:active {
+  background: #1a2a5a;
+  color: #fff;
+  fill: #fff;
+}
+
+.buttonEfect:disabled {
+  background: rgba(0, 0, 0, 0.05);
+  opacity: 0.3;
+  color: #000;
+  fill: #000;
+}
+
 .loader {
   position: absolute;
   top: 50%;
@@ -28,7 +48,7 @@
 .storyCard {
   border: 0px solid rgba(0, 0, 0, 0.15);
   border-radius: 16px;
-  /* width: 335px; */
+  width: 335px;
   background: #e8eeff;
   overflow: hidden;
   display: flex;
@@ -46,7 +66,11 @@
 }
 
 .avatar {
+  display: block;
+  height: 223px;
+  width: 335px;
   object-fit: cover;
+  object-position: center;
 }
 .regionCountryStory {
   width: 287px;
@@ -95,6 +119,8 @@
 
 .photoTraveller {
   border-radius: 100%;
+  width: 48px;
+  height: 48px;
 }
 
 .favouriteInfo {
@@ -171,6 +197,17 @@
 
 .icon {
   fill: white;
+}
+
+@media only screen and (min-width: 768px) {
+  .storyCard {
+    width: 340px;
+  }
+
+  .avatar {
+    height: 226px;
+    width: 340px;
+  }
 }
 
 @media (min-width: 1440px) {

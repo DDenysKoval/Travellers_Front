@@ -1,0 +1,80 @@
+.sectionStories {
+    padding-bottom: 64px;
+    padding-top: 32px;
+}
+
+.titleStorie {
+    font-family: "Sora", sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: #000;
+    text-align: center;
+    padding-bottom: 40px;
+    max-width: 315px;
+}
+
+.StoriesBtn {
+    display: block;
+    border: 1px solid #4169e1;
+    background: #4169e1;
+    border-radius: 8px;
+    padding: 6px 12px;
+    width: 335px;
+    height: 48px;
+    
+    margin: 40px auto 0;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fff;        
+}
+.popularStoriesBtn:hover,
+.popularStoriesBtn:focus {
+    background: #e8eeff;
+    color: #000;
+}
+
+.popularStoriesBtn:active {
+    background: #7a96ea;
+    color: #000;
+}
+
+.popularStoriesBtn:disabled {
+    border: none;
+    border: 1px solid #4169e1;
+    background: #4169e1;
+    opacity: 0.3;
+    color: #fff;
+}
+
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+    .popularStoriesBtn {
+        width: 123px;
+    }
+
+    .titleStorie {
+        font-size: 48px;
+        max-width: 704px;
+    }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+    .sectionPopularStories {
+        padding-bottom: 72px;
+        padding-top: 48px;
+    }
+    .popularStoriesBtn {
+        width: 135px;
+    }
+
+    .titleStorie {
+        font-size: 56px;
+        max-width: 1312px;
+    }
+
+}

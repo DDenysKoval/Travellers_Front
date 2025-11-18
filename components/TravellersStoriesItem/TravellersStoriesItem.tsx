@@ -11,7 +11,6 @@ import {
   addStoryToFavourite,
   addStoryToFavouriteResponse,
   deleteStoryFromFavourite,
-  getMe,
 } from "@/lib/api/clientApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -123,8 +122,9 @@ export default function TravellersStoriesItem({ story }: Props) {
       <Image
         src={story.img}
         alt="Photo of place"
-        width={335}
-        height={223}
+        width={421}
+        height={280}
+        sizes="(max-width: 768px) 100vw, 50vw"
         className={css.avatar}
       />
       <div className={css.infoBlock}>
@@ -132,8 +132,8 @@ export default function TravellersStoriesItem({ story }: Props) {
           <p className={css.storyCountry}>
             {story.category ? story.category.name : ""}
           </p>
-          <h4 className={css.storyHeading}>{story.title}</h4>
-          <p className={css.storyText}>{story.article}</p>
+          <h4 className={css.storyHeading}>{story?.title || ""}</h4>
+          <p className={css.storyText}>{story?.article || ""}</p>
         </div>
 
         <div className={css.favouriteInfo}>
@@ -150,7 +150,7 @@ export default function TravellersStoriesItem({ story }: Props) {
           />
 
           <div>
-            <p className={css.name}>{story.ownerId.name}</p>
+            <p className={css.name}>{story.ownerId?.name || ""}</p>
             <div className={css.datecontainer}>
               <p className={css.data}>
                 {story.date.split("T")[0]} • {favoriteCount}
@@ -162,11 +162,14 @@ export default function TravellersStoriesItem({ story }: Props) {
           </div>
         </div>
         <div className={css.buttons}>
-          <Link className={css.link} href={`/stories/${story._id}`}>
+          <Link
+            className={`${css.buttonEfect} ${css.link}`}
+            href={`/stories/${story._id}`}
+          >
             Переглянути статтю
           </Link>
           <button
-            className={`${css.favorButton} ${isFavourite ? css.favorButtonPush : ""}`}
+            className={`${css.favorButton} ${css.buttonEfect} ${isFavourite ? css.favorButtonPush : ""}`}
             onClick={handleClick}
           >
             <svg className={isFavourite ? css.icon : ""} width="24" height="24">

@@ -50,3 +50,11 @@ export interface StoryId {
   date: string;
   favoriteCount: number;
 }
+
+
+export interface NewStory {
+  img: File,
+  title: string,
+  article: string,
+  category: string,
+}

@@ -1,9 +1,9 @@
 import { nextServer } from "./api";
 import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
-import { StoryWrapper } from "@/types/story";
+import { Category, StoryWrapper } from "@/types/story";
 import axios from "axios";
-import { CategoryProps } from "@/types/category";
+import { CategoryProps, CategoryResponse } from "@/types/category";
 import { Story } from "@/types/story";
 
 
@@ -90,7 +90,7 @@ export const fetchServerMyStories = async () => {
 
 
 export async function getCategories() {
-  const response = await nextServer.get<CategoryProps>(`/categories`);
+  const response = await nextServer.get<{data: CategoryResponse}>(`/categories`);
   return response.data.data;
 }
 
@@ -100,7 +100,7 @@ export const fetchServerFavouriteStories = async () => {
   const response = await nextServer.get(`/users/favourites`, {
     headers: {
       Cookie: cookieStore.toString()
-     }
+    }
   });
 
   return response.data.data;

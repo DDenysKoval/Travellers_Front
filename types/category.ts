@@ -4,6 +4,9 @@ export interface Category {
 }
 
 
-export type CategoryProps = {
-    categories: Category[];
+export type CategoryResponse = {
+    data: Category[],
+    message: string,
+    status: number,
 };
+

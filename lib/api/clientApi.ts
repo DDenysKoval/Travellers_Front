@@ -114,10 +114,11 @@ export async function fetchNotes(
 
 export async function createStory(formData: FormData) {
   try {
-    const response = await nextServer.post<Story>("/stories", formData, {
+    const response = await nextServer.post<StoryWrapper>("/stories", formData, {
     });
 
-    return response.data;
+    console.log("CREATED", response.data)
+    return response.data.data._id;
   } catch {
     throw new Error("Create task failed");
   }
@@ -126,10 +127,11 @@ export async function createStory(formData: FormData) {
 
 export async function patchStory(id: string, formData: FormData) {
   try {
-    const response = await nextServer.patch<Story>(`/stories/${id}`, formData, {
+    const response = await nextServer.patch<StoryWrapper>(`/stories/${id}`, formData, {
     });
 
-    return response.data;
+    console.log(response)
+    return response.data.data._id;
   } catch {
     throw new Error("Create task failed");
   }

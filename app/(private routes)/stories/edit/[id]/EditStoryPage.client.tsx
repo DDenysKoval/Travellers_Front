@@ -21,8 +21,8 @@ const EditStoryClient = ({
 
   const { mutate } = useMutation({
     mutationFn: (formData: FormData) => patchStory(id, formData),
-    onSuccess: (response) => {
-      const storyId = response._id;
+    onSuccess: (storyId) => {
+
 
       router.push(`/stories/${storyId}`);
     },

@@ -52,7 +52,7 @@ export interface StoryId {
 }
 
 export interface NewStory {
-  img: File,
+  img: File | null,
   title: string,
   article: string,
   category: string,

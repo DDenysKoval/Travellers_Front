@@ -1,0 +1,27 @@
+ .stories {
+     margin-top: 32px;
+     margin-bottom: 64px;
+ }
+
+
+ .title {
+     font-family: "Sora", sans-serif;
+     font-weight: 700;
+     font-size: 32px;
+     line-height: 1.1;
+     letter-spacing: -0.01em;
+     padding-bottom: 32px;
+ }
+
+
+
+ @media only screen and (min-width: 768px) {
+
+
+     .title {
+         font-size: 48px;
+     }
+ }
+
+
+ @media only screen and (min-width: 1440px) {}

@@ -6,7 +6,7 @@
   border: 1px solid rgba(255, 255, 255, 0);
   border-radius: 10px;
   padding: 4px;
-  width: 422px;
+  width: 335px;
   height: 48px;
   background-color: #e8eeff;
   margin-bottom: 40px;
@@ -19,7 +19,7 @@
   background-color: transparent;
   width: 207px;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.5;
 }
 
@@ -30,4 +30,14 @@
   width: 207px;
   height: 40px;
   background-color: #f7f9ff;
+}
+
+@media only screen and (min-width: 768px) {
+  .switchWrapper {
+    width: 422px;
+  }
+
+  .button {
+    font-size: 18px;
+  }
 }

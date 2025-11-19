@@ -106,10 +106,10 @@
   background-color: var(--normal-button-color);
   color: #ffffff;
   border-color: var(--normal-button-color);
-  font-size: 18px;
+  font-size: 16px;
   font-family: var(--font-nunito-sans);
   font-weight: 500;
-  line-height: 150%;
+  line-height: 1.5;
   letter-spacing: 0;
 }
 
@@ -123,10 +123,10 @@
   background-color: #ffffff;
   color: #111827;
   border-color: #ffffff;
-  font-size: 18px;
+  font-size: 16px;
   font-family: var(--font-nunito-sans);
   font-weight: 500;
-  line-height: 120%;
+  line-height: 1.5;
   letter-spacing: 0;
 }
 
@@ -137,14 +137,19 @@
 
 .profileLink {
   color: #111827;
-  font-family: "Nunito Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    "Nunito Sans",
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
   line-height: 150%;
   letter-spacing: 0;
 }
-
 
 /* ================== Avatar / Name / Exit ================== */
 
@@ -199,7 +204,6 @@
   height: 24px;
   background-color: #d1d5db;
 }
-
 
 /* HERO */
 
@@ -260,17 +264,17 @@
 
 @media only screen and (min-width: 768px) {
   .chipLoginDefault,
-    .chipLoginHero,
-    .chipRegisterDefault,
-    .chipRegisterHero {
-      display: none !important;
-    }
+  .chipLoginHero,
+  .chipRegisterDefault,
+  .chipRegisterHero {
+    display: none !important;
+  }
 
   .nav {
-      display: flex;
-      gap: 16px;
-      align-items: center;
-    }
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
   .navMobile {
     flex-direction: row;
   }
@@ -291,11 +295,11 @@
 }
 @media only screen and (min-width: 1440px) {
   .chipLoginDefault,
-    .chipLoginHero,
-    .chipRegisterDefault,
-    .chipRegisterHero {
-      display: flex !important;
-    }
+  .chipLoginHero,
+  .chipRegisterDefault,
+  .chipRegisterHero {
+    display: flex !important;
+  }
   .nav {
     display: flex;
     gap: 32px;

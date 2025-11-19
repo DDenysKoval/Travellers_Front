@@ -32,11 +32,11 @@ export default function TravellersStoriesItem({ story }: Props) {
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (user) {
-      setIsFavourite(user.favorites.includes(story._id));
-    }
-  }, [user, story._id]);
+  // useEffect(() => {
+  //   if (user) {
+  //     setIsFavourite(user.favorites.includes(story._id));
+  //   }
+  // }, [user, story._id]);
 
   const addStoryToFavouriteMutation = useMutation<
     [addStoryToFavouriteResponse, addFavoriteToStoryResponse],

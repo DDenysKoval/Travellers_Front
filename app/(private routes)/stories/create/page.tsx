@@ -25,6 +25,7 @@ import CreateStoryClient from "./CreateStory.client";
 
 const CreateStoryPage = async () => {
   const categories = await getCategories();
+  console.log(categories);
   return (
     <main className="container">
       <div className={css.stories}>

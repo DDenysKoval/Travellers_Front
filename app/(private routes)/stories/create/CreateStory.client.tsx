@@ -13,10 +13,9 @@ const CreateStoryClient = ({ categories }: { categories: Category[] }) => {
   const { mutate } = useMutation({
     mutationFn: (formData: FormData) => createStory(formData),
     onSuccess: (storyId) => {
-      console.log(storyId);
+      // console.log(storyId);
 
       router.push(`/stories/${storyId}`);
-
     },
   });
 

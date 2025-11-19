@@ -14,29 +14,34 @@ type Props = {
   onSubmit: (formData: FormData) => Promise<void>;
 };
 
-
-
 const StoryValidationSchema = Yup.object({
   img: Yup.mixed()
     .nullable()
-    .test('fileRequired', 'Виберіть зображення', (value) => {
+    .test("fileRequired", "Виберіть зображення", (value) => {
       return value instanceof File || value instanceof FileList;
     })
-    .test('fileType', 'Допустимі тільки зображення (JPG, PNG, GIF)', (value) => {
-      if (!value) return true; // Пропускаємо перевірку типу якщо файл не вибрано (перший test обробить)
-      const file = value instanceof FileList ? value[0] : value;
-      if (!(file instanceof File)) return false;
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-      return allowedTypes.includes(file.type);
-    }),
+    .test(
+      "fileType",
+      "Допустимі тільки зображення (JPG, PNG, GIF)",
+      (value) => {
+        if (!value) return true; // Пропускаємо перевірку типу якщо файл не вибрано (перший test обробить)
+        const file = value instanceof FileList ? value[0] : value;
+        if (!(file instanceof File)) return false;
+        const allowedTypes = [
+          "image/jpeg",
+          "image/png",
+          "image/gif",
+          "image/webp",
+        ];
+        return allowedTypes.includes(file.type);
+      }
+    ),
   title: Yup.string().required("Назва обов'язкова").min(3, "Мінімум 3 символи"),
-  article: Yup.string().required("Опис обов'язковий").min(10, "Мінімум 10 символів"),
+  article: Yup.string()
+    .required("Опис обов'язковий")
+    .min(10, "Мінімум 10 символів"),
   category: Yup.string().required("Виберіть категорію"),
-
 });
-
-
-
 
 export default function StorieForm({ categories, entity, onSubmit }: Props) {
   const [preview, setPreview] = useState<string | null>(entity?.img ?? null);
@@ -47,7 +52,7 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
     img: null,
     title: entity?.title ?? "",
     category: entity?.category?._id ?? "",
-    article: entity?.article ?? ""
+    article: entity?.article ?? "",
   };
 
   const handleFileChange = (
@@ -67,8 +72,11 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
     fileInputRef.current?.click();
   };
 
-  const handleSubmit = async (values: NewStory, formikHelper: FormikHelpers<NewStory>) => {
-    console.log(values);
+  const handleSubmit = async (
+    values: NewStory,
+    formikHelper: FormikHelpers<NewStory>
+  ) => {
+    // console.log(values);
 
     const formData = new FormData();
     if (values.img) {
@@ -84,7 +92,11 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
   };
 
   return (
-    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={StoryValidationSchema}>
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      validationSchema={StoryValidationSchema}
+    >
       {({ setFieldValue, isValid, dirty }) => (
         <Form>
           <div className={css.box}>
@@ -125,11 +137,17 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
                   type="file"
                   name="img"
                   accept="image/*"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleFileChange(e, setFieldValue)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    handleFileChange(e, setFieldValue)
+                  }
                   style={{ display: "none" }}
                   id={`img-${fieldId}`}
                 />
-                <ErrorMessage name="img" component="span" className={css.error} />
+                <ErrorMessage
+                  name="img"
+                  component="span"
+                  className={css.error}
+                />
 
                 <button
                   onClick={handleButtonClick}
@@ -151,7 +169,11 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
                   placeholder="Введіть заголовок історії"
                   className={css.input}
                 />
-                <ErrorMessage name="title" component="span" className={css.error} />
+                <ErrorMessage
+                  name="title"
+                  component="span"
+                  className={css.error}
+                />
               </div>
 
               <div className={css.formGroup}>
@@ -165,13 +187,17 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
                   className={`${css.select} ${css.input}`}
                 >
                   <option value="">Категорія</option>
-                  {categories?.map((category) => (
+                  {categories.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.name}
                     </option>
                   ))}
                 </Field>
-                <ErrorMessage name="category" component="span" className={css.error} />
+                <ErrorMessage
+                  name="category"
+                  component="span"
+                  className={css.error}
+                />
               </div>
 
               <div className={css.formGroup}>
@@ -186,13 +212,17 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
                   rows={9}
                   className={`${css.textarea} ${css.article}`}
                 />
-                <ErrorMessage name="article" component="span" className={css.error} />
+                <ErrorMessage
+                  name="article"
+                  component="span"
+                  className={css.error}
+                />
               </div>
             </div>
             <div className={css.form}>
               <button
                 type="submit"
-                className={`${css.btnSubmit} ${isValid && dirty ? css.btnSubmitValid : ''}`}
+                className={`${css.btnSubmit} ${isValid && dirty ? css.btnSubmitValid : ""}`}
               >
                 Зберегти
               </button>

@@ -37,9 +37,8 @@ const EditStoryPage = async ({ params }: Props) => {
       <div className={css.stories}>
         <h1 className={css.title}>Створити нову історію</h1>
 
-        <EditStoryClient categories={categories} entity={entity.data} />
+        <EditStoryClient categories={categories.data} entity={entity.data} />
       </div>
-
     </main>
   );
 };

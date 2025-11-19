@@ -1,10 +1,8 @@
 import { nextServer } from "./api";
 import { cookies } from "next/headers";
 import { NotesHttpResponse } from "./clientApi";
-import { Category, StoryWrapper } from "@/types/story";
-import axios from "axios";
-import { CategoryProps, CategoryResponse } from "@/types/category";
-import { Story } from "@/types/story";
+import {CategoryResponse } from "@/types/category";
+
 
 
 export const getServerMe = async () => {

@@ -19,6 +19,7 @@ export default async function ProfilePage() {
         <div className="container">
           <TravellerInfo owner={owner.data} />
           <TravellerStoriesClient
+            owner={owner.data}
             myStories={myStories}
             favouriteStories={favouriteStories}
           />

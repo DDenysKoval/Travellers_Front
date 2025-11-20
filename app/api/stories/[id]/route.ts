@@ -65,7 +65,6 @@ export async function PATCH(request: Request, { params }: Props) {
     const res = await api.patch(`/stories/${id}`, formData, {
       headers: {
         Cookie: cookieStore.toString(),
-        "Content-Type": "multipart/form-data"
       },
     });
     return NextResponse.json(res.data, { status: res.status });

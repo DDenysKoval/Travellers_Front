@@ -4,15 +4,19 @@ import TravellersStories from "@/components/TravellersStories/TravellersStories"
 import { Story } from "@/types/story";
 import css from "./ProfilePage.module.css";
 import { useState } from "react";
+import TravellersMyStories from "@/components/TravellersStories/TravellersMyStories";
+import { Owner } from "@/types/owner";
 
 interface TravellerStoriesClientProps {
   myStories: Story[];
   favouriteStories: Story[];
+  owner: Owner;
 }
 
 const TravellerStoriesClient = ({
   myStories,
   favouriteStories,
+  owner,
 }: TravellerStoriesClientProps) => {
   const [activeTab, setActiveTab] = useState<"my" | "fav">("my");
 
@@ -34,9 +38,11 @@ const TravellerStoriesClient = ({
           Мої історії
         </button>
       </div>
-      <TravellersStories
-        stories={activeTab === "my" ? myStories : favouriteStories}
-      />
+      {activeTab === "fav" ? (
+        <TravellersStories stories={favouriteStories} />
+      ) : (
+        <TravellersMyStories stories={myStories} owner={owner} />
+      )}
     </>
   );
 };

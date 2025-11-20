@@ -2,7 +2,7 @@
 
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
-import { fetchNoteById, addToFavourites } from "@/lib/api/clientApi";
+import { fetchNoteById, addStoryToFavourite } from "@/lib/api/clientApi";
 import css from "./StorieDetails.module.css";
 import { useState } from "react";
 import StoryIdDetails from "@/components/StoryIdDetails/StoryIdDetails";
@@ -21,12 +21,16 @@ const StorieDetailsClient = () => {
     retry: false,
   });
   const mutation = useMutation({
-    mutationFn: () => addToFavourites(id),
+    mutationFn: (storieId: string) => addStoryToFavourite(storieId),
     onSuccess: () => {
       setSaved(true);
       queryClient.invalidateQueries({ queryKey: ["note", id] });
     },
   });
+
+  const handleSave = () => {
+    mutation.mutate(id);
+  };
 
   if (error || !data)
     return (
@@ -51,11 +55,8 @@ const StorieDetailsClient = () => {
     <div className={css.container}>
       <h2 className={css.title}>{story?.title}</h2>
 
-      <StoryIdDetails
-        story={story}
-        saved={saved}
-        onSave={() => mutation.mutate()}
-      />
+      <StoryIdDetails story={story} saved={saved} onSave={handleSave} />
+
       <PopularStories limit={3} />
     </div>
   );

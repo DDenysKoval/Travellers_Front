@@ -1,6 +1,9 @@
-
 import { nextServer } from "./api";
-import { StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/story";
+import {
+  StorieListResponseData,
+  StoryWrapper,
+  TagListResponse,
+} from "@/types/story";
 import { User } from "@/types/user";
 import { NewStory, Story } from "@/types/story";
 import { Owner } from "@/types/owner";
@@ -52,12 +55,9 @@ export interface RegisterResponse {
 
 export interface UsersHttpResponse {
   data: {
-    users: User[],
-  }
+    users: User[];
+  };
 }
-
-
-
 
 export const register = async (data: RegisterRequest) => {
   const response = await nextServer.post<RegisterResponse>(
@@ -114,30 +114,33 @@ export async function fetchNotes(
 
 export async function createStory(formData: FormData) {
   try {
-    const response = await nextServer.post<StoryWrapper>("/stories", formData, {
-    });
+    const response = await nextServer.post<StoryWrapper>(
+      "/stories",
+      formData,
+      {}
+    );
 
-    console.log("CREATED", response.data)
+    console.log("CREATED", response.data);
     return response.data.data._id;
   } catch {
     throw new Error("Create task failed");
   }
 }
-
 
 export async function patchStory(id: string, formData: FormData) {
   try {
-    const response = await nextServer.patch<StoryWrapper>(`/stories/${id}`, formData, {
-    });
+    const response = await nextServer.patch<StoryWrapper>(
+      `/stories/${id}`,
+      formData,
+      {}
+    );
 
-    console.log(response)
+    console.log(response);
     return response.data.data._id;
   } catch {
     throw new Error("Create task failed");
   }
 }
-
-
 
 export async function deleteNote(storieId: string) {
   try {
@@ -170,20 +173,22 @@ export async function addToFavourites(storieId: string): Promise<StoryWrapper> {
   }
 }
 
-export async function fetchUsers(page: number = 1, perPage: number = 12): Promise<UsersHttpResponse> {
+export async function fetchUsers(
+  page: number = 1,
+  perPage: number = 12
+): Promise<UsersHttpResponse> {
   const response = await nextServer.get<UsersHttpResponse>("/travellers", {
     params: {
       page,
       perPage,
     },
-  }
-  )
+  });
 
   return {
     data: {
       users: response.data.data.users,
-    }
-  }
+    },
+  };
 }
 // Функція для Профіль мондрівника публічний
 
@@ -271,24 +276,28 @@ export async function changeFavoriteCountInStory(
       }
     );
 
-
     return response.data;
   } catch {
     throw new Error("Create task failed");
   }
 }
 
-export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
+export async function fetchStories(
+  page: number,
+  perPage: number,
+  category?: string,
+  type?: "popular"
+) {
   try {
     const response = await nextServer.get("/stories", {
       params: {
         page,
         perPage,
         ...(category && { category }),
-        ...(type && {type}),
+        ...(type && { type }),
       },
-    })
-    
+    });
+
     return response.data;
   } catch {
     throw new Error("Fetch tasks failed");
@@ -297,7 +306,9 @@ export async function fetchStories(page: number, perPage: number, category?: str
 
 export async function getCategories() {
   try {
-    const response = await nextServer.get<{ data: TagListResponse }>("/categories")
+    const response = await nextServer.get<{ data: TagListResponse }>(
+      "/categories"
+    );
     return response.data.data;
   } catch {
     throw new Error("Fetch tasks failed");

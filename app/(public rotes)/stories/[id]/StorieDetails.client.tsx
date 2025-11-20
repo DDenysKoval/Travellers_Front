@@ -6,8 +6,8 @@ import { fetchNoteById, addToFavourites } from "@/lib/api/clientApi";
 import css from "./StorieDetails.module.css";
 import { useState } from "react";
 import StoryIdDetails from "@/components/StoryIdDetails/StoryIdDetails";
-import PopularStories from "@/components/PopularStories/PopularStories";
 import { SyncLoader } from "react-spinners";
+import PopularStoriesDetails from "@/components/PopularStories/PopularStoriesDetails";
 
 const StorieDetailsClient = () => {
   const { id } = useParams<{ id: string }>();
@@ -56,7 +56,7 @@ const StorieDetailsClient = () => {
         saved={saved}
         onSave={() => mutation.mutate()}
       />
-      <PopularStories limit={3} />
+      <PopularStoriesDetails limit={3} />
     </div>
   );
 };

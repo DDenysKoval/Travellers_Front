@@ -47,7 +47,7 @@ export default function TravellersMyStoriesItem({ story, owner }: Props) {
         <div className={css.favouriteInfo}>
           <Image
             src={
-              owner.avatarUrl
+              owner.avatarUrl?.trim()
                 ? owner.avatarUrl
                 : "https://res.cloudinary.com/dsr7znzlu/image/upload/v1763546472/Avatar_Default_aq5ti4.png"
             }

@@ -4,13 +4,6 @@ import { StorieListResponseData, StoryWrapper, TagListResponse } from "@/types/s
 import { User } from "@/types/user";
 import { NewStory, Story } from "@/types/story";
 import { Owner } from "@/types/owner";
-// import { Category } from "@/types/category";
-// import axios from "axios";
-
-// export const testServer = axios.create({
-//   baseURL: "http://localhost:8000",
-//   withCredentials: true,
-// });
 
 export interface RegisterRequest {
   email: string;

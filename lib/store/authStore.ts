@@ -9,20 +9,13 @@ interface AuthStore {
   clearIsAuthenticated: () => void;
 }
 
-export const useAuthStore = create<AuthStore>()(
-  persist(
-    (set) => ({
-      isAuthenticated: false,
-      user: null,
-      setUser: (user: User) => set({ user, isAuthenticated: true }),
-      clearIsAuthenticated: () => set({ user: null, isAuthenticated: false }),
-    }),
-    {
-      name: "auth-storage",
-      partialize: (state) => ({
-        isAuthenticated: state.isAuthenticated,
-        user: state.user,
-      })
-    }
-  )
-);
+export const useAuthStore = create<AuthStore>()((set) => ({
+  isAuthenticated: false,
+  user: null,
+  setUser: (user: User) => {
+    set(()=>({user:user, isAuthenticated: true}))
+  },
+  clearIsAuthenticated: () => {
+    set(()=>({user:null, isAuthenticated: false}))
+  },
+}))

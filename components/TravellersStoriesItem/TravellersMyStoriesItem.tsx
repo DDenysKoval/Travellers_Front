@@ -23,7 +23,6 @@ export default function TravellersMyStoriesItem({ story, owner }: Props) {
   const handleClick = () => {
     router.push(`/stories/edit/${story._id}`);
   };
-  console.log(owner);
 
   return (
     <div className={css.storyCard}>

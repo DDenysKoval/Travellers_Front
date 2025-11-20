@@ -74,6 +74,7 @@ const AuthNavigation = ({
       clearIsAuthenticated();
       closeLogoutModal();
       router.refresh();
+      router.push("/");
     } catch (error) {
       console.error(error);
     }

@@ -33,8 +33,10 @@ export default function TravellersStoriesItem({ story }: Props) {
   const router = useRouter();
 
   useEffect(() => {
-    if (user) {
-      setIsFavourite(user.favorites.includes(story._id));
+    if (user?.favorites && story?._id) {
+      setIsFavourite(user.favorites.map(String).includes(String(story._id)));
+    } else {
+      setIsFavourite(false);
     }
   }, [user, story._id]);
 

@@ -8,14 +8,21 @@ import { isAxiosError } from 'axios';
 import { api } from '../../api';
 
 export async function GET() {
-   try {
+  try {
     const cookieStore = await cookies();
+    const accessToken = cookieStore.get("accessToken")?.value;
+    const refreshToken = cookieStore.get("refreshToken")?.value;
+    
+    const cookieHeader = [
+  accessToken ? `accessToken=${accessToken}` : "",
+  refreshToken ? `refreshToken=${refreshToken}` : "",
+].filter(Boolean).join("; ");
 
-    const res = await api.get('/users/get-me', {
-      headers: {
-        Cookie: cookieStore.toString(),
-      },
-    });
+  const res = await api.get('/users/get-me', {
+    headers: {
+      Cookie: cookieHeader,
+    },
+  });
     return NextResponse.json(res.data, { status: res.status });
   } catch (error) {
     if (isAxiosError(error)) {

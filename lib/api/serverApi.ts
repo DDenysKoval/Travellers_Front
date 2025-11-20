@@ -20,19 +20,13 @@ export const getServerMe = async () => {
 
 export const checkServerSession = async () => {
   const cookieStore = await cookies();
-  try {
-    const response = await nextServer.get("/auth/session", {
+  const response = await nextServer.get("/auth/session",{
       headers: {
         Cookie: cookieStore.toString(),
       },
-      withCredentials: true,
-    });
+  });
 
-    return response;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
+  return response;
 };
 
 export const fetchServerNotes = async (search: string, page: number, category: string | undefined) => {

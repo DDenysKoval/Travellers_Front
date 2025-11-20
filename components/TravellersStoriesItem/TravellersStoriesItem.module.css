@@ -1,15 +1,14 @@
-.buttonEfect:hover,
-.buttonEfect:focus {
+.buttonEfect:hover {
   background-color: #4169e1;
   color: #fff;
   fill: #fff;
 }
 
-.buttonEfect:active {
+/* .buttonEfect:active {
   background: #1a2a5a;
   color: #fff;
   fill: #fff;
-}
+} */
 
 .buttonEfect:disabled {
   background: rgba(0, 0, 0, 0.05);

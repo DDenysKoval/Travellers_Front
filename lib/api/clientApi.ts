@@ -264,19 +264,22 @@ export async function changeFavoriteCountInStory(
   qty: string
 ) {
   try {
+    const formData = new FormData();
+    formData.append("favoriteCount", qty); // або Number(qty).toString()
+
     const response = await nextServer.patch<addFavoriteToStoryResponse>(
       `/stories/${storieId}`,
-      {
-        favoriteCount: qty,
-      }
+      formData,
+      
     );
 
-
     return response.data;
-  } catch {
-    throw new Error("Create task failed");
+  } catch (error) {
+    console.error("changeFavoriteCountInStory error:", error);
+    throw new Error("Change favorite count failed");
   }
 }
+
 
 export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
   try {

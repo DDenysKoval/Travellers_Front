@@ -35,7 +35,7 @@ const EditStoryPage = async ({ params }: Props) => {
   return (
     <main className="container">
       <div className={css.stories}>
-        <h1 className={css.title}>Редагувати нову історію</h1>
+        <h1 className={css.title}>Редагувати історію</h1>
 
         <EditStoryClient categories={categories.data} entity={entity.data} />
       </div>

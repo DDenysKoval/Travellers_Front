@@ -7,9 +7,10 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'ac.goit.global' },
       { protocol: 'https', hostname: 'ftp.goit.study' },
       { protocol: 'https', hostname: 'example.com' },
-      { protocol: 'https', hostname: 'travellers-front.vercel.app' }
+      { protocol: 'https', hostname: 'travellers-front.vercel.app' },
+      { protocol: 'https', hostname: 'res.cloudinary.com' }
     ]
 	}
-};
+};  
 
 export default nextConfig;

@@ -62,7 +62,9 @@ const TravellersList = ({ limit }: TravellersListProps) => {
             <Image
               width={112}
               height={112}
-              src={user.avatarUrl}
+              src={
+                user.avatarUrl?.trim() ? user.avatarUrl : "/Default_Avatar.webp"
+              }
               alt={user.description}
               className={css.travellersAvatar}
             />

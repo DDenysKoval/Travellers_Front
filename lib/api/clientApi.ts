@@ -110,7 +110,6 @@ export async function createStory(formData: FormData) {
     const response = await nextServer.post<StoryWrapper>("/stories", formData, {
     });
 
-    console.log("CREATED", response.data)
     return response.data.data._id;
   } catch {
     throw new Error("Create task failed");

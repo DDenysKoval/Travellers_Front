@@ -233,7 +233,7 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
             <div className={css.form}>
               <button
                 type="submit"
-                className={`${css.btnSubmit} ${isValid && dirty ? css.btnSubmitValid : ""}`}
+                className={isValid && dirty ? `${css.btnSubmit} ${css.btnSubmitValid}` : css.btnSubmit}
               >
                 Зберегти
               </button>

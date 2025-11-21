@@ -110,7 +110,6 @@ export async function createStory(formData: FormData) {
     const response = await nextServer.post<StoryWrapper>("/stories", formData, {
     });
 
-    console.log("CREATED", response.data)
     return response.data.data._id;
   } catch {
     throw new Error("Create task failed");
@@ -123,7 +122,6 @@ export async function patchStory(id: string, formData: FormData) {
     const response = await nextServer.patch<StoryWrapper>(`/stories/${id}`, formData, {
     });
 
-    console.log(response)
     return response.data.data._id;
   } catch {
     throw new Error("Create task failed");
@@ -263,7 +261,7 @@ export async function changeFavoriteCountInStory(
     const response = await nextServer.patch<addFavoriteToStoryResponse>(
       `/stories/${storieId}`,
       formData,
-      
+
     );
 
     return response.data;
@@ -274,17 +272,17 @@ export async function changeFavoriteCountInStory(
 }
 
 
-export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular' ) {
+export async function fetchStories(page: number, perPage: number, category?: string, type?: 'popular') {
   try {
     const response = await nextServer.get("/stories", {
       params: {
         page,
         perPage,
         ...(category && { category }),
-        ...(type && {type}),
+        ...(type && { type }),
       },
     })
-    
+
     return response.data;
   } catch {
     throw new Error("Fetch tasks failed");

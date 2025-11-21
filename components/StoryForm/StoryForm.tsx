@@ -14,28 +14,21 @@ type Props = {
   onSubmit: (formData: FormData) => Promise<void>;
 };
 
-const StoryValidationSchema = Yup.object({
+
+const createValidationSchema = (isEditing: boolean, hasExistingImage: boolean) => Yup.object({
   img: Yup.mixed()
     .nullable()
-    .test("fileRequired", "Виберіть зображення", (value) => {
+    .test('fileRequired', 'Виберіть зображення', (value) => {
+      if (isEditing && hasExistingImage) return true;
       return value instanceof File || value instanceof FileList;
     })
-    .test(
-      "fileType",
-      "Допустимі тільки зображення (JPG, PNG, GIF)",
-      (value) => {
-        if (!value) return true; // Пропускаємо перевірку типу якщо файл не вибрано (перший test обробить)
-        const file = value instanceof FileList ? value[0] : value;
-        if (!(file instanceof File)) return false;
-        const allowedTypes = [
-          "image/jpeg",
-          "image/png",
-          "image/gif",
-          "image/webp",
-        ];
-        return allowedTypes.includes(file.type);
-      }
-    ),
+    .test('fileType', 'Допустимі тільки зображення (JPG, PNG, GIF)', (value) => {
+      if (!value) return true;
+      const file = value instanceof FileList ? value[0] : value;
+      if (!(file instanceof File)) return false;
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+      return allowedTypes.includes(file.type);
+    }),
   title: Yup.string().required("Назва обов'язкова").min(3, "Мінімум 3 символи"),
   article: Yup.string()
     .required("Опис обов'язковий")
@@ -48,12 +41,17 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const fieldId = useId();
 
+  const isEditing = !!entity;
+  const hasExistingImage = !!entity?.img;
+
   const initialValues: NewStory = {
     img: null,
     title: entity?.title ?? "",
     category: entity?.category?._id ?? "",
     article: entity?.article ?? "",
   };
+
+  const validationSchema = createValidationSchema(isEditing, hasExistingImage);
 
   const handleFileChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -76,15 +74,32 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
     values: NewStory,
     formikHelper: FormikHelpers<NewStory>
   ) => {
-    // console.log(values);
 
     const formData = new FormData();
-    if (values.img) {
-      formData.append("img", values.img);
+
+    if (isEditing) {
+
+      if (values.img) {
+        formData.append("img", values.img);
+      }
+      if (values.title !== initialValues.title) {
+        formData.append("title", values.title);
+      }
+      if (values.category !== initialValues.category) {
+        formData.append("category", values.category);
+      }
+      if (values.article !== initialValues.article) {
+        formData.append("article", values.article);
+      }
+    } else {
+
+      if (values.img) {
+        formData.append("img", values.img);
+      }
+      formData.append("title", values.title);
+      formData.append("category", values.category);
+      formData.append("article", values.article);
     }
-    formData.append("title", values.title);
-    formData.append("category", values.category);
-    formData.append("article", values.article);
 
     await onSubmit(formData);
     setPreview(null);
@@ -92,11 +107,7 @@ export default function StorieForm({ categories, entity, onSubmit }: Props) {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={StoryValidationSchema}
-    >
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
       {({ setFieldValue, isValid, dirty }) => (
         <Form>
           <div className={css.box}>

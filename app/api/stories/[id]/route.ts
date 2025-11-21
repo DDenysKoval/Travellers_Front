@@ -60,7 +60,13 @@ export async function PATCH(request: Request, { params }: Props) {
   try {
     const cookieStore = await cookies();
     const { id } = await params;
-    const formData = await request.formData();
+    const incomingFormData = await request.formData();
+
+    // Перетворюємо Web FormData в новий FormData для axios
+    const formData = new FormData();
+    for (const [key, value] of incomingFormData.entries()) {
+      formData.append(key, value);
+    }
 
     const res = await api.patch(`/stories/${id}`, formData, {
       headers: {
